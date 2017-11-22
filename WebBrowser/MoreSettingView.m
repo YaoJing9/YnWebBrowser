@@ -38,41 +38,93 @@ static MoreSettingView *_insertionGgView;
         bgBigView.clickBlock = clickBlock;
         bgBigView.removeBlock = removeBlock;
         bgBigView.successBlock = successBlock;
+    
         
-        CGFloat bgViewLeft;
-        CGFloat bgViewTop;
-        CGFloat bgViewW;
-        CGFloat bgViewH;
-        
-        bgViewLeft = (SCREENWIDTH - 351)/2;
-        bgViewTop = (SCREENHEIGHT - 516)/2;
-        bgViewW = 351.0;
-        bgViewH = 516.0;
-        
-        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(bgViewLeft, bgViewTop, bgViewW, bgViewH)];
+        UIView *bgView = [UIView new];
         bgView.backgroundColor = [UIColor whiteColor];
         bgView.userInteractionEnabled = YES;
         bgView.clipsToBounds = YES;
         bgView.layer.cornerRadius = 15;
         [bgBigView addSubview:bgView];
-        
+        [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@10);
+            make.right.equalTo(@-10);
+            make.height.equalTo(@250);
+            make.bottom.equalTo(bgBigView.mas_bottom).offset(-44);
+        }];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:bgBigView action:@selector(clickBannerView:)];
-        [bgView addGestureRecognizer:tapGesture];
+        [bgBigView addGestureRecognizer:tapGesture];
+        
+        
+        WS(weakSelf);
+        
+        FL_Button *clowBtn;
+        
+        NSArray *buttonTitleArray = @[@"全屏模式",@"夜间模式",@"无图模式",@"无痕模式",@"书签／历史",@"添加书签",@"分享",@"设置"];
+        
+        for (int i=0; i<buttonTitleArray.count; i++) {
+            FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
+            [button setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
+            button.titleLabel.font = [UIFont systemFontOfSize:13];
+            [button setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+            button.tag = 100 + i;
+            button.status = FLAlignmentStatusTop;
+            button.backgroundColor = [UIColor redColor];
+            button.fl_padding = 10;
+            [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [bgView addSubview:button];
+            
+            button.userInteractionEnabled = NO;
+            
+            
+            
+            if (clowBtn) {
+                
+                
+                if (i < 5) {
+                    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.equalTo(clowBtn);
+                        make.left.equalTo(clowBtn.mas_right);
+                        make.width.equalTo(clowBtn);
+                        make.height.equalTo(clowBtn);
+                    }];
+                }else if (i == 5){
+                    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.equalTo(@(250/3.0));
+                        make.left.equalTo(bgView);
+                        make.width.equalTo(clowBtn);
+                        make.height.equalTo(clowBtn);
+                    }];
+                }else{
+                    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.equalTo(@(250/3.0));
+                        make.left.equalTo(clowBtn.mas_right);
+                        make.width.equalTo(clowBtn);
+                        make.height.equalTo(clowBtn);
+                    }];
+                }
+                
+                
+                
+            }else{
+                [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(bgView);
+                    make.left.equalTo(bgView);
+                    make.width.equalTo(@(SCREENWIDTH/5));
+                    make.height.equalTo(@(250/3.0));
+                }];
+                
+            }
+            clowBtn = button;
+        }
+        
+        
         
     }
 }
 
 - (void)clickBannerView:(UITapGestureRecognizer *)tap{
-    
-    
-    if (_insertionGgView.clickBlock) {
-        _insertionGgView.clickBlock();
-    }
-    
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:str]]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-    }
-    
     [self removeBtnClick];
 }
 

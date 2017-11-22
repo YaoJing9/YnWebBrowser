@@ -27,6 +27,7 @@
 #import "ExtentionsTableViewController.h"
 #import "TraderCell.h"
 #import "ClassifyCell.h"
+#import "MoreSettingView.h"
 static NSString *const kBrowserViewControllerAddBookmarkSuccess = @"添加书签成功";
 static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签失败";
 
@@ -268,6 +269,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         btn.status = FLAlignmentStatusImageLeft;
         btn.fl_padding = 7;
         [bottomView addSubview:btn];
+        [btn addTarget:self action:@selector(moreSettingBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(bottomView);
             make.left.equalTo(bottomView).offset(15);
@@ -287,6 +289,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
 }
 
+- (void)moreSettingBtnClick{
+    [MoreSettingView showInsertionViewSuccessBlock:^{
+        
+    } clickBlock:^{
+        
+    } removeBlock:^{
+        
+    }];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
