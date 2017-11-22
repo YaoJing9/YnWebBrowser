@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "添加书签.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "添加书签.png",
       "scale" : "2x"
     },
     {

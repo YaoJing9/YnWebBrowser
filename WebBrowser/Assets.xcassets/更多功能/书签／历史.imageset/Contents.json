@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "更多功能（标注）.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "书签历史.png",
       "scale" : "2x"
     },
     {

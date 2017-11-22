@@ -60,8 +60,8 @@ static MoreSettingView *_insertionGgView;
         
         FL_Button *clowBtn;
         
-        NSArray *buttonTitleArray = @[@"全屏模式",@"夜间模式",@"无图模式",@"无痕模式",@"书签／历史",@"添加书签",@"分享",@"设置"];
-        
+        NSArray *buttonTitleArray = @[@"全屏模式",@"夜间模式",@"无图模式",@"无痕模式",@"我的视频",@"书签／历史",@"添加书签",@"分享",@"设置"];
+        NSInteger btnW = (SCREENWIDTH - 20)/5.0;
         for (int i=0; i<buttonTitleArray.count; i++) {
             FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
             [button setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
@@ -75,7 +75,6 @@ static MoreSettingView *_insertionGgView;
             [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
             [bgView addSubview:button];
             
-            button.userInteractionEnabled = NO;
             
             
             
@@ -91,27 +90,25 @@ static MoreSettingView *_insertionGgView;
                     }];
                 }else if (i == 5){
                     [button mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(@(250/3.0));
+                        make.top.equalTo(@(250/3.0 + 20));
                         make.left.equalTo(bgView);
                         make.width.equalTo(clowBtn);
                         make.height.equalTo(clowBtn);
                     }];
                 }else{
                     [button mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(@(250/3.0));
+                        make.top.equalTo(clowBtn);
                         make.left.equalTo(clowBtn.mas_right);
                         make.width.equalTo(clowBtn);
                         make.height.equalTo(clowBtn);
                     }];
                 }
                 
-                
-                
             }else{
                 [button mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(bgView);
+                    make.top.equalTo(bgView).offset(20);
                     make.left.equalTo(bgView);
-                    make.width.equalTo(@(SCREENWIDTH/5));
+                    make.width.equalTo(@(btnW));
                     make.height.equalTo(@(250/3.0));
                 }];
                 
@@ -119,7 +116,15 @@ static MoreSettingView *_insertionGgView;
             clowBtn = button;
         }
         
-        
+        FL_Button *closeBtn = [FL_Button buttonWithType:UIButtonTypeCustom];
+        [closeBtn setImage:[UIImage imageNamed:@"下拉"] forState:UIControlStateNormal];
+        [bgView addSubview:closeBtn];
+        [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(bgView.mas_bottom).offset(-20);
+            make.centerX.equalTo(bgView);
+        }];
+        closeBtn.userInteractionEnabled = NO;
+
         
     }
 }
