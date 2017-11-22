@@ -119,6 +119,10 @@
 		0EFDD30A1DD42861002AB3FB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD3091DD42861002AB3FB /* AVFoundation.framework */; };
 		0EFDD30C1DD42868002AB3FB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD30B1DD42868002AB3FB /* AudioToolbox.framework */; };
 		0EFDD30E1DD45764002AB3FB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD30D1DD45764002AB3FB /* StoreKit.framework */; };
+		187FFD561FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */; };
+		187FFD571FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */; };
+		18CE6EA31FC595620068091D /* HistoryAndBookmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EA11FC595620068091D /* HistoryAndBookmarkTableViewCell.m */; };
+		18CE6EA41FC595620068091D /* HistoryAndBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CE6EA21FC595620068091D /* HistoryAndBookmarkTableViewCell.xib */; };
 		BF4EFC781FC401C200BCDD84 /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC761FC401C200BCDD84 /* WLScrollView.m */; };
 		BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC7A1FC401D800BCDD84 /* WLSubView.m */; };
 		BF4EFC971FC4115000BCDD84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFC7D1FC4115000BCDD84 /* Info.plist */; };
@@ -430,6 +434,12 @@
 		0EFDD3091DD42861002AB3FB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0EFDD30B1DD42868002AB3FB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0EFDD30D1DD45764002AB3FB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		187FFD531FC575B8004A9FEF /* HistoryAndBookmarkListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryAndBookmarkListViewController.h; sourceTree = "<group>"; };
+		187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryAndBookmarkListViewController.m; sourceTree = "<group>"; };
+		187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryAndBookmarkListViewController.xib; sourceTree = "<group>"; };
+		18CE6EA01FC595620068091D /* HistoryAndBookmarkTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryAndBookmarkTableViewCell.h; sourceTree = "<group>"; };
+		18CE6EA11FC595620068091D /* HistoryAndBookmarkTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryAndBookmarkTableViewCell.m; sourceTree = "<group>"; };
+		18CE6EA21FC595620068091D /* HistoryAndBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryAndBookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		BF4EFC761FC401C200BCDD84 /* WLScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLScrollView.m; sourceTree = "<group>"; };
 		BF4EFC771FC401C200BCDD84 /* WLScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLScrollView.h; sourceTree = "<group>"; };
 		BF4EFC791FC401D700BCDD84 /* WLSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSubView.h; sourceTree = "<group>"; };
@@ -1277,6 +1287,9 @@
 			children = (
 				0EC14F591E31BB0800A44D05 /* HistoryTableViewController.h */,
 				0EC14F5A1E31BB0800A44D05 /* HistoryTableViewController.m */,
+				187FFD531FC575B8004A9FEF /* HistoryAndBookmarkListViewController.h */,
+				187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */,
+				187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1301,6 +1314,9 @@
 		0ED404591EA06C9600F17CE2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18CE6EA01FC595620068091D /* HistoryAndBookmarkTableViewCell.h */,
+				18CE6EA11FC595620068091D /* HistoryAndBookmarkTableViewCell.m */,
+				18CE6EA21FC595620068091D /* HistoryAndBookmarkTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1706,9 +1722,11 @@
 				0E5CC9DA1E7922AE0049ABEB /* SessionRestore.html in Resources */,
 				BF4EFC971FC4115000BCDD84 /* Info.plist in Resources */,
 				0EFCB9DE1E4F62A60094C466 /* NoImageModeHelper.js in Resources */,
+				187FFD571FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib in Resources */,
 				E87D72C61FB96A4E001AB44E /* Info.plist in Resources */,
 				0E44786E1EC0395100D8F3F3 /* BookmarkEditTextFieldTableViewCell.xib in Resources */,
 				0EBDC6241E1DDEC100B6A4DB /* SearchInputView.xib in Resources */,
+				18CE6EA41FC595620068091D /* HistoryAndBookmarkTableViewCell.xib in Resources */,
 				0E681F381D4AEC3F003534F5 /* LaunchScreen.storyboard in Resources */,
 				0E5988A61E2F8070003259C0 /* SettingActivityTableViewCell.xib in Resources */,
 				0EBFFE7B1E52B22C00404199 /* SettingSwitchTableViewCell.xib in Resources */,
@@ -1753,6 +1771,7 @@
 				0E3D2B711E24836700364B69 /* NSFileManager+ZWUtility.m in Sources */,
 				BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */,
 				E813BA4B1FB59D8200470ECD /* SDImageCacheConfig.m in Sources */,
+				18CE6EA31FC595620068091D /* HistoryAndBookmarkTableViewCell.m in Sources */,
 				0EF025671DD951EB0011019F /* HTTPURLConfiguration.m in Sources */,
 				E813BA491FB59D8200470ECD /* NSImage+WebCache.m in Sources */,
 				E813BA541FB59D8200470ECD /* SDWebImageImageIOCoder.m in Sources */,
@@ -1846,6 +1865,7 @@
 				E813B9FC1FB5998000470ECD /* EXTScope.m in Sources */,
 				E87D72B21FB965FC001AB44E /* GCDWebServerFileRequest.m in Sources */,
 				0E512D461E66BCA9008A8AFA /* CardBrowserFlatLayout.m in Sources */,
+				187FFD561FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m in Sources */,
 				0E681F2D1D4AEC3F003534F5 /* AppDelegate.m in Sources */,
 				E87D72B31FB965FC001AB44E /* GCDWebServerMultiPartFormRequest.m in Sources */,
 				0E44786D1EC0395100D8F3F3 /* BookmarkEditTextFieldTableViewCell.m in Sources */,
