@@ -1,0 +1,97 @@
+//
+//  WebBrowser.pch
+//  WebBrowser
+//
+//  Created by 钟武 on 16/7/29.
+//  Copyright © 2016年 钟武. All rights reserved.
+//
+
+#ifndef WebBrowser_pch
+#define WebBrowser_pch
+
+#import <UIKit/UIKit.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
+#import "MacroMethod.h"
+#import "MacroConstants.h"
+#import "UIView+ZWUtility.h"
+#import "ZWUtility.h"
+#import "DelegateManager.h"
+#import "ZWFastEnumeration.h"
+#import "Masonry.h"
+#import "FL_Button.h"
+#import "UIColor+ECColor.h"
+#if DEBUG
+//static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+//static const DDLogLevel ddLogLevel = DDLogLevelError;
+#endif
+
+
+#define MinX(v)            CGRectGetMinX((v).frame) // 获得控件屏幕的x坐标
+#define MinY(v)            CGRectGetMinY((v).frame) // 获得控件屏幕的Y坐标
+
+#define MidX(v)            CGRectGetMidX((v).frame) //横坐标加上到控件中点坐标
+#define MidY(v)            CGRectGetMidY((v).frame) //纵坐标加上到控件中点坐标
+
+#define MaxX(v)            CGRectGetMaxX((v).frame) //横坐标加上控件的宽度
+#define MaxY(v)            CGRectGetMaxY((v).frame) //纵坐标加上控件的高度
+#define X(v)               (v).frame.origin.x
+#define Y(v)               (v).frame.origin.y
+
+#define viewWidth(v)           (v).frame.size.width
+#define viewHeight(v)          (v).frame.size.height
+
+//判断手机版本
+#define iPhone6     [UIScreen mainScreen].bounds.size.height==667
+#define iPhone5     [UIScreen mainScreen].bounds.size.height==568
+#define iPhone4     [UIScreen mainScreen].bounds.size.height==480
+#define iPhone6P    [UIScreen mainScreen].bounds.size.height==736
+#define iPhone7     [UIScreen mainScreen].bounds.size.height==667
+#define iPhone7P    [UIScreen mainScreen].bounds.size.height==736
+#define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+//自动计算size
+#define AUTOSIZEH(a) round((a/360.0*SCREENWIDTH/2+a/2))
+#define AUTOSIZEW(a) (a/375.0*SCREENWIDTH)
+
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self
+
+#define appColor(a) [UIColor colorWithHexString:a]
+
+#define MyColor appColor(@"#EE453B")//app主题色
+#define appBgColor appColor(@"#F0F0F0")//app背景色
+#define LineBgColor appColor(@"#D8D8D8")//app分割线颜色
+#define appBlackColor appColor(@"#333333")
+
+#define appRedColor appColor(@"#EE453B")
+#define appBlackColor appColor(@"#333333")
+#define appBLueColor appColor(@"#558DED")
+
+
+
+#define RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+
+
+#define RandColor RGBColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+
+
+#define RandColorView(v) v.backgroundColor = [UIColor whiteColor]
+//#define RandColorView(v) v.backgroundColor = RandColor
+
+#define ViewBgColor(a, b) a.backgroundColor = appColor(b)
+
+#define cmgreenColor [UIColor colorWithHexString:@"#0FAB0F"]
+#define cmredColor [UIColor colorWithHexString:@"#EE453B "]
+#define cmblackColor [UIColor colorWithHexString:@"#333333"]
+
+
+#define APPFont(a) [UIFont fontWithName:@"PingFangSC-Regular" size:a+12]
+#define APPBoldFont(a) [UIFont fontWithName:@"PingFangSC-Medium" size:a+12]
+
+#define AppFont(a,b) [UIFont fontWithName:a size:b]
+
+
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self
+
+#endif /* WebBrowser_pch */
