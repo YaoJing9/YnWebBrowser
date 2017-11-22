@@ -28,6 +28,7 @@
 #import "ExtentionsTableViewController.h"
 #import "TraderCell.h"
 #import "ClassifyCell.h"
+#import "MoreSettingView.h"
 static NSString *const kBrowserViewControllerAddBookmarkSuccess = @"添加书签成功";
 static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签失败";
 
@@ -57,7 +58,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 44)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         if (@available(iOS 11.0, *)) {
@@ -194,15 +195,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 #pragma mark-键盘的监听事件
 -(void)infoAction{
     
+    self.browserContainerView.hidden = NO;
+    self.browserTopToolBar.hidden = NO;
+    
     if (_textFiled.text.length == 0) {
         
         return;
     }
-    
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.browserContainerView.hidden = NO;
+    self.browserTopToolBar.hidden = NO;
 }
 
 - (void)buttonAction:(UIButton *)btn{
-    
     
 }
 
@@ -262,6 +270,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         btn.status = FLAlignmentStatusImageLeft;
         btn.fl_padding = 7;
         [bottomView addSubview:btn];
+        [btn addTarget:self action:@selector(moreSettingBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(bottomView);
             make.left.equalTo(bottomView).offset(15);
@@ -281,6 +290,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
 }
 
+- (void)moreSettingBtnClick{
+    [MoreSettingView showInsertionViewSuccessBlock:^{
+        
+    } clickBlock:^{
+        
+    } removeBlock:^{
+        
+    }];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -299,6 +317,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.browserContainerView.hidden = NO;
+    self.browserTopToolBar.hidden = NO;
+
 }
 
 - (void)initializeView{
@@ -325,6 +345,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         
         browserTopToolBar;
     });
+    
+    self.browserTopToolBar.hidden = YES;
+
     
     self.bottomToolBar = ({
         BrowserBottomToolBar *toolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];

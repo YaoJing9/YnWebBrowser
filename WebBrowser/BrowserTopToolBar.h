@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BrowserWebView.h"
 #import "NJKWebViewProgress.h"
-
+#import "TopToolBarShapeView.h"
 @interface BrowserTopToolBar : UIView <WebViewDelegate, NJKWebViewProgressDelegate>
+@property (nonatomic, strong) TopToolBarShapeView *shapeView;
 
 - (void)setTopURLOrTitle:(NSString *)urlOrTitle;
 

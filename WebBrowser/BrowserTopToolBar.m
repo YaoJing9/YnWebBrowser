@@ -7,7 +7,6 @@
 //
 
 #import "BrowserTopToolBar.h"
-#import "TopToolBarShapeView.h"
 #import "BrowserHeader.h"
 #import "NJKWebViewProgressView.h"
 #import "DelegateManager+WebViewDelegate.h"
@@ -19,7 +18,6 @@
 
 @interface BrowserTopToolBar () <BrowserWebViewDelegate>
 
-@property (nonatomic, strong) TopToolBarShapeView *shapeView;
 @property (nonatomic, strong) NJKWebViewProgressView *progressView;
 @property (nonatomic, strong) NJKWebViewProgress *progressProxy;
 @property (nonatomic, strong) UIButton *expandButton;
