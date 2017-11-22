@@ -49,6 +49,10 @@
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         
+        button.userInteractionEnabled = NO;
+        
+        
+        
         if (clowBtn) {
             
             

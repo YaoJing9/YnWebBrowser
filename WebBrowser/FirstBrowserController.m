@@ -10,11 +10,12 @@
 #import "TraderCell.h"
 #import "BrowserBottomToolBar.h"
 #import "ClassifyCell.h"
-@interface FirstBrowserController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface FirstBrowserController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,BrowserBottomToolBarButtonClickedDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) BrowserBottomToolBar *bottomToolBar;
 @property (nonatomic, strong) UITextField *textFiled;
+@property (nonatomic, weak) id<BrowserBottomToolBarButtonClickedDelegate> browserButtonDelegate;
 
 @end
 
@@ -158,12 +159,10 @@
 }
 
 - (void)creatteBottomView{
-    self.bottomToolBar = ({
-        BrowserBottomToolBar *toolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
-        [self.view addSubview:toolBar];
-        toolBar;
-    });
-    [self.view addSubview:self.bottomToolBar];
+        self.bottomToolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
+        self.bottomToolBar.delegate = self;
+        [self.view addSubview:self.bottomToolBar];
+        [self.view addSubview:self.bottomToolBar];
 }
 
 #pragma mark - UITableViewDelegate，UITableViewDataSource
@@ -237,8 +236,6 @@
         
         return bgView;
     }
-    
-
     
 }
 

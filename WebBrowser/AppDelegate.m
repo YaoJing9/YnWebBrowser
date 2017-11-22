@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "KeyboardHelper.h"
 #import "MenuHelper.h"
-#import "FirstBrowserController.h"
+#import "BrowserViewController.h"
 #import "WebServer.h"
 #import "ErrorPageHelper.h"
 #import "SessionRestoreHelper.h"
@@ -81,8 +81,8 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
                                                          diskCapacity:32 * 1024 * 1024
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-
-    FirstBrowserController *browserViewController = [FirstBrowserController new];
+    
+    BrowserViewController *browserViewController = BrowserVC;
     
     BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
     
@@ -128,7 +128,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     static NSString *kAVFullScreenViewControllerStr = @"AVFullScreenViewController";
     UIViewController *presentedViewController = [window.rootViewController presentedViewController];
-
+    
     if (presentedViewController && [presentedViewController isKindOfClass:NSClassFromString(kAVFullScreenViewControllerStr)] && [presentedViewController isBeingDismissed] == NO) {
         return UIInterfaceOrientationMaskAll;
     }
@@ -146,3 +146,4 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 }
 
 @end
+
