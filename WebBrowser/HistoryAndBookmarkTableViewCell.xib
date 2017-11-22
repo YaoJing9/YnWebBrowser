@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="KGk-i7-Jjw" customClass="HistoryAndBookmarkTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compas" translatesAutoresizingMaskIntoConstraints="NO" id="3TC-eT-xPf">
+                        <rect key="frame" x="20" y="10" width="29.5" height="29.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="3TC-eT-xPf" secondAttribute="height" id="oK0-9C-O8i"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GM-KT-VGh">
+                        <rect key="frame" x="66.5" y="5" width="243.5" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="dwf-2c-FBL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.163.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEM-mL-edA">
+                        <rect key="frame" x="66.5" y="30" width="233.5" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="QBA-7H-0Ch"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ysH-c5-NKR"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3GM-KT-VGh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="1qB-bS-e4Y"/>
+                    <constraint firstItem="3TC-eT-xPf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5Vk-38-Cmi"/>
+                    <constraint firstItem="3TC-eT-xPf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="BLf-5R-0vT"/>
+                    <constraint firstItem="3GM-KT-VGh" firstAttribute="leading" secondItem="3TC-eT-xPf" secondAttribute="trailing" constant="17" id="FrP-gt-pOs"/>
+                    <constraint firstAttribute="trailing" secondItem="GEM-mL-edA" secondAttribute="trailing" constant="20" id="GYm-gc-3rM"/>
+                    <constraint firstAttribute="bottom" secondItem="3TC-eT-xPf" secondAttribute="bottom" constant="10" id="UXE-Vw-vpv"/>
+                    <constraint firstAttribute="trailing" secondItem="3GM-KT-VGh" secondAttribute="trailing" constant="10" id="aOa-80-Im3"/>
+                    <constraint firstItem="GEM-mL-edA" firstAttribute="top" secondItem="3GM-KT-VGh" secondAttribute="bottom" id="nOV-Nn-BNs"/>
+                    <constraint firstItem="GEM-mL-edA" firstAttribute="leading" secondItem="3GM-KT-VGh" secondAttribute="leading" id="uv8-Ag-sUk"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <point key="canvasLocation" x="199" y="54"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="compas" width="341" height="341"/>
+    </resources>
+</document>

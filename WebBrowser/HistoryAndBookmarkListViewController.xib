@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HistoryAndBookmarkListViewController">
+            <connections>
+                <outlet property="mainTableView" destination="h2r-gc-UeE" id="s7y-Rr-jkf"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Nx-Vb-tbB">
+                    <rect key="frame" x="20" y="79" width="335" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="hht-Nm-yRM"/>
+                    </constraints>
+                    <segments>
+                        <segment title="书签"/>
+                        <segment title="历史"/>
+                    </segments>
+                    <color key="tintColor" red="0.19715812802314758" green="0.45714336633682251" blue="0.93515461683273315" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </segmentedControl>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h2r-gc-UeE">
+                    <rect key="frame" x="0.0" y="129" width="375" height="538"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="qdK-ax-kjJ"/>
+                        <outlet property="delegate" destination="-1" id="sY3-tT-k9b"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4Nx-Vb-tbB" secondAttribute="trailing" constant="20" id="80q-QT-v3W"/>
+                <constraint firstItem="h2r-gc-UeE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="D7Y-6J-REK"/>
+                <constraint firstAttribute="trailing" secondItem="h2r-gc-UeE" secondAttribute="trailing" id="G0D-rn-Mzz"/>
+                <constraint firstItem="4Nx-Vb-tbB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="79" id="eph-WI-PbL"/>
+                <constraint firstItem="h2r-gc-UeE" firstAttribute="top" secondItem="4Nx-Vb-tbB" secondAttribute="bottom" constant="20" id="oHT-JM-6Qa"/>
+                <constraint firstAttribute="bottom" secondItem="h2r-gc-UeE" secondAttribute="bottom" id="sXq-Zs-e6k"/>
+                <constraint firstItem="4Nx-Vb-tbB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="spH-Ro-ZKS"/>
+            </constraints>
+            <point key="canvasLocation" x="59" y="60"/>
+        </view>
+    </objects>
+</document>

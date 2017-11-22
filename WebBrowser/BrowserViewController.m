@@ -17,6 +17,7 @@
 #import "SettingsViewController.h"
 #import "SettingsTableViewController.h"
 #import "HistoryTableViewController.h"
+#import "HistoryAndBookmarkListViewController.h"
 #import "DelegateManager+WebViewDelegate.h"
 #import "BookmarkTableViewController.h"
 #import "BookmarkDataManager.h"
@@ -476,13 +477,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
               [self_ addBookmark];
           }],
           [SettingsMenuItem itemWithText:@"书签" image:[UIImage imageNamed:@"album"] action:^{
-              [self_ pushTableViewControllerWithControllerName:[BookmarkTableViewController class] style:UITableViewStylePlain];
+              [self_.navigationController pushViewController: HistoryAndBookmarkListViewController.new animated:YES];
+             
           }],
           [SettingsMenuItem itemWithText:@"历史" image:[UIImage imageNamed:@"album"] action:^{
-              [self_ pushTableViewControllerWithControllerName:[HistoryTableViewController class] style:UITableViewStylePlain];
+              HistoryAndBookmarkListViewController *vc = [[HistoryAndBookmarkListViewController alloc] init];
+              vc.listDataOperationKind = ListDataOperationKindHistory;
+              [self_.navigationController pushViewController: vc animated:YES];
           }],
           [SettingsMenuItem itemWithText:@"设置" image:[UIImage imageNamed:@"album"] action:^{
-              [self_ pushTableViewControllerWithControllerName:[SettingsTableViewController class] style:UITableViewStylePlain];
+              HistoryAndBookmarkListViewController *vc = [[HistoryAndBookmarkListViewController alloc] init];
+              vc.listDataOperationKind = ListDataOperationKindBookmark;
+              [self_.navigationController pushViewController: vc animated:YES];
           }],
           [SettingsMenuItem itemWithText:@"拷贝连接" image:[UIImage imageNamed:@"album"] action:^{
               [self_ handleCopyURLButtonClicked];
