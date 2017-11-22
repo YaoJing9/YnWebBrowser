@@ -11,6 +11,7 @@
 @interface TopToolBarShapeView : UIView
 
 @property (nonatomic, readonly) CAShapeLayer *shapeLayer;
+@property (nonatomic, strong) UITextField *textField;
 
 - (void)setTopURLOrTitle:(NSString *)urlOrTitle;
 

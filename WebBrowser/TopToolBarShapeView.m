@@ -13,7 +13,6 @@
 
 @interface TopToolBarShapeView () <UITextFieldDelegate>
 
-@property (nonatomic, strong) UITextField *textField;
 
 @end
 
@@ -43,6 +42,7 @@
         
         textField;
     });
+
 }
 
 + (Class)layerClass

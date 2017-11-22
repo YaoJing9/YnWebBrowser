@@ -56,7 +56,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 44)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         if (@available(iOS 11.0, *)) {
@@ -193,15 +193,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 #pragma mark-键盘的监听事件
 -(void)infoAction{
     
+    self.browserContainerView.hidden = NO;
+    self.browserTopToolBar.hidden = NO;
+    
     if (_textFiled.text.length == 0) {
         
         return;
     }
-    
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.browserContainerView.hidden = NO;
+    self.browserTopToolBar.hidden = NO;
 }
 
 - (void)buttonAction:(UIButton *)btn{
-    
     
 }
 
@@ -298,6 +305,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.browserContainerView.hidden = NO;
+    self.browserTopToolBar.hidden = NO;
+
 }
 
 - (void)initializeView{
@@ -324,6 +333,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         
         browserTopToolBar;
     });
+    
+    self.browserTopToolBar.hidden = YES;
+
     
     self.bottomToolBar = ({
         BrowserBottomToolBar *toolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
