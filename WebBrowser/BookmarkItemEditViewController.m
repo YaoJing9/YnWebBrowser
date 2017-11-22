@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
 
 - (void)initUI{
     [super initUI];
-    self.title = @"书签";
+    self.title = @"添加书签";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kBookmarkItemEditSectionCellIdentifier];
 }
 
@@ -100,6 +100,7 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
     if (self.operationKind == BookmarkItemOperationKindItemEdit) {
         [self.dataManager editBookmarkItemWithModel:self.itemModel oldIndexPath:self.indexPath finalIndexPath:self.finalIndexPath completion:^(BOOL success){
             completion(success);
+            [self_.navigationController popViewControllerAnimated:YES];
         }];
     }
     else{
