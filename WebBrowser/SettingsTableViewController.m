@@ -30,14 +30,19 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
     
     self.title = @"设置";
     
-    self.dataArray = @[@"清除缓存"];
+    self.dataArray = @[@"意见反馈",@"清除缓存",@"清除历史记录",@"分享给朋友",@"启动时打开上次页面",@"广告过滤",@"版本"];
     
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SettingActivityTableViewCell class]) bundle:nil] forCellReuseIdentifier:SettingActivityTableViewCellIdentifier];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:SettingPlaceholderTableViewCellIdentifier];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView.sectionHeaderHeight = 40;
+    
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SettingActivityTableViewCell class]) bundle:nil] forCellReuseIdentifier:SettingActivityTableViewCellIdentifier];
+//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:SettingPlaceholderTableViewCellIdentifier];
 }
 
 - (void)handleTableViewSelectAt:(NSInteger)index{
-    if (index == 0) {
+    if (index == 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您确定清除缓存？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
         UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
@@ -59,7 +64,13 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 }
 
 #pragma mark - Helper Method
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 40;
+}
 - (UITableViewCell *)cacheCellWithIndexPath:(NSIndexPath *)indexPath{
     SettingActivityTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:SettingActivityTableViewCellIdentifier];
     
@@ -89,6 +100,19 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *tableCell = [self.tableView dequeueReusableCellWithIdentifier:SettingPlaceholderTableViewCellIdentifier];
+    if (tableCell == nil) {
+        tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SettingPlaceholderTableViewCellIdentifier];
+        tableCell.textLabel.font = [UIFont systemFontOfSize:14];
+        
+        tableCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    tableCell.textLabel.text = self.dataArray[indexPath.row];
+    
+    
+    return tableCell;
+    
     UITableViewCell *cell = nil;
     switch (indexPath.row) {
         case CellKindForCache:

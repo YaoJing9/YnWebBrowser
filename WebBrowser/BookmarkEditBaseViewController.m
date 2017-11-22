@@ -26,10 +26,13 @@ NSString *const kBookmarkEditTextFieldCellIdentifier = @"kBookmarkEditTextFieldC
     [self initUI];
     [self initData];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
+    self.navigationController.navigationBarHidden = YES;
     [self.view endEditing:YES];
 }
 
@@ -37,10 +40,10 @@ NSString *const kBookmarkEditTextFieldCellIdentifier = @"kBookmarkEditTextFieldC
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(exit)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(exit)];
     self.navigationItem.leftBarButtonItem = cancelItem;
     
-    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(handleDoneItemClicked)];
+    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(handleDoneItemClicked)];
     self.navigationItem.rightBarButtonItem = doneItem;
     
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -86,7 +89,8 @@ NSString *const kBookmarkEditTextFieldCellIdentifier = @"kBookmarkEditTextFieldC
 - (void)handleDoneItemClicked{}
 
 - (void)exit{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource

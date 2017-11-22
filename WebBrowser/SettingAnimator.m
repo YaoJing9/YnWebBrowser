@@ -27,7 +27,7 @@
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *container = [transitionContext containerView];
     
-    if (self.isDismissing)
+    if (self.isDismissing)                                          
     {
         UINavigationController *nav = (UINavigationController *)fromViewController;
         SettingsViewController *menu = (SettingsViewController *)nav.topViewController;

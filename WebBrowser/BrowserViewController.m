@@ -534,9 +534,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     BookmarkItemEditViewController *editVC = [[BookmarkItemEditViewController alloc] initWithDataManager:dataManager item:[BookmarkItemModel bookmarkItemWithTitle:title url:url] sectionIndex:[NSIndexPath indexPathForRow:0 inSection:0] operationKind:BookmarkItemOperationKindItemAdd completion:nil];
     
-    UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:editVC];
+//    UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:editVC];
     
-    [self presentViewController:navigationVC animated:YES completion:nil];
+    [self.navigationController pushViewController:editVC animated:YES];
+    
+//    [self presentViewController:navigationVC animated:YES completion:nil];
 }
 
 #pragma mark - Preseving and Restoring State
