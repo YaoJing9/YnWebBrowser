@@ -137,6 +137,7 @@
 		BF4EFCAA1FC42F5700BCDD84 /* FL_Button.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCA91FC42F5600BCDD84 /* FL_Button.m */; };
 		BF4EFCAD1FC4381600BCDD84 /* ClassifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCAC1FC4381600BCDD84 /* ClassifyCell.m */; };
 		BF4EFCB01FC4403E00BCDD84 /* UIColor+ECColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCAE1FC4403E00BCDD84 /* UIColor+ECColor.m */; };
+		BF4EFCB31FC58DA400BCDD84 /* MoreSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCB21FC58DA400BCDD84 /* MoreSettingView.m */; };
 		E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */; };
 		E813B9FC1FB5998000470ECD /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DC1FB5997F00470ECD /* EXTScope.m */; };
 		E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9E01FB5997F00470ECD /* MTLJSONAdapter.m */; };
@@ -470,6 +471,8 @@
 		BF4EFCAC1FC4381600BCDD84 /* ClassifyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassifyCell.m; sourceTree = "<group>"; };
 		BF4EFCAE1FC4403E00BCDD84 /* UIColor+ECColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ECColor.m"; sourceTree = "<group>"; };
 		BF4EFCAF1FC4403E00BCDD84 /* UIColor+ECColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ECColor.h"; sourceTree = "<group>"; };
+		BF4EFCB11FC58DA400BCDD84 /* MoreSettingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreSettingView.h; sourceTree = "<group>"; };
+		BF4EFCB21FC58DA400BCDD84 /* MoreSettingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreSettingView.m; sourceTree = "<group>"; };
 		E813B9D81FB5997F00470ECD /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
 		E813B9D91FB5997F00470ECD /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
@@ -852,6 +855,8 @@
 				BF4EFCA91FC42F5600BCDD84 /* FL_Button.m */,
 				BF4EFCAB1FC4381600BCDD84 /* ClassifyCell.h */,
 				BF4EFCAC1FC4381600BCDD84 /* ClassifyCell.m */,
+				BF4EFCB11FC58DA400BCDD84 /* MoreSettingView.h */,
+				BF4EFCB21FC58DA400BCDD84 /* MoreSettingView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1917,6 +1922,7 @@
 				0E7E43A01F67E0D200DB6CD7 /* ArrowActivityView.m in Sources */,
 				0E1A9F191EAF597400FAB196 /* BookmarkTableViewController.m in Sources */,
 				0EC3D8BC1EC1C99D0059E4DC /* BookmarkSectionTableViewCell.m in Sources */,
+				BF4EFCB31FC58DA400BCDD84 /* MoreSettingView.m in Sources */,
 				0E1F9F9F1DD2D86E00FA84EA /* NJKWebViewProgressView.m in Sources */,
 				0E2CC0171E0988AE0078EB91 /* UIColor+ZWUtility.m in Sources */,
 			);
