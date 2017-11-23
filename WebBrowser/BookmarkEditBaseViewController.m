@@ -28,11 +28,11 @@ NSString *const kBookmarkEditTextFieldCellIdentifier = @"kBookmarkEditTextFieldC
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
+
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = YES;
+    
     [self.view endEditing:YES];
 }
 
@@ -40,15 +40,9 @@ NSString *const kBookmarkEditTextFieldCellIdentifier = @"kBookmarkEditTextFieldC
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(exit)];
-    self.navigationItem.leftBarButtonItem = cancelItem;
+    [self showNavWithTitle:@"添加书签" backBtnHiden:NO rightBtnTitle:@"保存" rightBtnImage:nil];
     
-    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(handleDoneItemClicked)];
-    self.navigationItem.rightBarButtonItem = doneItem;
-    
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(navigationBar.frame), self.view.width, self.view.height - CGRectGetMaxY(navigationBar.frame)) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64) style:UITableViewStyleGrouped];
     
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
@@ -64,7 +58,9 @@ NSString *const kBookmarkEditTextFieldCellIdentifier = @"kBookmarkEditTextFieldC
     tapGesture.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGesture];
 }
-
+-(void)rightBtnAction{
+    
+}
 - (void)initData{
     _tableView.dataSource = self;
     _tableView.delegate = self;

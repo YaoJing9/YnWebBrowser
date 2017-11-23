@@ -76,7 +76,7 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
 
 #pragma mark - Handle NavigationItem Clicked
 
-- (void)handleDoneItemClicked{
+- (void)rightBtnAction{
     BookmarkItemModel *itemModel = self.itemModel;
     if (!itemModel.title || [itemModel.title isEqualToString:@""] || !itemModel.url || [itemModel.url isEqualToString:@""]) {
         [self.view showHUDWithMessage:@"标题或地址不能为空"];
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

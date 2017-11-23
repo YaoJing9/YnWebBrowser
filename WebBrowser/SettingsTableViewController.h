@@ -6,8 +6,8 @@
 //  Copyright © 2017年 钟武. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "BaseViewController.h"
 
-@interface SettingsTableViewController : BaseTableViewController
+@interface SettingsTableViewController : BaseViewController
 
 @end
