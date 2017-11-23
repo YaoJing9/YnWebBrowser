@@ -78,7 +78,7 @@
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
         self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     }
-    _NAVLine = [YJHelp addLiveViewTo:_NAVview frame:CGRectMake(0, 63.5, SCREENWIDTH, 0.5)];
+        _NAVLine = [YJHelp addLiveViewTo:_NAVview frame:CGRectMake(0, 63.5, SCREENWIDTH, 0.5)];
     
     
 }

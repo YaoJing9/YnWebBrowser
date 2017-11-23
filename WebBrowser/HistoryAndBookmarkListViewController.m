@@ -41,7 +41,6 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
     
     UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"清除" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
     self.navigationItem.rightBarButtonItem = rightButtonItem;
-    // Do any additional setup after loading the view from its nib.
 }
 #pragma mark - ButtonAction
 -(void)rightButtonAction{

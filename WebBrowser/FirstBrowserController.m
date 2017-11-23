@@ -7,16 +7,39 @@
 //
 
 #import "FirstBrowserController.h"
-#import "TraderCell.h"
 #import "BrowserBottomToolBar.h"
+#import "CardMainView.h"
+#import "SettingsViewController.h"
+#import "SettingsTableViewController.h"
+#import "HistoryTableViewController.h"
+#import "HistoryAndBookmarkListViewController.h"
+#import "DelegateManager+WebViewDelegate.h"
+#import "BookmarkTableViewController.h"
+#import "BookmarkDataManager.h"
+#import "BookmarkItemEditViewController.h"
+#import "FindInPageBar.h"
+#import "KeyboardHelper.h"
+#import "NSURL+ZWUtility.h"
+#import "ExtentionsTableViewController.h"
+#import "TraderCell.h"
 #import "ClassifyCell.h"
+#import "MoreSettingView.h"
+#import "ExtendedFunctionViewController.h"
+#import "YnSearchController.h"
 @interface FirstBrowserController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,BrowserBottomToolBarButtonClickedDelegate>
+@property (nonatomic, strong) BrowserBottomToolBar *bottomToolBar;
+@property (nonatomic, assign) CGFloat lastContentOffset;
+@property (nonatomic, assign) BOOL isWebViewDecelerate;
+@property (nonatomic, weak) id<BrowserBottomToolBarButtonClickedDelegate> browserButtonDelegate;
+@property (nonatomic, strong) FindInPageBar *findInPageBar;
+@property (nonatomic, weak) NSLayoutConstraint *findInPageBarbottomLayoutConstaint;
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
-@property (nonatomic, strong) BrowserBottomToolBar *bottomToolBar;
 @property (nonatomic, strong) UITextField *textFiled;
-@property (nonatomic, weak) id<BrowserBottomToolBarButtonClickedDelegate> browserButtonDelegate;
-
+@property (nonatomic, strong) NSArray *topDataAry;
+@property (nonatomic, strong) NSArray *conentDataAry;
+@property (nonatomic, strong) NSArray *bottomDataAry;
 @end
 
 @implementation FirstBrowserController
@@ -24,11 +47,12 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 44)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.separatorColor = [UIColor colorWithHexString:@"#dedede"];
         if (@available(iOS 11.0, *)) {
-        _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
@@ -39,19 +63,44 @@
 - (NSMutableArray *)dataArr{
     if (_dataArr == nil) {
         _dataArr = [NSMutableArray arrayWithObjects:@[@1,@145], @[@5,@50], @[@1,@173], nil];
-
     }
     return _dataArr;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self.view addSubview:self.tableView];
-    [self createHeaderView];
-    [self creatteBottomView];
+    
+    [self initDataAry];
+    
+    [self createBgview];
+    
+    [self initializeView];
+    
+    self.lastContentOffset = - TOP_TOOL_BAR_HEIGHT;
+    
+    [[DelegateManager sharedInstance] registerDelegate:self forKeys:@[DelegateManagerWebView, DelegateManagerFindInPageBarDelegate]];
+    
+    self.restorationIdentifier = NSStringFromClass([self class]);
+    self.restorationClass = [self class];
+    
 }
 
-- (void)createHeaderView{
+- (void)initDataAry{
+    _topDataAry = @[@"新浪",@"百度",@"微博",@"二手车",@"同城",@"淘宝",@"携程",@"苏宁",@"优酷"];
+    _bottomDataAry = @[@"订酒店",@"订机票",@"火车票",@"电影票",@"美食",@"58同城",@"租房",@"找工作",@"家政服务",@"兼职"];
+    _conentDataAry = @[
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"]
+                       ];
+}
+
+- (void)createBgview{
     UIView *bgView = [UIView new];
     bgView.frame = CGRectMake(0, 0, SCREENWIDTH, 215);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:bgView.bounds];
@@ -61,7 +110,7 @@
     
     
     
-        
+    
     UILabel *lable=[[UILabel alloc] init];
     lable.layer.cornerRadius=5;
     lable.clipsToBounds=YES;
@@ -101,7 +150,7 @@
         make.height.equalTo(lable);
         make.right.equalTo(lable);
     }];
-
+    
     //监听键盘事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoAction) name:UITextFieldTextDidChangeNotification object:nil];
     
@@ -143,27 +192,29 @@
     
 }
 
-- (void)buttonAction:(UIButton *)btn{
-    
-    
-}
-
 #pragma mark-键盘的监听事件
 -(void)infoAction{
+
     
     if (_textFiled.text.length == 0) {
-
+        
         return;
     }
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    YnSearchController *vc = [[YnSearchController alloc] init];
+    vc.tagsArray = @[@"卜卜芥", @"卜人参", @"卜卜人发", @"儿茶", @"八角", @"三卜七", @"广白", @"大黄", @"大黄", @"广卜卜卜丹"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav  animated:YES completion:nil];
+}
+
+- (void)buttonAction:(UIButton *)btn{
     
 }
 
-- (void)creatteBottomView{
-        self.bottomToolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
-//        self.bottomToolBar.delegate = self;
-        [self.view addSubview:self.bottomToolBar];
-        [self.view addSubview:self.bottomToolBar];
-}
 
 #pragma mark - UITableViewDelegate，UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -220,6 +271,7 @@
         btn.status = FLAlignmentStatusImageLeft;
         btn.fl_padding = 7;
         [bottomView addSubview:btn];
+        [btn addTarget:self action:@selector(moreSettingBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(bottomView);
             make.left.equalTo(bottomView).offset(15);
@@ -227,7 +279,7 @@
         }];
         
         UIImageView *sendLine = [UIImageView new];
-        sendLine.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
+        sendLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
         [bgView addSubview:sendLine];
         [sendLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(bgView);
@@ -239,28 +291,123 @@
     
 }
 
+- (void)moreSettingBtnClick{
+    WS(weakSelf);
+    [MoreSettingView showInsertionViewSuccessBlock:^{
+        
+    } clickBlock:^{
+        
+    } removeBlock:^{
+        
+    } btnClickBlock:^(NSInteger index) {
+        [weakSelf moreSettingClick:index];
+    }];
+}
+
+- (void)moreSettingClick:(NSInteger)index{
+    
+    SettingsTableViewController *settingVc = [[SettingsTableViewController alloc] init];
+    HistoryAndBookmarkListViewController *historyAndBookmarkVc = [[HistoryAndBookmarkListViewController alloc] init];
+    ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
+    switch (index) {
+        case 0:
+            
+            break;
+        case 1:
+            extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
+            [self.navigationController pushViewController: extendedFVC animated:YES];
+            break;
+        case 2:
+            extendedFVC.extendedOperationKind = ExtendedOperationKindNOIMAGE;
+            [self.navigationController pushViewController: extendedFVC animated:YES];
+            break;
+        case 3:
+            extendedFVC.extendedOperationKind = ExtendedOperationKindNOHISTORY;
+            [self.navigationController pushViewController: extendedFVC animated:YES];
+            break;
+        case 4:
+            
+            break;
+        case 5:
+            
+            historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
+            [self.navigationController pushViewController: historyAndBookmarkVc animated:YES];
+            break;
+        case 6:
+            [self addBookmark];
+            break;
+        case 7:
+            
+            break;
+        case 8:
+            [self.navigationController pushViewController: settingVc animated:YES];
+            break;
+            
+        default:
+            break;
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     if (indexPath.section == 0) {
-        NSArray *buttonTitleArray = @[@"新浪",@"百度",@"微博",@"二手车",@"同城",@"淘宝",@"携程",@"苏宁",@"优酷"];
-
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:buttonTitleArray];
+        
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:_topDataAry];
         return classifyCell;
     }else if (indexPath.section == 1){
-//        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:_];
-        return nil;
+        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:_conentDataAry[indexPath.row]];
+        return cell;
     }else{
-        NSArray *buttonTitleArray = @[@"订酒店",@"订机票",@"火车票",@"电影票",@"美食",@"同城",@"租房",@"找工作",@"家政服务",@"兼职"];
-
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:buttonTitleArray];
+        
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:_bottomDataAry];
         return classifyCell;
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
+
+- (void)initializeView{
+
+    
+    
+    self.bottomToolBar = ({
+        BrowserBottomToolBar *toolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
+        [self.view addSubview:toolBar];
+        
+        toolBar.browserButtonDelegate = self;
+                
+        toolBar;
+    });
+}
+
+#pragma mark - UIScrollViewDelegate Method
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+    [UIView animateWithDuration:.2 animations:^{
+        CGRect bottomRect = self.bottomToolBar.frame;
+        bottomRect.origin.y = self.view.height - BOTTOM_TOOL_BAR_HEIGHT;
+        self.bottomToolBar.frame = bottomRect;
+    }];
+    
+}
+
+
+- (void)addBookmark{
+
+}
+
+
+
+#pragma mark - Dealloc Method
+
+- (void)dealloc{
+    [Notifier removeObserver:self];
+}
+
 @end
+
+
