@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "KeyboardHelper.h"
 #import "MenuHelper.h"
-#import "BrowserViewController.h"
+#import "FirstBrowserController.h"
 #import "WebServer.h"
 #import "ErrorPageHelper.h"
 #import "SessionRestoreHelper.h"
@@ -82,7 +82,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
-    BrowserViewController *browserViewController = BrowserVC;
+    FirstBrowserController *browserViewController = [FirstBrowserController new];
     
     BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
     

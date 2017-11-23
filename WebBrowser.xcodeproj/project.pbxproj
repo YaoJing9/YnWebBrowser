@@ -75,7 +75,6 @@
 		0E9361DC1EB0FAEE004F6AE7 /* BookmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9361DA1EB0FAEE004F6AE7 /* BookmarkTableViewCell.m */; };
 		0E9361DD1EB0FAEE004F6AE7 /* BookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9361DB1EB0FAEE004F6AE7 /* BookmarkTableViewCell.xib */; };
 		0E9836B61E82CC9B0044BEA9 /* ContextMenu.js in Resources */ = {isa = PBXBuildFile; fileRef = 0E9836B51E82CC9B0044BEA9 /* ContextMenu.js */; };
-		0E986A0B1D4CA6C10003900D /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E986A0A1D4CA6C10003900D /* BrowserViewController.m */; };
 		0E986A0F1D4D06170003900D /* TabManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E986A0E1D4D06170003900D /* TabManager.m */; };
 		0E9B8D471EBF4E1C004088A0 /* BookmarkDirectoryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B8D461EBF4E1C004088A0 /* BookmarkDirectoryEditViewController.m */; };
 		0EA7DEE31DB0ABD8005C592E /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA7DEE21DB0ABD8005C592E /* BaseViewController.m */; };
@@ -150,6 +149,7 @@
 		BF4EFCB91FC6746300BCDD84 /* MLSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCB81FC6746300BCDD84 /* MLSearchResultsTableViewController.m */; };
 		BF4EFCBC1FC6A7BD00BCDD84 /* HistoryRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCBB1FC6A7BD00BCDD84 /* HistoryRecordCell.m */; };
 		BF4EFCBF1FC6AE2200BCDD84 /* YJHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCBD1FC6AE2100BCDD84 /* YJHelp.m */; };
+		BF4EFCC21FC6E1C000BCDD84 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCC01FC6E1BF00BCDD84 /* BrowserViewController.m */; };
 		E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */; };
 		E813B9FC1FB5998000470ECD /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DC1FB5997F00470ECD /* EXTScope.m */; };
 		E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9E01FB5997F00470ECD /* MTLJSONAdapter.m */; };
@@ -364,8 +364,6 @@
 		0E9361DA1EB0FAEE004F6AE7 /* BookmarkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkTableViewCell.m; sourceTree = "<group>"; };
 		0E9361DB1EB0FAEE004F6AE7 /* BookmarkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarkTableViewCell.xib; sourceTree = "<group>"; };
 		0E9836B51E82CC9B0044BEA9 /* ContextMenu.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; lineEnding = 0; path = ContextMenu.js; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
-		0E986A091D4CA6C10003900D /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserViewController.h; sourceTree = "<group>"; };
-		0E986A0A1D4CA6C10003900D /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BrowserViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0E986A0D1D4D06170003900D /* TabManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TabManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0E986A0E1D4D06170003900D /* TabManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TabManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0E9B8D451EBF4E1C004088A0 /* BookmarkDirectoryEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkDirectoryEditViewController.h; sourceTree = "<group>"; };
@@ -506,6 +504,8 @@
 		BF4EFCBB1FC6A7BD00BCDD84 /* HistoryRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryRecordCell.m; sourceTree = "<group>"; };
 		BF4EFCBD1FC6AE2100BCDD84 /* YJHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJHelp.m; sourceTree = "<group>"; };
 		BF4EFCBE1FC6AE2200BCDD84 /* YJHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJHelp.h; sourceTree = "<group>"; };
+		BF4EFCC01FC6E1BF00BCDD84 /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserViewController.m; sourceTree = "<group>"; };
+		BF4EFCC11FC6E1C000BCDD84 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserViewController.h; sourceTree = "<group>"; };
 		E813B9D81FB5997F00470ECD /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
 		E813B9D91FB5997F00470ECD /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
@@ -749,8 +749,8 @@
 		0E2C539B1DAA23A40077B9B4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0E986A091D4CA6C10003900D /* BrowserViewController.h */,
-				0E986A0A1D4CA6C10003900D /* BrowserViewController.m */,
+				BF4EFCC11FC6E1C000BCDD84 /* BrowserViewController.h */,
+				BF4EFCC01FC6E1BF00BCDD84 /* BrowserViewController.m */,
 				BF4EFCA21FC41DB500BCDD84 /* FirstBrowserController.h */,
 				BF4EFCA31FC41DB500BCDD84 /* FirstBrowserController.m */,
 			);
@@ -1918,6 +1918,7 @@
 				E87D72B31FB965FC001AB44E /* GCDWebServerMultiPartFormRequest.m in Sources */,
 				0E44786D1EC0395100D8F3F3 /* BookmarkEditTextFieldTableViewCell.m in Sources */,
 				E87D72B51FB965FC001AB44E /* GCDWebServerDataResponse.m in Sources */,
+				BF4EFCC21FC6E1C000BCDD84 /* BrowserViewController.m in Sources */,
 				0E8EE8351E11277100B6DADF /* SettingAnimator.m in Sources */,
 				0E1F9F9E1DD2D86E00FA84EA /* NJKWebViewProgress.m in Sources */,
 				0E3D2B741E248D5E00364B69 /* SettingsTableViewController.m in Sources */,
@@ -1967,7 +1968,6 @@
 				0EF025661DD951EB0011019F /* HTTPManager.m in Sources */,
 				0ED304181E99F42D00445A9A /* HistoryDataManager.m in Sources */,
 				BF4EFC9F1FC4115000BCDD84 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
-				0E986A0B1D4CA6C10003900D /* BrowserViewController.m in Sources */,
 				0E9361D81EB0EDA1004F6AE7 /* BookmarkSectionInfo.m in Sources */,
 				0E9B8D471EBF4E1C004088A0 /* BookmarkDirectoryEditViewController.m in Sources */,
 				0EFDD3081DD423AC002AB3FB /* HttpHelper.m in Sources */,

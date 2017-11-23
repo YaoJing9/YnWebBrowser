@@ -56,7 +56,6 @@
 
     UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-//    [self setItems:@[flexibleItem,refreshOrStopItem,flexibleItem,multiWindowItem,flexibleItem,backItem,flexibleItem,forwardItem,flexibleItem,settingItem,flexibleItem] animated:NO];
     [self setItems:@[backItem, forwardItem, settingItem, multiWindowItem, flexibleItem] animated:NO];
 }
 

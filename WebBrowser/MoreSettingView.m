@@ -147,6 +147,14 @@ static MoreSettingView *_insertionGgView;
     _insertionGgView = nil;
 }
 
++ (void)removeMoreSettingView{
+    [_insertionGgView removeFromSuperview];
+    if (_insertionGgView.removeBlock) {
+        _insertionGgView.removeBlock();
+    }
+    _insertionGgView = nil;
+}
+
 @end
 
 

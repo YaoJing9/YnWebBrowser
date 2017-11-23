@@ -26,6 +26,7 @@
 #import "MoreSettingView.h"
 #import "ExtendedFunctionViewController.h"
 #import "YnSearchController.h"
+#import "BrowserViewController.h"
 @interface FirstBrowserController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,BrowserBottomToolBarButtonClickedDelegate>
 @property (nonatomic, strong) BrowserBottomToolBar *bottomToolBar;
 @property (nonatomic, assign) CGFloat lastContentOffset;
@@ -40,6 +41,8 @@
 @property (nonatomic, strong) NSArray *topDataAry;
 @property (nonatomic, strong) NSArray *conentDataAry;
 @property (nonatomic, strong) NSArray *bottomDataAry;
+@property (nonatomic, assign) CGFloat oldOffset;
+
 @end
 
 @implementation FirstBrowserController
@@ -88,7 +91,13 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MoreSettingView removeMoreSettingView];
+}
+
 - (void)initDataAry{
+    _oldOffset = 0;
     _topDataAry = @[@"新浪",@"百度",@"微博",@"二手车",@"同城",@"淘宝",@"携程",@"苏宁",@"优酷"];
     _bottomDataAry = @[@"订酒店",@"订机票",@"火车票",@"电影票",@"美食",@"58同城",@"租房",@"找工作",@"家政服务",@"兼职"];
     _conentDataAry = @[
@@ -366,7 +375,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    BrowserViewController *vc = [BrowserViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)initializeView{
@@ -383,15 +393,63 @@
     });
 }
 
+
+#pragma mark - BrowserBottomToolBarButtonClickedDelegate
+
+- (void)browserBottomToolBarButtonClickedWithTag:(BottomToolBarButtonTag)tag{
+    WS(weakSelf);
+
+    if ([self.browserButtonDelegate respondsToSelector:@selector(browserBottomToolBarButtonClickedWithTag:)]) {
+        [self.browserButtonDelegate browserBottomToolBarButtonClickedWithTag:tag];
+    }
+    if (tag == BottomToolBarMoreButtonTag) {
+        [MoreSettingView showInsertionViewSuccessBlock:^{
+            
+        } clickBlock:^{
+            
+        } removeBlock:^{
+            
+        } btnClickBlock:^(NSInteger index) {
+            [weakSelf moreSettingClick:index];
+        }];
+        
+    }
+    if (tag == BottomToolBarMultiWindowButtonTag) {
+        CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
+        [cardMainView reloadCardMainViewWithCompletionBlock:^{
+            UIImage *image = [self.view snapshot];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            imageView.frame = cardMainView.bounds;
+            [cardMainView addSubview:imageView];
+            [self.view addSubview:cardMainView];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [imageView removeFromSuperview];
+                [cardMainView changeCollectionViewLayout];
+            });
+        }];
+    }
+}
+
 #pragma mark - UIScrollViewDelegate Method
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-
-    [UIView animateWithDuration:.2 animations:^{
-        CGRect bottomRect = self.bottomToolBar.frame;
-        bottomRect.origin.y = self.view.height - BOTTOM_TOOL_BAR_HEIGHT;
-        self.bottomToolBar.frame = bottomRect;
-    }];
+    
+        if (scrollView.contentOffset.y > _oldOffset) {//如果当前位移大于缓存位移，说明scrollView向上滑动
+            
+            [UIView animateWithDuration:.2 animations:^{
+                CGRect bottomRect = self.bottomToolBar.frame;
+                bottomRect.origin.y = self.view.height;
+                self.bottomToolBar.frame = bottomRect;
+            }];
+        }else{
+            [UIView animateWithDuration:.2 animations:^{
+                CGRect bottomRect = self.bottomToolBar.frame;
+                bottomRect.origin.y = self.view.height - BOTTOM_TOOL_BAR_HEIGHT;
+                self.bottomToolBar.frame = bottomRect;
+            }];
+        }
+        
+        _oldOffset = scrollView.contentOffset.y;//将当前位移变成缓存位移
     
 }
 
