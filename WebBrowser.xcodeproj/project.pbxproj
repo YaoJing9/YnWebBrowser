@@ -123,6 +123,8 @@
 		187FFD571FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */; };
 		18CE6EA31FC595620068091D /* HistoryAndBookmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EA11FC595620068091D /* HistoryAndBookmarkTableViewCell.m */; };
 		18CE6EA41FC595620068091D /* HistoryAndBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CE6EA21FC595620068091D /* HistoryAndBookmarkTableViewCell.xib */; };
+		18CE6EAE1FC68E510068091D /* ExtendedFunctionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CE6EAB1FC68E500068091D /* ExtendedFunctionViewController.xib */; };
+		18CE6EAF1FC68E510068091D /* ExtendedFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EAC1FC68E500068091D /* ExtendedFunctionViewController.m */; };
 		BF4EFC781FC401C200BCDD84 /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC761FC401C200BCDD84 /* WLScrollView.m */; };
 		BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC7A1FC401D800BCDD84 /* WLSubView.m */; };
 		BF4EFC971FC4115000BCDD84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFC7D1FC4115000BCDD84 /* Info.plist */; };
@@ -443,6 +445,9 @@
 		18CE6EA01FC595620068091D /* HistoryAndBookmarkTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryAndBookmarkTableViewCell.h; sourceTree = "<group>"; };
 		18CE6EA11FC595620068091D /* HistoryAndBookmarkTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryAndBookmarkTableViewCell.m; sourceTree = "<group>"; };
 		18CE6EA21FC595620068091D /* HistoryAndBookmarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryAndBookmarkTableViewCell.xib; sourceTree = "<group>"; };
+		18CE6EAB1FC68E500068091D /* ExtendedFunctionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExtendedFunctionViewController.xib; sourceTree = "<group>"; };
+		18CE6EAC1FC68E500068091D /* ExtendedFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedFunctionViewController.m; sourceTree = "<group>"; };
+		18CE6EAD1FC68E510068091D /* ExtendedFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedFunctionViewController.h; sourceTree = "<group>"; };
 		BF4EFC761FC401C200BCDD84 /* WLScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLScrollView.m; sourceTree = "<group>"; };
 		BF4EFC771FC401C200BCDD84 /* WLScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLScrollView.h; sourceTree = "<group>"; };
 		BF4EFC791FC401D700BCDD84 /* WLSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSubView.h; sourceTree = "<group>"; };
@@ -977,6 +982,9 @@
 		0E6110A21FA2E00A009F2568 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18CE6EAD1FC68E510068091D /* ExtendedFunctionViewController.h */,
+				18CE6EAC1FC68E500068091D /* ExtendedFunctionViewController.m */,
+				18CE6EAB1FC68E500068091D /* ExtendedFunctionViewController.xib */,
 				0E6110A31FA2E050009F2568 /* ExtentionsTableViewController.h */,
 				0E6110A41FA2E050009F2568 /* ExtentionsTableViewController.m */,
 			);
@@ -1731,6 +1739,7 @@
 				0EDD68E51DACFBF400265744 /* Assets.xcassets in Resources */,
 				0E8013DD1EB0A3280098BF64 /* BookmarkSectionHeaderView.xib in Resources */,
 				0ECA02891E5AE45900955887 /* NetError.html in Resources */,
+				18CE6EAE1FC68E510068091D /* ExtendedFunctionViewController.xib in Resources */,
 				0EC3D8BD1EC1C99D0059E4DC /* BookmarkSectionTableViewCell.xib in Resources */,
 				0EE62E581FA4D26C0054CFD5 /* EyeProtective.js in Resources */,
 				0E7795941E20F8C900CE86BE /* SearchTableViewCell.xib in Resources */,
@@ -1920,6 +1929,7 @@
 				E813BA521FB59D8200470ECD /* SDWebImageFrame.m in Sources */,
 				E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */,
 				0E512D431E6675ED008A8AFA /* CardBrowserCollectionViewLayout.m in Sources */,
+				18CE6EAF1FC68E510068091D /* ExtendedFunctionViewController.m in Sources */,
 				0E681F691D4B34EB003534F5 /* MenuHelper.m in Sources */,
 				E87D72B41FB965FC001AB44E /* GCDWebServerURLEncodedFormRequest.m in Sources */,
 				0E7078171E9656E500E898A8 /* ZWDatabase.m in Sources */,
