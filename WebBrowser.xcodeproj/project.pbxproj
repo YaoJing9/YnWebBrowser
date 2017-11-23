@@ -125,6 +125,8 @@
 		18CE6EA41FC595620068091D /* HistoryAndBookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CE6EA21FC595620068091D /* HistoryAndBookmarkTableViewCell.xib */; };
 		18CE6EAE1FC68E510068091D /* ExtendedFunctionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CE6EAB1FC68E500068091D /* ExtendedFunctionViewController.xib */; };
 		18CE6EAF1FC68E510068091D /* ExtendedFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EAC1FC68E500068091D /* ExtendedFunctionViewController.m */; };
+		18CE6EB21FC6B94E0068091D /* UIAlertController+DXAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EB11FC6B94E0068091D /* UIAlertController+DXAlertController.m */; };
+		18CE6EB51FC6B9E30068091D /* NSObject+DXObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */; };
 		BF4EFC781FC401C200BCDD84 /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC761FC401C200BCDD84 /* WLScrollView.m */; };
 		BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC7A1FC401D800BCDD84 /* WLSubView.m */; };
 		BF4EFC971FC4115000BCDD84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFC7D1FC4115000BCDD84 /* Info.plist */; };
@@ -450,6 +452,10 @@
 		18CE6EAB1FC68E500068091D /* ExtendedFunctionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExtendedFunctionViewController.xib; sourceTree = "<group>"; };
 		18CE6EAC1FC68E500068091D /* ExtendedFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedFunctionViewController.m; sourceTree = "<group>"; };
 		18CE6EAD1FC68E510068091D /* ExtendedFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedFunctionViewController.h; sourceTree = "<group>"; };
+		18CE6EB01FC6B94E0068091D /* UIAlertController+DXAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+DXAlertController.h"; sourceTree = "<group>"; };
+		18CE6EB11FC6B94E0068091D /* UIAlertController+DXAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+DXAlertController.m"; sourceTree = "<group>"; };
+		18CE6EB31FC6B9E30068091D /* NSObject+DXObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DXObject.h"; sourceTree = "<group>"; };
+		18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DXObject.m"; sourceTree = "<group>"; };
 		BF4EFC761FC401C200BCDD84 /* WLScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLScrollView.m; sourceTree = "<group>"; };
 		BF4EFC771FC401C200BCDD84 /* WLScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLScrollView.h; sourceTree = "<group>"; };
 		BF4EFC791FC401D700BCDD84 /* WLSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSubView.h; sourceTree = "<group>"; };
@@ -1045,6 +1051,10 @@
 				0E681F391D4AEC3F003534F5 /* Info.plist */,
 				0E681F5F1D4AF2D5003534F5 /* WebBrowser.pch */,
 				0E681F281D4AEC3F003534F5 /* Supporting Files */,
+				18CE6EB01FC6B94E0068091D /* UIAlertController+DXAlertController.h */,
+				18CE6EB11FC6B94E0068091D /* UIAlertController+DXAlertController.m */,
+				18CE6EB31FC6B9E30068091D /* NSObject+DXObject.h */,
+				18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */,
 			);
 			path = WebBrowser;
 			sourceTree = "<group>";
@@ -1854,6 +1864,7 @@
 				E813BA5D1FB59D8200470ECD /* UIImageView+HighlightedWebCache.m in Sources */,
 				0E2C53A31DAA314C0077B9B4 /* UIView+ZWUtility.m in Sources */,
 				E87D72B81FB965FC001AB44E /* GCDWebServerStreamedResponse.m in Sources */,
+				18CE6EB21FC6B94E0068091D /* UIAlertController+DXAlertController.m in Sources */,
 				BF4EFCBF1FC6AE2200BCDD84 /* YJHelp.m in Sources */,
 				E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */,
 				0ED304151E98697C00445A9A /* BaseTableViewController.m in Sources */,
@@ -1868,6 +1879,7 @@
 				E87D72BD1FB969FF001AB44E /* MBProgressHUD.m in Sources */,
 				BF4EFC981FC4115000BCDD84 /* MASCompositeConstraint.m in Sources */,
 				E813BA091FB5998000470ECD /* NSValueTransformer+MTLInversionAdditions.m in Sources */,
+				18CE6EB51FC6B9E30068091D /* NSObject+DXObject.m in Sources */,
 				0E7078071E96294A00E898A8 /* ZWSQLiteManager.m in Sources */,
 				BF4EFC9E1FC4115000BCDD84 /* NSArray+MASAdditions.m in Sources */,
 				E87D72B11FB965FC001AB44E /* GCDWebServerDataRequest.m in Sources */,

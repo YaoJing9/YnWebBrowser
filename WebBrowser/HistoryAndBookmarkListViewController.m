@@ -4,7 +4,6 @@
 //
 //  Created by apple on 2017/11/22.
 //  Copyright © 2017年 钟武. All rights reserved.
-//
 
 #import "HistoryAndBookmarkListViewController.h"
 #import "HistoryAndBookmarkTableViewCell.h"
@@ -21,29 +20,19 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
 
 @implementation HistoryAndBookmarkListViewController
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
-}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = YES;
-    
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"书签列表";
+    [self showNavWithTitle:@"书签列表" backBtnHiden:NO rightBtnTitle:@"清除" rightBtnImage:nil];
     
     _mainTableView.tableFooterView = [UIView new];
     
     _listDataOperationKind = ListDataOperationKindBookmark;
     [self getBookmarkData];
     
-    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"清除" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
-    self.navigationItem.rightBarButtonItem = rightButtonItem;
+    // Do any additional setup after loading the view from its nib.
 }
 #pragma mark - ButtonAction
--(void)rightButtonAction{
+-(void)rightBtnAction{
     if (_listDataOperationKind == ListDataOperationKindHistory) {
         [_historyDataManager deleleAllHistoryRecords];
         [self.mainTableView reloadData];
@@ -52,19 +41,18 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
         [self.mainTableView reloadData];
     }
 }
+
 - (IBAction)historyAndBookmarkAction:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {
         //获取书签数据
         _listDataOperationKind = ListDataOperationKindBookmark;
         [self getBookmarkData];
-        self.title = @"书签列表";
         
     }else{
         
         //获取历史数据
         _listDataOperationKind = ListDataOperationKindHistory;
         [self getHistoryData];
-        self.title = @"历史列表";
         
     }
 }

@@ -9,7 +9,10 @@
 #import "SettingsTableViewController.h"
 #import "SettingActivityTableViewCell.h"
 #import "NSFileManager+ZWUtility.h"
-
+#import "HistorySQLiteManager.h"
+#import "UIAlertController+DXAlertController.h"
+#import "SettingSwitchTableViewCell.h"
+#import "ExtendedFunctionViewController.h"
 typedef enum : NSUInteger {
     CellKindForCache,
 } CellKind;
@@ -17,10 +20,10 @@ typedef enum : NSUInteger {
 static NSString *const SettingActivityTableViewCellIdentifier = @"SettingActivityTableViewCellIdentifier";
 static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPlaceholderTableViewCellIdentifier";
 
-@interface SettingsTableViewController ()
+@interface SettingsTableViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, copy) NSArray *dataArray;
-
+@property (nonatomic,strong)UITableView *tableView;
 @end
 
 @implementation SettingsTableViewController
@@ -28,38 +31,53 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"设置";
+    [self showNavWithTitle:@"设置" backBtnHiden:NO];
     
-    self.dataArray = @[@"意见反馈",@"清除缓存",@"清除历史记录",@"分享给朋友",@"启动时打开上次页面",@"广告过滤",@"版本"];
+    self.dataArray = @[@"意见反馈",@"清除缓存",@"清除历史记录",@"分享给朋友",@"启动时打开上次页面",@"广告过滤"];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    self.tableView.sectionHeaderHeight = 40;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64) style:UITableViewStyleGrouped];
+    
+    if (@available(iOS 11.0, *)) {
+        _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SettingActivityTableViewCell class]) bundle:nil] forCellReuseIdentifier:SettingActivityTableViewCellIdentifier];
-//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:SettingPlaceholderTableViewCellIdentifier];
+    [self.view addSubview:self.tableView];
 }
 
 - (void)handleTableViewSelectAt:(NSInteger)index{
     if (index == 1) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您确定清除缓存？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
-        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
-            SettingActivityTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            [cell.activityIndicatorView startAnimating];
-            cell.rightLabel.text = @"";
+        [UIAlertController wl_showAlertViewWithActionsName:@[@"确定"] title:@"您确定清除缓存?" message:nil callBack:^(NSString * _Nonnull btnTitle, NSInteger btnIndex) {
             
-            [self cleanCacheWithURLs:[NSArray arrayWithObjects:[NSURL URLWithString:CachePath], [NSURL URLWithString:TempPath], nil] completionBlock:^{
-                [cell.activityIndicatorView stopAnimating];
-                [cell.rightLabel setText:@"0M"];
-            }];
+            if (btnIndex == 0) {
+                [self cleanCacheWithURLs:[NSArray arrayWithObjects:[NSURL URLWithString:CachePath], [NSURL URLWithString:TempPath], nil] completionBlock:^{
+                    
+                }];
+            } 
         }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){}];
+    }else if (index == 2){
         
-        [alert addAction:defaultAction];
-        [alert addAction:cancelAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        [UIAlertController wl_showAlertViewWithActionsName:@[@"确定"] title:@"您确定清除历史记录?" message:nil callBack:^(NSString * _Nonnull btnTitle, NSInteger btnIndex) {
+           
+            if (btnIndex == 0) {
+                [[[HistorySQLiteManager alloc] init] deleteAllHistoryRecords];
+            }
+        }];
+    }else if (index == 4){
+        ExtendedFunctionViewController *vc = [[ExtendedFunctionViewController alloc] init];
+        vc.extendedOperationKind = ExtendedOperationKindTOOPENURL;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (index == 5){
+        ExtendedFunctionViewController *vc = [[ExtendedFunctionViewController alloc] init];
+        vc.extendedOperationKind = ExtendedOperationKindGUANGGAOGUOLV;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -70,27 +88,6 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 40;
-}
-- (UITableViewCell *)cacheCellWithIndexPath:(NSIndexPath *)indexPath{
-    SettingActivityTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:SettingActivityTableViewCellIdentifier];
-    
-    cell.leftLabel.text = self.dataArray[indexPath.row];
-    [cell.activityIndicatorView startAnimating];
-    
-    [cell setCalculateBlock:^{
-        NSArray *urlArray = [NSArray arrayWithObjects:[NSURL URLWithString:CachePath], [NSURL URLWithString:TempPath], nil];
-
-        long long size = [[NSFileManager defaultManager] getAllocatedSizeOfCacheDirectoryAtURLS:urlArray error:NULL];
-        
-        if (size == -1)
-            return @"0M";
-        
-        NSString *sizeStr = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleBinary];
-        
-        return sizeStr;
-    }];
-    
-    return cell;
 }
 
 #pragma mark - Table view data source
@@ -110,20 +107,8 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
     }
     tableCell.textLabel.text = self.dataArray[indexPath.row];
     
-    
     return tableCell;
-    
-    UITableViewCell *cell = nil;
-    switch (indexPath.row) {
-        case CellKindForCache:
-            cell = [self cacheCellWithIndexPath:indexPath];
-            break;
-        default:
-            //never called
-            cell = [tableView dequeueReusableCellWithIdentifier:SettingPlaceholderTableViewCellIdentifier];
-            break;
-    }
-    return cell;
+
 }
 
 #pragma mark - UITableViewDelegate Method
@@ -160,7 +145,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 }
 
 - (void)dealloc{
-    //DDLogDebug(@"SettingsTableViewController dealloc");
+    NSLog(@"SettingsTableViewController dealloc");
 }
 
 @end

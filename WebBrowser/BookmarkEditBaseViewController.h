@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @class BookmarkDataManager;
 
 typedef void(^BookmarkEditCompletion)(void);
 extern NSString *const kBookmarkEditTextFieldCellIdentifier;
 
-@interface BookmarkEditBaseViewController : UIViewController
+@interface BookmarkEditBaseViewController : BaseViewController
 
 @property (nonatomic, copy) BookmarkEditCompletion completion;
 @property (nonatomic, strong) NSIndexPath *indexPath;
