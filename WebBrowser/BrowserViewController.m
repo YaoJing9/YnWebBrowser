@@ -29,6 +29,7 @@
 #import "TraderCell.h"
 #import "ClassifyCell.h"
 #import "MoreSettingView.h"
+#import "ExtendedFunctionViewController.h"
 static NSString *const kBrowserViewControllerAddBookmarkSuccess = @"添加书签成功";
 static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签失败";
 
@@ -89,7 +90,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     [self initializeView];
     
     [self initializeNotification];
-
+    
     self.lastContentOffset = - TOP_TOOL_BAR_HEIGHT;
     
     [[DelegateManager sharedInstance] registerDelegate:self forKeys:@[DelegateManagerWebView, DelegateManagerFindInPageBarDelegate]];
@@ -304,33 +305,42 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 }
 
 - (void)moreSettingClick:(NSInteger)index{
+    
+    SettingsTableViewController *settingVc = [[SettingsTableViewController alloc] init];
+    HistoryAndBookmarkListViewController *historyAndBookmarkVc = [[HistoryAndBookmarkListViewController alloc] init];
+    ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
     switch (index) {
         case 0:
             
             break;
         case 1:
-            
+            extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
+            [self.navigationController pushViewController: extendedFVC animated:YES];
             break;
         case 2:
-            
+            extendedFVC.extendedOperationKind = ExtendedOperationKindNOIMAGE;
+            [self.navigationController pushViewController: extendedFVC animated:YES];
             break;
         case 3:
-            
+            extendedFVC.extendedOperationKind = ExtendedOperationKindNOHISTORY;
+            [self.navigationController pushViewController: extendedFVC animated:YES];
             break;
         case 4:
             
             break;
         case 5:
             
+            historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
+            [self.navigationController pushViewController: historyAndBookmarkVc animated:YES];
             break;
         case 6:
-            
+            [self addBookmark];
             break;
         case 7:
             
             break;
         case 8:
-            
+            [self.navigationController pushViewController: settingVc animated:YES];
             break;
             
         default:
@@ -356,7 +366,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.browserContainerView.hidden = NO;
     self.browserTopToolBar.hidden = NO;
-
+    
 }
 
 - (void)initializeView{
@@ -385,7 +395,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     });
     
     self.browserTopToolBar.hidden = YES;
-
+    
     
     self.bottomToolBar = ({
         BrowserBottomToolBar *toolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
@@ -518,7 +528,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
               HistoryAndBookmarkListViewController *vc = [[HistoryAndBookmarkListViewController alloc] init];
               vc.listDataOperationKind = ListDataOperationKindBookmark;
               [self_.navigationController pushViewController: vc animated:YES];
-             
+              
           }],
           [SettingsMenuItem itemWithText:@"历史" image:[UIImage imageNamed:@"album"] action:^{
               HistoryAndBookmarkListViewController *vc = [[HistoryAndBookmarkListViewController alloc] init];
@@ -590,11 +600,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     BookmarkItemEditViewController *editVC = [[BookmarkItemEditViewController alloc] initWithDataManager:dataManager item:[BookmarkItemModel bookmarkItemWithTitle:title url:url] sectionIndex:[NSIndexPath indexPathForRow:0 inSection:0] operationKind:BookmarkItemOperationKindItemAdd completion:nil];
     
-//    UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:editVC];
+    //    UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:editVC];
     
     [self.navigationController pushViewController:editVC animated:YES];
     
-//    [self presentViewController:navigationVC animated:YES completion:nil];
+    //    [self presentViewController:navigationVC animated:YES completion:nil];
 }
 
 #pragma mark - Preseving and Restoring State

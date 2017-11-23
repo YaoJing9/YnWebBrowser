@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Nx-Vb-tbB">
+                <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Nx-Vb-tbB">
                     <rect key="frame" x="20" y="79" width="335" height="31"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="hht-Nm-yRM"/>
@@ -30,6 +30,9 @@
                         <segment title="历史"/>
                     </segments>
                     <color key="tintColor" red="0.19715812802314758" green="0.45714336633682251" blue="0.93515461683273315" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <action selector="historyAndBookmarkAction:" destination="-1" eventType="valueChanged" id="ayu-vQ-uHD"/>
+                    </connections>
                 </segmentedControl>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h2r-gc-UeE">
                     <rect key="frame" x="0.0" y="129" width="375" height="538"/>
