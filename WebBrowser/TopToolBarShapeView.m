@@ -66,7 +66,10 @@
     [[TabManager sharedInstance] stopLoadingCurrentWebView];
     YnSearchController *searchVC = [YnSearchController new];
     searchVC.origTextFieldString = textField.text;
-    [[BrowserVC navigationController] pushViewController:searchVC animated:NO];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchVC];
+    [[BrowserVC navigationController] presentViewController:nav  animated:YES completion:nil];
+    
     return NO;
 }
 
