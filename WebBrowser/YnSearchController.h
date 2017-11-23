@@ -10,4 +10,6 @@
 
 @interface YnSearchController : BaseViewController
 @property (nonatomic, strong) NSArray *tagsArray;
+@property (nonatomic, strong) NSString *origTextFieldString;
 @end
+

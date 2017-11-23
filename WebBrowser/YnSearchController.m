@@ -65,6 +65,7 @@
     [super viewDidLoad];
     [self showNavWithTitle:@"" backBtnHiden:YES];
     self.searchHistoriesCount = 20;
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64) style:UITableViewStylePlain];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.delegate = self;
@@ -115,6 +116,7 @@
     _searchBar.delegate=self;
     _searchBar.textColor=[UIColor blackColor];
     _searchBar.font=[UIFont fontWithName:@"PingFangSC-Regular" size:15];
+    _searchBar.text = _origTextFieldString;
     _searchBar.placeholder=@"搜索或者输入网址";
     [_searchBar setValue:[UIColor colorWithHexString:@"#555555"] forKeyPath:@"_placeholderLabel.textColor"];
     _searchBar.keyboardType = UIKeyboardTypeASCIICapable;
@@ -226,8 +228,6 @@
 
 #pragma mark-键盘的监听事件
 -(void)infoAction{
-    
-    
     if (_searchBar.text.length == 0) {
         return;
     }
@@ -237,8 +237,26 @@
 {
 
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [self searchUrlForWebView:textField.text];
+    return YES;
+}
+
+-(void)searchUrlForWebView:(NSString *)text{
+    if (text.length != 0) {
+        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[text] key:DelegateManagerBrowserContainerLoadURL];
+        // 缓存数据并且刷新界面
+        [self saveSearchCacheAndRefreshView];
+        
+    }else{
+        
+    }
+    
+}
 
 - (void)canceBtnClick{
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -254,21 +272,9 @@
     self.searchBar.text = label.text;
     
     // 缓存数据并且刷新界面
-    [self saveSearchCacheAndRefreshView];
+    [self searchUrlForWebView:label.text];
     
-    self.tableView.tableFooterView.hidden = NO;
-    
-    
-    
-    
-    self.searchSuggestionVC.view.hidden = NO;
-    self.tableView.hidden = YES;
-    [self.view bringSubviewToFront:self.searchSuggestionVC.view];
-    
-    //创建一个消息对象
-    NSNotification * notice = [NSNotification notificationWithName:@"searchBarDidChange" object:nil userInfo:@{@"searchText":label.text}];
-    //发送消息
-    [[NSNotificationCenter defaultCenter]postNotification:notice];
+   
 }
 
 
@@ -313,7 +319,6 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     
     HistoryRecordCell *historyRecordCell = [HistoryRecordCell cellWithTableView:tableView reuseIdentifier:@"HistoryRecordCell"];
     historyRecordCell.title = self.searchHistories[indexPath.row];
@@ -346,26 +351,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // 取出选中的cell
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.searchBar.text = cell.textLabel.text;
     
     // 缓存数据并且刷新界面
-    [self saveSearchCacheAndRefreshView];
-    
-    [self searchBarSearchButtonClicked:self.searchBar];
-    
-    
-    
-    
-    self.searchSuggestionVC.view.hidden = NO;
-    self.tableView.hidden = YES;
-    [self.view bringSubviewToFront:self.searchSuggestionVC.view];
-    //创建一个消息对象
-    NSNotification * notice = [NSNotification notificationWithName:@"searchBarDidChange" object:nil userInfo:@{@"searchText":cell.textLabel.text}];
-    //发送消息
-    [[NSNotificationCenter defaultCenter]postNotification:notice];
+    [self searchUrlForWebView:self.searchHistories[indexPath.row]];
+
 }
 
 - (CGFloat)getWidthWithTitle:(NSString *)title font:(UIFont *)font {
@@ -419,8 +408,8 @@
     }
     // 保存搜索信息
     [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:self.searchHistoriesCachePath];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
-    [self.tableView reloadData];
 }
 
 - (void)closeDidClick:(UIButton *)sender
