@@ -24,46 +24,75 @@
 
 @implementation TraderCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier titleAry:(NSArray *)titleAry
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.backgroundColor = [UIColor whiteColor];
-        [self createSubViews];
+        [self createSubViews:titleAry];
     }
     return self;
 }
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier
++ (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier titleAry:(NSArray *)titleAry
 {
     TraderCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[TraderCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+        cell = [[TraderCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier titleAry:titleAry];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
-- (void)createSubViews{
+- (void)createSubViews:(NSArray *)buttonTitleArray{
 
     WS(weakSelf);
-    _nameLabel = [UILabel new];
-    _nameLabel.numberOfLines = 1;
-    _nameLabel.text = @"泰豪";
-    [self addSubview:_nameLabel];
-    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(10);
-        make.left.equalTo(weakSelf).offset(10);
-        make.width.lessThanOrEqualTo(@(self.width - 10));
-    }];
+    FL_Button *clowBtn;
+    for (int i=0; i<buttonTitleArray.count; i++) {
+        FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
+        [button setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:15];
+        if (i == 0) {
+            [button setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
+        }else{
+            [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+        }
+        button.tag = 100 + i;
+        [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:button];
+        
+        if (clowBtn) {
+            [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(clowBtn);
+                make.left.equalTo(clowBtn.mas_right);
+                make.width.equalTo(clowBtn);
+                make.height.equalTo(clowBtn);
+            }];
     
-
-    [_bottomLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.bottomLabel1);
-        make.right.equalTo(weakSelf).offset(-10);
-        make.left.equalTo(weakSelf.bottomLabel2.mas_right).offset(10);
-
-    }];
+            
+        }else{
+            [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(weakSelf.contentView);
+                make.left.equalTo(weakSelf.contentView);
+                make.width.equalTo(@(SCREENWIDTH/5));
+                make.height.equalTo(@(50));
+            }];
+            
+            UILabel *lineLabel = [UILabel new];
+            [button addSubview:lineLabel];
+            lineLabel.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
+            [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(button.mas_top).offset(15);
+                make.right.equalTo(button);
+                make.width.equalTo(@(1));
+                make.height.equalTo(@(20));
+            }];
+            
+        }
+        clowBtn = button;
+    }
     
+}
+- (void)buttonAction:(FL_Button *)nbtn{
     
 }
 - (void)awakeFromNib {

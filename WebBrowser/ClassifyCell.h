@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ClassifyCell : UITableViewCell
-+ (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier;
+
++ (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier imageAry:(NSArray *)imageAry;
 
 @end

@@ -146,6 +146,8 @@
 		BF4EFCB31FC58DA400BCDD84 /* MoreSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCB21FC58DA400BCDD84 /* MoreSettingView.m */; };
 		BF4EFCB61FC670A700BCDD84 /* YnSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCB51FC670A700BCDD84 /* YnSearchController.m */; };
 		BF4EFCB91FC6746300BCDD84 /* MLSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCB81FC6746300BCDD84 /* MLSearchResultsTableViewController.m */; };
+		BF4EFCBC1FC6A7BD00BCDD84 /* HistoryRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCBB1FC6A7BD00BCDD84 /* HistoryRecordCell.m */; };
+		BF4EFCBF1FC6AE2200BCDD84 /* YJHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCBD1FC6AE2100BCDD84 /* YJHelp.m */; };
 		E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */; };
 		E813B9FC1FB5998000470ECD /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DC1FB5997F00470ECD /* EXTScope.m */; };
 		E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9E01FB5997F00470ECD /* MTLJSONAdapter.m */; };
@@ -494,6 +496,10 @@
 		BF4EFCB51FC670A700BCDD84 /* YnSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YnSearchController.m; sourceTree = "<group>"; };
 		BF4EFCB71FC6746300BCDD84 /* MLSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSearchResultsTableViewController.h; sourceTree = "<group>"; };
 		BF4EFCB81FC6746300BCDD84 /* MLSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSearchResultsTableViewController.m; sourceTree = "<group>"; };
+		BF4EFCBA1FC6A7BD00BCDD84 /* HistoryRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryRecordCell.h; sourceTree = "<group>"; };
+		BF4EFCBB1FC6A7BD00BCDD84 /* HistoryRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryRecordCell.m; sourceTree = "<group>"; };
+		BF4EFCBD1FC6AE2100BCDD84 /* YJHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJHelp.m; sourceTree = "<group>"; };
+		BF4EFCBE1FC6AE2200BCDD84 /* YJHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJHelp.h; sourceTree = "<group>"; };
 		E813B9D81FB5997F00470ECD /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
 		E813B9D91FB5997F00470ECD /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
@@ -813,6 +819,8 @@
 				0E7795901E20F8C800CE86BE /* SearchTableViewCell.h */,
 				0E7795911E20F8C800CE86BE /* SearchTableViewCell.m */,
 				0E7795921E20F8C800CE86BE /* SearchTableViewCell.xib */,
+				BF4EFCBA1FC6A7BD00BCDD84 /* HistoryRecordCell.h */,
+				BF4EFCBB1FC6A7BD00BCDD84 /* HistoryRecordCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1102,6 +1110,8 @@
 		0E681F631D4AFE93003534F5 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				BF4EFCBE1FC6AE2200BCDD84 /* YJHelp.h */,
+				BF4EFCBD1FC6AE2100BCDD84 /* YJHelp.m */,
 				0E681F641D4AFEAA003534F5 /* KeyboardHelper.h */,
 				0E681F651D4AFEAA003534F5 /* KeyboardHelper.m */,
 				0E681F671D4B34EB003534F5 /* MenuHelper.h */,
@@ -1813,6 +1823,7 @@
 				0EF025651DD951EB0011019F /* HTTPClient.m in Sources */,
 				E813BA581FB59D8200470ECD /* UIButton+WebCache.m in Sources */,
 				0EC14F541E31B97900A44D05 /* FMResultSet.m in Sources */,
+				BF4EFCBC1FC6A7BD00BCDD84 /* HistoryRecordCell.m in Sources */,
 				0E3C50421F7946B400DD3828 /* UIAlertAction+ZWUtility.m in Sources */,
 				0E32E2FB1E08C69E00CFBBB5 /* CardCollectionViewCell.m in Sources */,
 				E87D728A1FB965A2001AB44E /* AFURLResponseSerialization.m in Sources */,
@@ -1843,6 +1854,7 @@
 				E813BA5D1FB59D8200470ECD /* UIImageView+HighlightedWebCache.m in Sources */,
 				0E2C53A31DAA314C0077B9B4 /* UIView+ZWUtility.m in Sources */,
 				E87D72B81FB965FC001AB44E /* GCDWebServerStreamedResponse.m in Sources */,
+				BF4EFCBF1FC6AE2200BCDD84 /* YJHelp.m in Sources */,
 				E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */,
 				0ED304151E98697C00445A9A /* BaseTableViewController.m in Sources */,
 				0E1710F51F726782007A7DB0 /* GestureProxy.m in Sources */,

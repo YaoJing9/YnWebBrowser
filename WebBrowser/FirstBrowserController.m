@@ -160,7 +160,7 @@
 
 - (void)creatteBottomView{
         self.bottomToolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
-        self.bottomToolBar.delegate = self;
+//        self.bottomToolBar.delegate = self;
         [self.view addSubview:self.bottomToolBar];
         [self.view addSubview:self.bottomToolBar];
 }
@@ -244,13 +244,17 @@
 {
     
     if (indexPath.section == 0) {
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell"];
+        NSArray *buttonTitleArray = @[@"新浪",@"百度",@"微博",@"二手车",@"同城",@"淘宝",@"携程",@"苏宁",@"优酷"];
+
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:buttonTitleArray];
         return classifyCell;
     }else if (indexPath.section == 1){
-        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell"];
-        return cell;
+//        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:_];
+        return nil;
     }else{
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell"];
+        NSArray *buttonTitleArray = @[@"订酒店",@"订机票",@"火车票",@"电影票",@"美食",@"同城",@"租房",@"找工作",@"家政服务",@"兼职"];
+
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:buttonTitleArray];
         return classifyCell;
     }
 }

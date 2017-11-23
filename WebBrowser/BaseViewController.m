@@ -40,7 +40,7 @@
     if (hiden){}else {
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame=CGRectMake(0, 20, 44, 44);
-        [btn setImage:[UIImage imageNamed:@"返回灰"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
         btn.imageView.contentMode = UIViewContentModeCenter;
         [btn addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
         [_NAVview addSubview:btn];
@@ -53,11 +53,11 @@
     UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(44, 20, SCREENWIDTH-88, 44)];
     lab.textAlignment=NSTextAlignmentCenter;
     lab.text=str;
-    lab.font=APPFont(8);
-    lab.textColor=appBlackColor;
+    lab.font=APPFont(7);
+    lab.textColor=[UIColor colorWithHexString:@"#333333"];
     [_NAVview addSubview:lab];
     _centreLabel = lab;
-//    _NAVLine = [YJHelp addLiveViewTo:_NAVview frame:CGRectMake(0, 63.5, SCREENWIDTH, 0.5)];
+    _NAVLine = [YJHelp addLiveViewTo:_NAVview frame:CGRectMake(0, 63.5, SCREENWIDTH, 0.5)];
 }
 
 - (void)showCustomeNavBackBtnHiden:(BOOL)hiden{
@@ -69,7 +69,7 @@
     if (hiden){}else {
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame=CGRectMake(0, 20, 44, 44);
-        [btn setImage:[UIImage imageNamed:@"返回灰"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
         btn.imageView.contentMode = UIViewContentModeCenter;
         [btn addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
         [_NAVview addSubview:btn];
@@ -78,9 +78,7 @@
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
         self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     }
-    
-    
-//    _NAVLine = [YJHelp addLiveViewTo:_NAVview frame:CGRectMake(0, 63.5, SCREENWIDTH, 0.5)];
+    _NAVLine = [YJHelp addLiveViewTo:_NAVview frame:CGRectMake(0, 63.5, SCREENWIDTH, 0.5)];
     
     
 }
@@ -97,7 +95,7 @@
     if (hiden){}else{
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame=CGRectMake(0, 20, 44, 44);
-        [btn setImage:[UIImage imageNamed:@"返回灰"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
         btn.imageView.contentMode = UIViewContentModeCenter;
         [btn addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
         [_NAVview addSubview:btn];

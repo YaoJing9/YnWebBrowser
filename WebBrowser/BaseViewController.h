@@ -11,7 +11,7 @@
 @interface BaseViewController : UIViewController
 @property (nonatomic, strong) NSMutableDictionary *loadingUrlDict;
 @property (nonatomic, strong) UIView *NAVview;
-@property (nonatomic, strong) UIImageView *NAVLine;
+@property (nonatomic, strong) UIView *NAVLine;
 @property (nonatomic, strong) UIButton *leftBtn;
 @property (nonatomic, strong) UIButton *rightBtn;
 @property (nonatomic, strong) UILabel *centreLabel;
