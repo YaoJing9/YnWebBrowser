@@ -389,7 +389,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.browserContainerView.hidden = NO;
     self.browserTopToolBar.hidden = NO;
-    
 }
 
 - (void)initializeView{
