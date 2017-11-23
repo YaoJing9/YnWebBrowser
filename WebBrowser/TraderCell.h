@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TraderCell : UITableViewCell
-+ (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier;
++ (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier titleAry:(NSArray *)titleAry;
 
 @end

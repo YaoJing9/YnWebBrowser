@@ -30,6 +30,7 @@
 #import "ClassifyCell.h"
 #import "MoreSettingView.h"
 #import "ExtendedFunctionViewController.h"
+#import "YnSearchController.h"
 static NSString *const kBrowserViewControllerAddBookmarkSuccess = @"添加书签成功";
 static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签失败";
 
@@ -48,6 +49,9 @@ static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) UITextField *textFiled;
+@property (nonatomic, strong) NSArray *topDataAry;
+@property (nonatomic, strong) NSArray *conentDataAry;
+@property (nonatomic, strong) NSArray *bottomDataAry;
 
 @end
 
@@ -62,6 +66,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.separatorColor = [UIColor colorWithHexString:@"#dedede"];
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
@@ -74,7 +79,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 - (NSMutableArray *)dataArr{
     if (_dataArr == nil) {
         _dataArr = [NSMutableArray arrayWithObjects:@[@1,@145], @[@5,@50], @[@1,@173], nil];
-        
     }
     return _dataArr;
 }
@@ -84,6 +88,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     [super viewDidLoad];
     
     [self.view addSubview:self.tableView];
+    
+    [self initDataAry];
     
     [self createBgview];
     
@@ -99,6 +105,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
     
+}
+
+- (void)initDataAry{
+    _topDataAry = @[@"新浪",@"百度",@"微博",@"二手车",@"同城",@"淘宝",@"携程",@"苏宁",@"优酷"];
+    _bottomDataAry = @[@"订酒店",@"订机票",@"火车票",@"电影票",@"美食",@"58同城",@"租房",@"找工作",@"家政服务",@"兼职"];
+    _conentDataAry = @[
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
+                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"]
+                      ];
 }
 
 - (void)createBgview{
@@ -207,8 +225,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    self.browserContainerView.hidden = NO;
-    self.browserTopToolBar.hidden = NO;
+    
+    YnSearchController *vc = [[YnSearchController alloc] init];
+    vc.tagsArray = @[@"卜卜芥", @"卜人参", @"卜卜人发", @"儿茶", @"八角", @"三卜七", @"广白", @"大黄", @"大黄", @"广卜卜卜丹"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav  animated:YES completion:nil];
 }
 
 - (void)buttonAction:(UIButton *)btn{
@@ -279,7 +300,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         }];
         
         UIImageView *sendLine = [UIImageView new];
-        sendLine.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
+        sendLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
         [bgView addSubview:sendLine];
         [sendLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(bgView);
@@ -352,13 +373,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 {
     
     if (indexPath.section == 0) {
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell"];
+        
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:_topDataAry];
         return classifyCell;
     }else if (indexPath.section == 1){
-        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell"];
+        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:_conentDataAry[indexPath.row]];
         return cell;
     }else{
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell"];
+        
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:_bottomDataAry];
         return classifyCell;
     }
 }

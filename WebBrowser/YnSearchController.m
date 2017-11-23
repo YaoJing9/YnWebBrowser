@@ -8,6 +8,7 @@
 
 #import "YnSearchController.h"
 #import "MLSearchResultsTableViewController.h"
+#import "HistoryRecordCell.h"
 #define PYSEARCH_SEARCH_HISTORY_CACHE_PATH [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MLSearchhistories.plist"] // 搜索历史存储路径
 
 @interface YnSearchController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -299,6 +300,10 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     self.tableView.tableFooterView.hidden = self.searchHistories.count == 0;
     return self.searchHistories.count;
@@ -306,21 +311,12 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    // 添加关闭按钮
-    UIButton *closetButton = [[UIButton alloc] init];
-    // 设置图片容器大小、图片原图居中
-    closetButton.size = CGSizeMake(cell.height, cell.height);
-    [closetButton setTitle:@"x" forState:UIControlStateNormal];
-    [closetButton addTarget:self action:@selector(closeDidClick:) forControlEvents:UIControlEventTouchUpInside];
-    cell.accessoryView = closetButton;
-    [closetButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+
     
-    cell.textLabel.textColor = [UIColor grayColor];
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
-    cell.textLabel.text = self.searchHistories[indexPath.row];
-    
-    return cell;
+    HistoryRecordCell *historyRecordCell = [HistoryRecordCell cellWithTableView:tableView reuseIdentifier:@"HistoryRecordCell"];
+    historyRecordCell.title = self.searchHistories[indexPath.row];
+
+    return historyRecordCell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -455,7 +451,7 @@
 }
 
 #pragma mark - UISearchBarDelegate
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+- (void)searchBarSearchButtonClicked:(UITextField *)searchBar
 {
     
 }
