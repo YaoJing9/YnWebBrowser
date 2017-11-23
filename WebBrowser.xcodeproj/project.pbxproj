@@ -143,6 +143,7 @@
 		BF4EFCB01FC4403E00BCDD84 /* UIColor+ECColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCAE1FC4403E00BCDD84 /* UIColor+ECColor.m */; };
 		BF4EFCB31FC58DA400BCDD84 /* MoreSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCB21FC58DA400BCDD84 /* MoreSettingView.m */; };
 		BF4EFCB61FC670A700BCDD84 /* YnSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCB51FC670A700BCDD84 /* YnSearchController.m */; };
+		BF4EFCB91FC6746300BCDD84 /* MLSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFCB81FC6746300BCDD84 /* MLSearchResultsTableViewController.m */; };
 		E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */; };
 		E813B9FC1FB5998000470ECD /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DC1FB5997F00470ECD /* EXTScope.m */; };
 		E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9E01FB5997F00470ECD /* MTLJSONAdapter.m */; };
@@ -486,6 +487,8 @@
 		BF4EFCB21FC58DA400BCDD84 /* MoreSettingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreSettingView.m; sourceTree = "<group>"; };
 		BF4EFCB41FC670A700BCDD84 /* YnSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YnSearchController.h; sourceTree = "<group>"; };
 		BF4EFCB51FC670A700BCDD84 /* YnSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YnSearchController.m; sourceTree = "<group>"; };
+		BF4EFCB71FC6746300BCDD84 /* MLSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSearchResultsTableViewController.h; sourceTree = "<group>"; };
+		BF4EFCB81FC6746300BCDD84 /* MLSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSearchResultsTableViewController.m; sourceTree = "<group>"; };
 		E813B9D81FB5997F00470ECD /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
 		E813B9D91FB5997F00470ECD /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
@@ -1169,6 +1172,8 @@
 		0E829CD41E120744008FF0A8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BF4EFCB71FC6746300BCDD84 /* MLSearchResultsTableViewController.h */,
+				BF4EFCB81FC6746300BCDD84 /* MLSearchResultsTableViewController.m */,
 				0E829CD51E12075B008FF0A8 /* SearchViewController.h */,
 				0E829CD61E12075B008FF0A8 /* SearchViewController.m */,
 				BF4EFCB41FC670A700BCDD84 /* YnSearchController.h */,
@@ -1892,6 +1897,7 @@
 				E813BA5B1FB59D8200470ECD /* UIImage+MultiFormat.m in Sources */,
 				E813BA511FB59D8200470ECD /* SDWebImageDownloaderOperation.m in Sources */,
 				E813BA481FB59D8200470ECD /* NSData+ImageContentType.m in Sources */,
+				BF4EFCB91FC6746300BCDD84 /* MLSearchResultsTableViewController.m in Sources */,
 				0E32E2FF1E08C8F600CFBBB5 /* CardCollectionViewLayout.m in Sources */,
 				0E8013DB1EB0A1B60098BF64 /* BookmarkSectionHeaderView.m in Sources */,
 				0E5CC9DE1E79305E0049ABEB /* SessionData.m in Sources */,
