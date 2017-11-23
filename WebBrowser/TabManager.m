@@ -568,7 +568,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
 //当解析完head标签后注入无图模式js,需要注意的是，当启用无图模式时，UIWebView依然会进行图片网络请求,只是设置visible为false
 - (void)webView:(BrowserWebView *)webView gotTitleName:(NSString*)titleName{
     [ExtentionsManager loadExtentionsIfNeededWhenGotTitleWithWebView:webView];
-    [[HistorySQLiteManager sharedInstance] insertOrUpdateHistoryWithURL:webView.mainFURL title:titleName];
+    
+    //不能在这里判断是否保存记录,莫名会崩溃,所以在历史列表中去修改.有时间再去看源码
+//    if (![PreferenceHelper boolForKey:KeyHistoryModeStatus]) {
+        [[HistorySQLiteManager sharedInstance] insertOrUpdateHistoryWithURL:webView.mainFURL title:titleName];
+//    }
 }
 
 - (void)webView:(BrowserWebView *)webView didFailLoadWithError:(NSError *)error{

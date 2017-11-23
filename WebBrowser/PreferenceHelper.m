@@ -8,6 +8,7 @@
 
 #import "PreferenceHelper.h"
 
+NSString * const KeyHistoryModeStatus = @"KeyNoHistoryModeStatus";
 NSString * const KeyNoImageModeStatus = @"KeyNoImageModeStatus";
 NSString * const KeyBlockBaiduADStatus = @"KeyBlockBaiduADStatus";
 NSString * const KeyEyeProtectiveStatus = @"KeyEyeProtectiveStatus";
