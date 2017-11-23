@@ -44,7 +44,6 @@ typedef NS_ENUM(NSUInteger, ExtentionsTableViewCellKind) {
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataArray.count;
 }
@@ -95,7 +94,6 @@ typedef NS_ENUM(NSUInteger, ExtentionsTableViewCellKind) {
 }
 
 #pragma mark - Table view delegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

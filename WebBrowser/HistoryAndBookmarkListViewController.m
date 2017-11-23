@@ -10,7 +10,7 @@
 #import "HistoryAndBookmarkTableViewCell.h"
 #import "HistoryDataManager.h"
 #import "BookmarkDataManager.h"
-
+#import "PreferenceHelper.h"
 static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"HistoryAndBookmarkListTableViewCellIdentifier";
 @interface HistoryAndBookmarkListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) HistoryDataManager *historyDataManager;
@@ -61,6 +61,7 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
         self.title = @"书签列表";
         
     }else{
+        
         //获取历史数据
         _listDataOperationKind = ListDataOperationKindHistory;
         [self getHistoryData];
@@ -118,9 +119,15 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
 #pragma mark - getData
 - (void)getHistoryData{
     WEAK_REF(self)
+    
     _historyDataManager = [[HistoryDataManager alloc] initWithCompletion:^(BOOL isNoMoreData){
         STRONG_REF(self_)
         if (self__) {
+            
+            if ([PreferenceHelper boolForKey:KeyHistoryModeStatus]) {
+                
+                [self__.historyDataManager deleleAllHistoryRecords];
+            }
             [self__.mainTableView reloadData];
             
         }

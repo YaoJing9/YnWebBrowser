@@ -13,7 +13,7 @@ extern NSString * const KeyBlockBaiduADStatus;
 extern NSString * const KeyEyeProtectiveStatus;
 extern NSString * const KeyEyeProtectiveColorKind;
 extern NSString * const KeyPasteboardURL;
-
+extern NSString * const KeyHistoryModeStatus;
 @interface PreferenceHelper : NSObject
 
 + (void)setBool:(BOOL)value forKey:(NSString *)defaultName;
