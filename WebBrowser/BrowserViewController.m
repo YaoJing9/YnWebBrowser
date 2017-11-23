@@ -291,13 +291,51 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 }
 
 - (void)moreSettingBtnClick{
+    WS(weakSelf);
     [MoreSettingView showInsertionViewSuccessBlock:^{
         
     } clickBlock:^{
         
     } removeBlock:^{
         
+    } btnClickBlock:^(NSInteger index) {
+        [weakSelf moreSettingClick:index];
     }];
+}
+
+- (void)moreSettingClick:(NSInteger)index{
+    switch (index) {
+        case 0:
+            
+            break;
+        case 1:
+            
+            break;
+        case 2:
+            
+            break;
+        case 3:
+            
+            break;
+        case 4:
+            
+            break;
+        case 5:
+            
+            break;
+        case 6:
+            
+            break;
+        case 7:
+            
+            break;
+        case 8:
+            
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
