@@ -304,6 +304,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 }
 
 - (void)moreSettingClick:(NSInteger)index{
+    
+    SettingsTableViewController *settingVc = [[SettingsTableViewController alloc] init];
+    HistoryAndBookmarkListViewController *historyAndBookmarkVc = [[HistoryAndBookmarkListViewController alloc] init];
     switch (index) {
         case 0:
             
@@ -322,15 +325,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             break;
         case 5:
             
+            historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
+            [self.navigationController pushViewController: historyAndBookmarkVc animated:YES];
             break;
         case 6:
-            
+            [self addBookmark];
             break;
         case 7:
             
             break;
         case 8:
-            
+            [self.navigationController pushViewController: settingVc animated:YES];
             break;
             
         default:

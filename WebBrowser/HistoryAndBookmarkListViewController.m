@@ -13,7 +13,7 @@
 
 static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"HistoryAndBookmarkListTableViewCellIdentifier";
 @interface HistoryAndBookmarkListViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) HistorySQLiteManager *historySQLiteManager;
+@property (nonatomic, strong) HistoryDataManager *historyDataManager;
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
 @end
@@ -34,21 +34,46 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
     self.title = _listDataOperationKind == ListDataOperationKindHistory ? @"浏览历史" : @"书签列表";
     // Do any additional setup after loading the view from its nib.
 }
+- (IBAction)historyAndBookmarkAction:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        //获取书签数据
+    }else{
+        //获取历史数据
+        [self getHistoryData];
+        [self.mainTableView reloadData];
+    }
+}
+#pragma mark - ButtonAction
+
 #pragma mark - TableViewDelegate && TableViewDataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HistoryAndBookmarkTableViewCell *tableCell = [self.mainTableView dequeueReusableCellWithIdentifier:HistoryAndBookmarkListTableViewCellIdentifier];
     if (tableCell == nil) {
         tableCell = [[HistoryAndBookmarkTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:HistoryAndBookmarkListTableViewCellIdentifier];
-        
     }
+    HistoryItemModel *itemModel = [self.historyDataManager historyModelForRowAtIndexPath:indexPath];
+    tableCell.titleLabel.text = itemModel.title;
+    tableCell.urlLabel.text = itemModel.url;
     
     return tableCell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return [_historyDataManager numberOfRowsInSection:section];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50;
+}
+
+
+- (void)getHistoryData{
+    WEAK_REF(self)
+    _historyDataManager = [[HistoryDataManager alloc] initWithCompletion:^(BOOL isNoMoreData){
+        STRONG_REF(self_)
+        if (self__) {
+            [self__.mainTableView reloadData];
+            
+        }
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
