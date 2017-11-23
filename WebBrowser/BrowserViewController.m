@@ -477,7 +477,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
               [self_ addBookmark];
           }],
           [SettingsMenuItem itemWithText:@"书签" image:[UIImage imageNamed:@"album"] action:^{
-              [self_.navigationController pushViewController: HistoryAndBookmarkListViewController.new animated:YES];
+              HistoryAndBookmarkListViewController *vc = [[HistoryAndBookmarkListViewController alloc] init];
+              vc.listDataOperationKind = ListDataOperationKindBookmark;
+              [self_.navigationController pushViewController: vc animated:YES];
              
           }],
           [SettingsMenuItem itemWithText:@"历史" image:[UIImage imageNamed:@"album"] action:^{
@@ -486,8 +488,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
               [self_.navigationController pushViewController: vc animated:YES];
           }],
           [SettingsMenuItem itemWithText:@"设置" image:[UIImage imageNamed:@"album"] action:^{
-              HistoryAndBookmarkListViewController *vc = [[HistoryAndBookmarkListViewController alloc] init];
-              vc.listDataOperationKind = ListDataOperationKindBookmark;
+              SettingsTableViewController *vc = [[SettingsTableViewController alloc] init];
               [self_.navigationController pushViewController: vc animated:YES];
           }],
           [SettingsMenuItem itemWithText:@"拷贝连接" image:[UIImage imageNamed:@"album"] action:^{

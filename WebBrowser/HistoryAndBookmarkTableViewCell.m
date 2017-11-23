@@ -10,6 +10,13 @@
 
 @implementation HistoryAndBookmarkTableViewCell
 
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"HistoryAndBookmarkTableViewCell" owner:nil options:nil] lastObject];
+    }
+    return self;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

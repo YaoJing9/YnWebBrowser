@@ -7,9 +7,13 @@
 //
 
 #import "HistoryAndBookmarkListViewController.h"
+#import "HistoryAndBookmarkTableViewCell.h"
+#import "HistoryDataManager.h"
+
 
 static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"HistoryAndBookmarkListTableViewCellIdentifier";
 @interface HistoryAndBookmarkListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, strong) HistorySQLiteManager *historySQLiteManager;
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
 @end
@@ -32,21 +36,19 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
 }
 #pragma mark - TableViewDelegate && TableViewDataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *tableCell = [self.mainTableView dequeueReusableCellWithIdentifier:HistoryAndBookmarkListTableViewCellIdentifier];
+    HistoryAndBookmarkTableViewCell *tableCell = [self.mainTableView dequeueReusableCellWithIdentifier:HistoryAndBookmarkListTableViewCellIdentifier];
     if (tableCell == nil) {
-        tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:HistoryAndBookmarkListTableViewCellIdentifier];
+        tableCell = [[HistoryAndBookmarkTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:HistoryAndBookmarkListTableViewCellIdentifier];
         
-        tableCell.textLabel.font = [UIFont systemFontOfSize:14];
-        tableCell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     }
-    tableCell.textLabel.text = @"1";
-    tableCell.detailTextLabel.text = @"2";
-    tableCell.imageView.image = [UIImage imageNamed:@"compas"];
     
     return tableCell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 10;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
