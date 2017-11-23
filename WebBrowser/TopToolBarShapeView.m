@@ -10,6 +10,7 @@
 #import "BrowserViewController.h"
 #import "SearchViewController.h"
 #import "TabManager.h"
+#import "YnSearchController.h"
 
 @interface TopToolBarShapeView () <UITextFieldDelegate>
 
@@ -59,11 +60,11 @@
     [self.textField setText:urlOrTitle];
 }
 
-#pragma mark -  UITextFieldDelegate
+#pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     [[TabManager sharedInstance] stopLoadingCurrentWebView];
-    SearchViewController *searchVC = [SearchViewController new];
+    YnSearchController *searchVC = [YnSearchController new];
     searchVC.origTextFieldString = textField.text;
     [[BrowserVC navigationController] pushViewController:searchVC animated:NO];
     return NO;
