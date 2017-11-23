@@ -9,8 +9,5 @@
 #import "BaseViewController.h"
 
 @interface YnSearchController : BaseViewController
-/** 搜索栏 */
-@property (nonatomic, weak) UISearchBar *searchBar;
-
 @property (nonatomic, strong) NSArray *tagsArray;
 @end
