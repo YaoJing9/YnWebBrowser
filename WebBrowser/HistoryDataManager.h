@@ -32,5 +32,5 @@ typedef void(^HistoryDataDeleteCompletion)(BOOL success);
 - (void)getMoreDataWithCompletion:(HistoryDataLoadMoreCompletion)completion;
 - (void)deleteRowAtIndexPath:(NSIndexPath *)indexPath completion:(HistoryDataDeleteCompletion)completion;
 - (void)deleleAllHistoryRecords;
-
++ (void)deleleAllHistoryRecords;
 @end

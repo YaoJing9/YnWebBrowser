@@ -9,7 +9,7 @@
 #import "SettingsTableViewController.h"
 #import "SettingActivityTableViewCell.h"
 #import "NSFileManager+ZWUtility.h"
-
+#import "HistorySQLiteManager.h"
 typedef enum : NSUInteger {
     CellKindForCache,
 } CellKind;
@@ -37,8 +37,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
     
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SettingActivityTableViewCell class]) bundle:nil] forCellReuseIdentifier:SettingActivityTableViewCellIdentifier];
-//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:SettingPlaceholderTableViewCellIdentifier];
+
 }
 
 - (void)handleTableViewSelectAt:(NSInteger)index{
@@ -46,13 +45,9 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您确定清除缓存？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
         UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
-            SettingActivityTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            [cell.activityIndicatorView startAnimating];
-            cell.rightLabel.text = @"";
             
             [self cleanCacheWithURLs:[NSArray arrayWithObjects:[NSURL URLWithString:CachePath], [NSURL URLWithString:TempPath], nil] completionBlock:^{
-                [cell.activityIndicatorView stopAnimating];
-                [cell.rightLabel setText:@"0M"];
+            
             }];
         }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){}];
@@ -60,6 +55,8 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
         [alert addAction:defaultAction];
         [alert addAction:cancelAction];
         [self presentViewController:alert animated:YES completion:nil];
+    }else if (index == 2){
+        [[[HistorySQLiteManager alloc] init] deleteAllHistoryRecords];
     }
 }
 
@@ -160,7 +157,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 }
 
 - (void)dealloc{
-    //DDLogDebug(@"SettingsTableViewController dealloc");
+    NSLog(@"SettingsTableViewController dealloc");
 }
 
 @end
