@@ -13,9 +13,9 @@
 
 @interface BrowserBottomToolBar () <WebViewDelegate, BrowserWebViewDelegate>
 
-@property (nonatomic, weak) UIBarButtonItem *refreshOrStopItem;
-@property (nonatomic, weak) UIBarButtonItem *backItem;
-@property (nonatomic, weak) UIBarButtonItem *forwardItem;
+//@property (nonatomic, weak) UIBarButtonItem *refreshOrStopItem;
+@property (nonatomic, weak) UIButton *backItem;
+@property (nonatomic, weak) UIButton *forwardItem;
 @property (nonatomic, weak) UIButton *coverItem;
 @property (nonatomic, assign) BOOL isRefresh;
 @property (nonatomic, weak) BrowserContainerView *containerView;
@@ -39,28 +39,34 @@
 - (void)initializeView{
     self.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *backItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_BACK_HILIGHT_STRING tag:BottomToolBarBackButtonTag];
+    UIButton *backItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_BACK_HILIGHT_STRING tag:BottomToolBarBackButtonTag];
     self.backItem = backItem;
     [self.backItem setEnabled:NO];
-
-    UIBarButtonItem *forwardItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING tag:BottomToolBarForwardButtonTag];
+    self.backItem.frame = CGRectMake(0, 0, self.width/5.0, self.height);
+    [self addSubview:self.backItem];
+    UIButton *forwardItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING tag:BottomToolBarForwardButtonTag];
     self.forwardItem = forwardItem;
     [self.forwardItem setEnabled:NO];
-    
-    UIBarButtonItem *refreshOrStopItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_STOP_STRING tag:BottomToolBarRefreshOrStopButtonTag];
-    self.isRefresh = NO;
-    self.refreshOrStopItem = refreshOrStopItem;
-    
-    UIBarButtonItem *settingItem = [self createBottomToolBarButtonWithImage:@"菜单" tag:BottomToolBarMoreButtonTag];
+    self.forwardItem.frame = CGRectMake(self.width/5.0, 0, self.width/5.0, self.height);
+    [self addSubview:self.forwardItem];
 
-    UIBarButtonItem *flexibleItem = [self createBottomToolBarButtonWithImage:@"返回首页" tag:BottomToolBarFlexibleButtonTag];
+//    UIBarButtonItem *refreshOrStopItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_STOP_STRING tag:BottomToolBarRefreshOrStopButtonTag];
+//    self.isRefresh = NO;
+//    self.refreshOrStopItem = refreshOrStopItem;
+    
+    UIButton *settingItem = [self createBottomToolBarButtonWithImage:@"菜单" tag:BottomToolBarMoreButtonTag];
+    settingItem.frame = CGRectMake(self.width/5.0 * 2, 0, self.width/5.0, self.height);
+    [self addSubview:settingItem];
 
-    
-    UIBarButtonItem *multiWindowItem = [self createBottomToolBarButtonWithImage:@"框架" tag:BottomToolBarMultiWindowButtonTag];
-    
+    UIButton *flexibleItem = [self createBottomToolBarButtonWithImage:@"返回首页" tag:BottomToolBarFlexibleButtonTag];
+    flexibleItem.frame = CGRectMake(self.width/5.0 * 3, 0, self.width/5.0, self.height);
+    [self addSubview:flexibleItem];
 
-    
-    [self setItems:@[backItem, forwardItem, settingItem,flexibleItem, multiWindowItem] animated:NO];
+    UIButton *multiWindowItem = [self createBottomToolBarButtonWithImage:@"框架" tag:BottomToolBarMultiWindowButtonTag];
+    multiWindowItem.frame = CGRectMake(self.width/5.0 * 4, 0, self.width/5.0, self.height);
+    [self addSubview:multiWindowItem];
+
+//    [self setItems:@[backItem, forwardItem, settingItem,flexibleItem, multiWindowItem] animated:NO];
     
     
     UIButton *coverItem = [UIButton new];
@@ -77,21 +83,22 @@
     }
 }
 
-- (UIBarButtonItem *)createBottomToolBarButtonWithImage:(NSString *)imageName tag:(NSInteger)tag{
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(handleBottomToolBarButtonClicked:)];
+- (UIButton *)createBottomToolBarButtonWithImage:(NSString *)imageName tag:(NSInteger)tag{
+    UIButton *item = [UIButton new];
+    [item setImage:[UIImage imageNamed:imageName] forState:normal];
+    [item addTarget:self action:@selector(handleBottomToolBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     item.tag = tag;
-    item.width = self.width / 5.0f;
     return item;
 }
 
 
 
-- (void)handleBottomToolBarButtonClicked:(UIBarButtonItem *)item{
+- (void)handleBottomToolBarButtonClicked:(UIButton *)item{
     BottomToolBarButtonTag tag;
     
     if (item.tag == BottomToolBarRefreshOrStopButtonTag){
         tag = self.isRefresh ? BottomToolBarRefreshButtonTag : BottomToolBarStopButtonTag;
-        [self setToolBarButtonRefreshOrStop:!_isRefresh];
+//        [self setToolBarButtonRefreshOrStop:!_isRefresh];
     }else if (item.tag == BottomToolBarFlexibleButtonTag){
         [self coverBtnClick];
     }else{
@@ -104,12 +111,12 @@
     }
 }
 
-- (void)setToolBarButtonRefreshOrStop:(BOOL)isRefresh{
-    NSString *imageName = isRefresh ? TOOLBAR_BUTTON_REFRESH_STRING : TOOLBAR_BUTTON_STOP_STRING;
-    self.isRefresh = isRefresh;
-    
-    self.refreshOrStopItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-}
+//- (void)setToolBarButtonRefreshOrStop:(BOOL)isRefresh{
+//    NSString *imageName = isRefresh ? TOOLBAR_BUTTON_REFRESH_STRING : TOOLBAR_BUTTON_STOP_STRING;
+//    self.isRefresh = isRefresh;
+//
+//    self.refreshOrStopItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//}
 
 - (void)updateForwardBackItem{
     if (self.containerView.webView) {
@@ -124,8 +131,8 @@
             self.coverItem.hidden = YES;
         }
         
-        [self.backItem setImage:[[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-        [self.forwardItem setImage:[[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [self.backItem setImage:[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] forState:normal];
+        [self.forwardItem setImage:[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] forState:normal];
     }
 }
 
@@ -140,19 +147,19 @@
 - (void)webView:(BrowserWebView *)webView didFailLoadWithError:(NSError *)error{
     if (IsCurrentWebView(webView)) {
         [self updateForwardBackItem];
-        [self setToolBarButtonRefreshOrStop:YES];
+//        [self setToolBarButtonRefreshOrStop:YES];
     }
 }
 
 - (void)webViewForMainFrameDidFinishLoad:(BrowserWebView *)webView{
     if (IsCurrentWebView(webView)) {
-        [self setToolBarButtonRefreshOrStop:YES];
+//        [self setToolBarButtonRefreshOrStop:YES];
     }
 }
 
 - (void)webViewForMainFrameDidCommitLoad:(BrowserWebView *)webView{
     if (IsCurrentWebView(webView)) {
-        [self setToolBarButtonRefreshOrStop:NO];
+//        [self setToolBarButtonRefreshOrStop:NO];
     }
 }
 
@@ -170,7 +177,7 @@
     BrowserWebView *webView = [notification.userInfo objectForKey:@"webView"];
     if ([webView isKindOfClass:[BrowserWebView class]]) {
         [self updateForwardBackItem];
-        [self setToolBarButtonRefreshOrStop:webView.isMainFrameLoaded];
+//        [self setToolBarButtonRefreshOrStop:webView.isMainFrameLoaded];
     }
 }
 
