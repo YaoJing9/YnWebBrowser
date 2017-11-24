@@ -13,7 +13,7 @@
 
 @interface BrowserBottomToolBar () <WebViewDelegate, BrowserWebViewDelegate>
 
-//@property (nonatomic, weak) UIBarButtonItem *refreshOrStopItem;
+@property (nonatomic, weak) UIBarButtonItem *refreshOrStopItem;
 @property (nonatomic, weak) UIButton *backItem;
 @property (nonatomic, weak) UIButton *forwardItem;
 @property (nonatomic, weak) UIButton *coverItem;
@@ -50,9 +50,9 @@
     self.forwardItem.frame = CGRectMake(self.width/5.0, 0, self.width/5.0, self.height);
     [self addSubview:self.forwardItem];
 
-//    UIBarButtonItem *refreshOrStopItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_STOP_STRING tag:BottomToolBarRefreshOrStopButtonTag];
-//    self.isRefresh = NO;
-//    self.refreshOrStopItem = refreshOrStopItem;
+    UIBarButtonItem *refreshOrStopItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_STOP_STRING tag:BottomToolBarRefreshOrStopButtonTag];
+    self.isRefresh = NO;
+    self.refreshOrStopItem = refreshOrStopItem;
     
     UIButton *settingItem = [self createBottomToolBarButtonWithImage:@"菜单" tag:BottomToolBarMoreButtonTag];
     settingItem.frame = CGRectMake(self.width/5.0 * 2, 0, self.width/5.0, self.height);
@@ -91,32 +91,28 @@
     return item;
 }
 
-
-
-- (void)handleBottomToolBarButtonClicked:(UIButton *)item{
+- (void)handleBottomToolBarButtonClicked:(UIBarButtonItem *)item{
     BottomToolBarButtonTag tag;
     
-    if (item.tag == BottomToolBarRefreshOrStopButtonTag){
+    if (item.tag == BottomToolBarRefreshOrStopButtonTag)
+    {
         tag = self.isRefresh ? BottomToolBarRefreshButtonTag : BottomToolBarStopButtonTag;
-//        [self setToolBarButtonRefreshOrStop:!_isRefresh];
-    }else if (item.tag == BottomToolBarFlexibleButtonTag){
-        [self coverBtnClick];
-    }else{
-        tag = item.tag;
-
+        [self setToolBarButtonRefreshOrStop:!_isRefresh];
     }
+    else
+        tag = item.tag;
     
     if ([self.browserButtonDelegate respondsToSelector:@selector(browserBottomToolBarButtonClickedWithTag:)]) {
         [self.browserButtonDelegate browserBottomToolBarButtonClickedWithTag:tag];
     }
 }
 
-//- (void)setToolBarButtonRefreshOrStop:(BOOL)isRefresh{
-//    NSString *imageName = isRefresh ? TOOLBAR_BUTTON_REFRESH_STRING : TOOLBAR_BUTTON_STOP_STRING;
-//    self.isRefresh = isRefresh;
-//
-//    self.refreshOrStopItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//}
+- (void)setToolBarButtonRefreshOrStop:(BOOL)isRefresh{
+    NSString *imageName = isRefresh ? TOOLBAR_BUTTON_REFRESH_STRING : TOOLBAR_BUTTON_STOP_STRING;
+    self.isRefresh = isRefresh;
+
+    self.refreshOrStopItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+}
 
 - (void)updateForwardBackItem{
     if (self.containerView.webView) {
@@ -132,7 +128,7 @@
         }
         
         [self.backItem setImage:[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] forState:normal];
-        [self.forwardItem setImage:[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] forState:normal];
+        [self.forwardItem setImage:[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] forState:normal];
     }
 }
 

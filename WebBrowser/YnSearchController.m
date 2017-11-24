@@ -121,7 +121,7 @@
     _searchBar.text = _origTextFieldString;
     _searchBar.placeholder=@"搜索或者输入网址";
     [_searchBar setValue:[UIColor colorWithHexString:@"#555555"] forKeyPath:@"_placeholderLabel.textColor"];
-    _searchBar.keyboardType = UIKeyboardTypeASCIICapable;
+    _searchBar.keyboardType = UIKeyboardTypeDefault;
     _searchBar.returnKeyType = UIReturnKeySearch;
     [lable  addSubview:_searchBar];
     [_searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
