@@ -76,10 +76,16 @@
     
     [self.view addSubview:self.tableView];
     
+    [self requestData];
+
+    
+    [self requestAllData];
+
+    
     [self initDataAry];
     
     [self createBgview];
-    
+
     [self initializeView];
     
     self.lastContentOffset = - TOP_TOOL_BAR_HEIGHT;
@@ -89,6 +95,29 @@
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
     
+}
+
+- (void)requestAllData{
+    WS(weakSelf);
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf requestData];
+    }];
+}
+
+- (void)requestData{
+    WS(weakSelf);
+    [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:@"http://m.ieforex.com/talkforexdata/res/getHead.do" parameters:nil success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        
+        [weakSelf endRefresh];
+
+    } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+        [weakSelf endRefresh];
+    }];
+}
+
+-(void)endRefresh{
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

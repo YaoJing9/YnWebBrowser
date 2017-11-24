@@ -25,6 +25,7 @@
 #import "MJRefresh.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
+#import "CMNetworkingTool.h"
 #if DEBUG
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else

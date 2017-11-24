@@ -4,7 +4,6 @@
 //  Created by apple on 16/4/20.
 //  Copyright © 2016年 Apple. All rights reserved.
 //
-#import <AFNetworking/AFNetworking.h>
 typedef NS_ENUM(NSInteger, NetworkingMethodType) {
     NetworkingMethodTypeGet = 0,
     NetworkingMethodTypePost,

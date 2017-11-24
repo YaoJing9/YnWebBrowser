@@ -12,7 +12,7 @@
 #import "BrowserBottomToolBarHeader.h"
 typedef void(^CoverBtnBlock)(void);
 
-@interface BrowserBottomToolBar : UIToolbar
+@interface BrowserBottomToolBar : UIView
 
 @property (nonatomic, weak) id<BrowserBottomToolBarButtonClickedDelegate> browserButtonDelegate;
 @property (nonatomic, copy) CoverBtnBlock coverBtnBlock;

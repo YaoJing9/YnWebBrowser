@@ -49,10 +49,6 @@
     [self.forwardItem setEnabled:NO];
     self.forwardItem.frame = CGRectMake(self.width/5.0, 0, self.width/5.0, self.height);
     [self addSubview:self.forwardItem];
-
-    UIBarButtonItem *refreshOrStopItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_STOP_STRING tag:BottomToolBarRefreshOrStopButtonTag];
-    self.isRefresh = NO;
-    self.refreshOrStopItem = refreshOrStopItem;
     
     UIButton *settingItem = [self createBottomToolBarButtonWithImage:@"菜单" tag:BottomToolBarMoreButtonTag];
     settingItem.frame = CGRectMake(self.width/5.0 * 2, 0, self.width/5.0, self.height);
@@ -65,9 +61,6 @@
     UIButton *multiWindowItem = [self createBottomToolBarButtonWithImage:@"框架" tag:BottomToolBarMultiWindowButtonTag];
     multiWindowItem.frame = CGRectMake(self.width/5.0 * 4, 0, self.width/5.0, self.height);
     [self addSubview:multiWindowItem];
-
-//    [self setItems:@[backItem, forwardItem, settingItem,flexibleItem, multiWindowItem] animated:NO];
-    
     
     UIButton *coverItem = [UIButton new];
     coverItem.frame = CGRectMake(0, 0, self.width/5, self.height);
@@ -127,7 +120,7 @@
             self.coverItem.hidden = YES;
         }
         
-        [self.backItem setImage:[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] forState:normal];
+//        [self.backItem setImage:[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] forState:normal];
         [self.forwardItem setImage:[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] forState:normal];
     }
 }

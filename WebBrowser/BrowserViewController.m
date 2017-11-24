@@ -228,6 +228,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             [weakSelf moreSettingClick:index];
         }];
     }
+    if (tag == BottomToolBarFlexibleButtonTag) {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
         [cardMainView reloadCardMainViewWithCompletionBlock:^{

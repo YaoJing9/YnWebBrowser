@@ -27,7 +27,7 @@
  *设置导航条
  */
 - (void)showNavWithTitle:(NSString *)str backBtnHiden:(BOOL)hiden{
-    _NAVview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    _NAVview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 64)];
     _NAVview.backgroundColor=[UIColor whiteColor];
     _NAVview.alpha = 1.0;
     WS(weakSelf);
@@ -61,7 +61,7 @@
 }
 
 - (void)showCustomeNavBackBtnHiden:(BOOL)hiden{
-    _NAVview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    _NAVview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 64)];
     _NAVview.backgroundColor=[UIColor whiteColor];
     _NAVview.alpha = 1.0;
     [self.view addSubview:_NAVview];
@@ -89,7 +89,7 @@
  */
 - (void)showNavWithTitle:(NSString *)str backBtnHiden:(BOOL)hiden rightBtnTitle:(NSString *)rightBtnTitle rightBtnImage:(NSString *)rightBtnImage;
 {
-    _NAVview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    _NAVview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 64)];
     _NAVview.backgroundColor=[UIColor whiteColor];
     _NAVview.alpha = 1.0;
     if (hiden){}else{
