@@ -73,11 +73,11 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
     }else if (index == 4){
         ExtendedFunctionViewController *vc = [[ExtendedFunctionViewController alloc] init];
         vc.extendedOperationKind = ExtendedOperationKindTOOPENURL;
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }else if (index == 5){
         ExtendedFunctionViewController *vc = [[ExtendedFunctionViewController alloc] init];
         vc.extendedOperationKind = ExtendedOperationKindGUANGGAOGUOLV;
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }
 }
 

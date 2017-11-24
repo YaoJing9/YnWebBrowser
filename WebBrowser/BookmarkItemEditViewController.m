@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
     if (self.operationKind == BookmarkItemOperationKindItemEdit) {
         [self.dataManager editBookmarkItemWithModel:self.itemModel oldIndexPath:self.indexPath finalIndexPath:self.finalIndexPath completion:^(BOOL success){
             completion(success);
-            [self_.navigationController dismissViewControllerAnimated:YES completion:^{
+            [self_.navigationController dismissViewControllerAnimated:NO completion:^{
                 
             }];
         }];

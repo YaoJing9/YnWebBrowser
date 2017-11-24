@@ -249,10 +249,10 @@
         BrowserViewController *vc = [BrowserViewController new];
         vc.url = [self rootSearchStrWebViewWithSug:text];
         vc.fromVCComeInKind = FromVCComeInKindSEARCH;
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
         
     }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
     
 }
@@ -277,7 +277,7 @@
 }
 - (void)canceBtnClick{
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 
 }
 
@@ -303,7 +303,7 @@
 - (void)cancelDidClick
 {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 
 }
 

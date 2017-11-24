@@ -104,9 +104,9 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
     }
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
         BrowserViewController *vc = [BrowserViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }else{
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
     }
     
 }

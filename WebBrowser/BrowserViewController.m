@@ -110,11 +110,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     WS(weakSelf);
     self.bottomToolBar.coverBtnBlock = ^{
         if (weakSelf.fromVCComeInKind == FromVCComeInKindSEARCH) {
-            [weakSelf dismissViewControllerAnimated:YES completion:^{
+            [weakSelf dismissViewControllerAnimated:NO completion:^{
                 
             }];
         }else{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:NO];
         }
     };
 }
@@ -176,6 +176,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 #pragma mark - Handle TopToolBar Scroll
 
 - (void)handleToolBarWithOffset:(CGFloat)offset{
+    return;
     CGRect bottomRect = self.bottomToolBar.frame;
     //缩小toolbar
     if (offset > 0) {
@@ -243,7 +244,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 //        if (_fromVCComeInKind == FromVCComeInKindSEARCH) {
 //            
 //            if (![self.browserContainerView.webView canGoBack]) {
-//                [self dismissViewControllerAnimated:YES completion:^{
+//                [self dismissViewControllerAnimated:NO completion:^{
 //                    
 //                }];
 //            }
@@ -258,7 +259,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     if (tag == BottomToolBarFlexibleButtonTag ) {
         
         if (_fromVCComeInKind == FromVCComeInKindSEARCH) {
-            [self dismissViewControllerAnimated:YES completion:^{
+            [self dismissViewControllerAnimated:NO completion:^{
                 
             }];
         }else{
@@ -331,7 +332,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         return;
     }
     UITableViewController *vc = [[class alloc] initWithStyle:style];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 - (void)handleCopyURLButtonClicked{
