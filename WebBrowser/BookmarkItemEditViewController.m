@@ -100,13 +100,19 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
     if (self.operationKind == BookmarkItemOperationKindItemEdit) {
         [self.dataManager editBookmarkItemWithModel:self.itemModel oldIndexPath:self.indexPath finalIndexPath:self.finalIndexPath completion:^(BOOL success){
             completion(success);
-            [self_.navigationController popViewControllerAnimated:YES];
+            [self_.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
         }];
     }
     else{
         [self.dataManager addBookmarkWithURL:self.itemModel.url title:self.itemModel.title sectionIndex:self.finalIndexPath.section completion:^(BOOL success){
             completion(success);
+            [self_.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
         }];
+        
     }
 }
 

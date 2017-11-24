@@ -59,6 +59,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     self.lastContentOffset = - TOP_TOOL_BAR_HEIGHT;
     
     [[DelegateManager sharedInstance] registerDelegate:self forKeys:@[DelegateManagerWebView, DelegateManagerFindInPageBarDelegate]];
+    
     [[KeyboardHelper sharedInstance] addDelegate:self];
     
     self.restorationIdentifier = NSStringFromClass([self class]);
@@ -78,6 +79,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     self.browserContainerView = ({
         BrowserContainerView *browserContainerView = [[BrowserContainerView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        browserContainerView.url = self.url;
         [self.view addSubview:browserContainerView];
         
         self.browserButtonDelegate = browserContainerView;

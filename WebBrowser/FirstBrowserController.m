@@ -406,6 +406,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BrowserViewController *vc = [BrowserViewController new];
+    vc.url = @"http://blog.csdn.net/tony0822/article/details/50547964";
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 

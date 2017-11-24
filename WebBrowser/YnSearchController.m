@@ -10,6 +10,7 @@
 #import "MLSearchResultsTableViewController.h"
 #import "HistoryRecordCell.h"
 #import "BrowserViewController.h"
+#import "HttpHelper.h"
 #define PYSEARCH_SEARCH_HISTORY_CACHE_PATH [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MLSearchhistories.plist"] // 搜索历史存储路径
 
 @interface YnSearchController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -31,36 +32,6 @@
 
 @implementation YnSearchController
 
-- (MLSearchResultsTableViewController *)searchSuggestionVC
-{
-    if (!_searchSuggestionVC) {
-        MLSearchResultsTableViewController *searchSuggestionVC = [[MLSearchResultsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        __weak typeof(self) _weakSelf = self;
-        searchSuggestionVC.didSelectText = ^(NSString *didSelectText) {
-            
-            if ([didSelectText isEqualToString:@""]) {
-                [self.searchBar resignFirstResponder];
-            }
-            else
-            {
-                // 设置搜索信息
-                _weakSelf.searchBar.text = didSelectText;
-                
-                // 缓存数据并且刷新界面
-                [_weakSelf saveSearchCacheAndRefreshView];
-            }
-            
-            
-        };
-        searchSuggestionVC.view.frame = CGRectMake(0, 64, self.view.width, self.view.height);
-        searchSuggestionVC.view.backgroundColor = [UIColor whiteColor];
-        
-        [self.view addSubview:searchSuggestionVC.view];
-        [self addChildViewController:searchSuggestionVC];
-        _searchSuggestionVC = searchSuggestionVC;
-    }
-    return _searchSuggestionVC;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -248,13 +219,13 @@
     if (text.length != 0) {
         [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[text] key:DelegateManagerBrowserContainerLoadURL];
         // 缓存数据并且刷新界面
-        [self saveSearchCacheAndRefreshView];
+        [self saveSearchCacheAndRefreshView:text];
     }else{
         
     }
 }
 /** 进入搜索状态调用此方法 */
-- (void)saveSearchCacheAndRefreshView
+- (void)saveSearchCacheAndRefreshView:(NSString *)text
 {
     UITextField *searchBar = self.searchBar;
     // 回收键盘
@@ -273,14 +244,28 @@
     
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
         BrowserViewController *vc = [BrowserViewController new];
+        
+        vc.url = [self rootSearchStrWebViewWithSug:text];
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     
 }
-
-
+//解决冲首页第一次搜索不显示的问题
+- (NSString *)rootSearchStrWebViewWithSug:(NSString *)text{
+    
+    NSString *urlString = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (![HttpHelper isURL:urlString]) {
+        urlString = [NSString stringWithFormat:BAIDU_SEARCH_URL,[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }
+    else{
+        if (![urlString hasPrefix:@"http://"] && ![urlString hasPrefix:@"https://"]) {
+            urlString = [NSString stringWithFormat:@"http://%@",urlString];
+        }
+    }
+    return urlString;
+}
 
 #pragma mark - 分割线
 - (void)canceBtnClick{
