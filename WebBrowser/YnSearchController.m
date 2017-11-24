@@ -64,6 +64,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self showNavWithTitle:@"" backBtnHiden:YES];
+    self.NAVLine.hidden = YES;
     self.searchHistoriesCount = 20;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64) style:UITableViewStylePlain];
@@ -211,9 +212,6 @@
         clowBtn = flbutton;
     }
     
-    
-    
-    
 //    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 30)];
 //    UILabel *footLabel = [[UILabel alloc] initWithFrame:footView.frame];
 //    footLabel.textColor = [UIColor grayColor];
@@ -224,6 +222,7 @@
 //    [footLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(emptySearchHistoryDidClick)]];
 //    [footView addSubview:footLabel];
 //    self.tableView.tableFooterView = footView;
+    
 }
 
 #pragma mark-键盘的监听事件
@@ -235,10 +234,10 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-
-}
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self searchUrlForWebView:textField.text];
     return YES;
 }
@@ -248,16 +247,14 @@
         [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[text] key:DelegateManagerBrowserContainerLoadURL];
         // 缓存数据并且刷新界面
         [self saveSearchCacheAndRefreshView];
-        
     }else{
         
     }
-    
 }
 
 - (void)canceBtnClick{
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)tagsViewWithTag

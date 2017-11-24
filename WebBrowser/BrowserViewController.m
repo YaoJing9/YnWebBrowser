@@ -26,10 +26,7 @@
 #import "ExtentionsTableViewController.h"
 #import "MoreSettingView.h"
 #import "HistoryAndBookmarkListViewController.h"
-
 #import "ExtendedFunctionViewController.h"
-
-
 
 static NSString *const kBrowserViewControllerAddBookmarkSuccess = @"添加书签成功";
 static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签失败";
@@ -107,6 +104,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
         toolBar;
     });
+    WS(weakSelf);
+    self.bottomToolBar.coverBtnBlock = ^{
+        [weakSelf.navigationController popViewControllerAnimated:NO];
+    };
 }
 
 #pragma mark - Notification

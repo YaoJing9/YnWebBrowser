@@ -213,11 +213,9 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
     YnSearchController *vc = [[YnSearchController alloc] init];
-    vc.tagsArray = @[@"卜卜芥", @"卜人参", @"卜卜人发", @"儿茶", @"八角", @"三卜七", @"广白", @"大黄", @"大黄", @"广卜卜卜丹"];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav  animated:YES completion:nil];
+    [self presentViewController:nav  animated:NO completion:nil];
 }
 
 - (void)buttonAction:(UIButton *)btn{
@@ -434,25 +432,28 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-        if (scrollView.contentOffset.y > _oldOffset) {//如果当前位移大于缓存位移，说明scrollView向上滑动
+        if (scrollView.contentOffset.y >= _oldOffset) {//如果当前位移大于缓存位移，说明scrollView向上滑动
             
-            [UIView animateWithDuration:.2 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 CGRect bottomRect = self.bottomToolBar.frame;
                 bottomRect.origin.y = self.view.height;
                 self.bottomToolBar.frame = bottomRect;
             }];
         }else{
-            [UIView animateWithDuration:.2 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 CGRect bottomRect = self.bottomToolBar.frame;
                 bottomRect.origin.y = self.view.height - BOTTOM_TOOL_BAR_HEIGHT;
                 self.bottomToolBar.frame = bottomRect;
             }];
         }
         
-        _oldOffset = scrollView.contentOffset.y;//将当前位移变成缓存位移
     
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    // 获取开始拖拽时tableview偏移量
+    _oldOffset = scrollView.contentOffset.y;
+}
 
 - (void)addBookmark{
 

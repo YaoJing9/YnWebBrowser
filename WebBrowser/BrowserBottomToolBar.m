@@ -16,6 +16,7 @@
 @property (nonatomic, weak) UIBarButtonItem *refreshOrStopItem;
 @property (nonatomic, weak) UIBarButtonItem *backItem;
 @property (nonatomic, weak) UIBarButtonItem *forwardItem;
+@property (nonatomic, weak) UIButton *coverItem;
 @property (nonatomic, assign) BOOL isRefresh;
 @property (nonatomic, weak) BrowserContainerView *containerView;
 
@@ -41,7 +42,7 @@
     UIBarButtonItem *backItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_BACK_HILIGHT_STRING tag:BottomToolBarBackButtonTag];
     self.backItem = backItem;
     [self.backItem setEnabled:NO];
-    
+
     UIBarButtonItem *forwardItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING tag:BottomToolBarForwardButtonTag];
     self.forwardItem = forwardItem;
     [self.forwardItem setEnabled:NO];
@@ -50,13 +51,30 @@
     self.isRefresh = NO;
     self.refreshOrStopItem = refreshOrStopItem;
     
-    UIBarButtonItem *multiWindowItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_MULTIWINDOW_STRING tag:BottomToolBarMultiWindowButtonTag];
-    
-    UIBarButtonItem *settingItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_MORE_STRING tag:BottomToolBarMoreButtonTag];
+    UIBarButtonItem *settingItem = [self createBottomToolBarButtonWithImage:@"菜单" tag:BottomToolBarMoreButtonTag];
 
-    UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *flexibleItem = [self createBottomToolBarButtonWithImage:@"返回首页" tag:BottomToolBarFlexibleButtonTag];
+
     
-    [self setItems:@[backItem, forwardItem, settingItem, multiWindowItem, flexibleItem] animated:NO];
+    UIBarButtonItem *multiWindowItem = [self createBottomToolBarButtonWithImage:@"框架" tag:BottomToolBarMultiWindowButtonTag];
+    
+
+    
+    [self setItems:@[backItem, forwardItem, settingItem,flexibleItem, multiWindowItem] animated:NO];
+    
+    
+    UIButton *coverItem = [UIButton new];
+    coverItem.frame = CGRectMake(0, 0, self.width/5, self.height);
+    [coverItem addTarget:self action:@selector(coverBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.coverItem = coverItem;
+    [self addSubview:self.coverItem];
+    self.coverItem.hidden = YES;
+}
+
+- (void)coverBtnClick{
+    if (self.coverBtnBlock) {
+        self.coverBtnBlock();
+    }
 }
 
 - (UIBarButtonItem *)createBottomToolBarButtonWithImage:(NSString *)imageName tag:(NSInteger)tag{
@@ -66,16 +84,20 @@
     return item;
 }
 
+
+
 - (void)handleBottomToolBarButtonClicked:(UIBarButtonItem *)item{
     BottomToolBarButtonTag tag;
     
-    if (item.tag == BottomToolBarRefreshOrStopButtonTag)
-    {
+    if (item.tag == BottomToolBarRefreshOrStopButtonTag){
         tag = self.isRefresh ? BottomToolBarRefreshButtonTag : BottomToolBarStopButtonTag;
         [self setToolBarButtonRefreshOrStop:!_isRefresh];
-    }
-    else
+    }else if (item.tag == BottomToolBarFlexibleButtonTag){
+        [self coverBtnClick];
+    }else{
         tag = item.tag;
+
+    }
     
     if ([self.browserButtonDelegate respondsToSelector:@selector(browserBottomToolBarButtonClickedWithTag:)]) {
         [self.browserButtonDelegate browserBottomToolBarButtonClickedWithTag:tag];
@@ -96,8 +118,14 @@
         [self.backItem setEnabled:backItemEnabled];
         [self.forwardItem setEnabled:forwardItemEnabled];
         
-//        [self.backItem setImage:[[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-//        [self.forwardItem setImage:[[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        if (!backItemEnabled) {//返回到最底层webview
+            self.coverItem.hidden = NO;
+        }else{
+            self.coverItem.hidden = YES;
+        }
+        
+        [self.backItem setImage:[[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [self.forwardItem setImage:[[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     }
 }
 
