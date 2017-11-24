@@ -27,14 +27,20 @@
 #import "ExtendedFunctionViewController.h"
 #import "YnSearchController.h"
 #import "BrowserViewController.h"
-@interface FirstBrowserController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,BrowserBottomToolBarButtonClickedDelegate>
+#import <CoreLocation/CoreLocation.h>
+
+#define kSeniverseAPI @"rzk44lplyy7hyai9"
+#define kSeniverseID @"U390895EA3"
+
+
+@interface FirstBrowserController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,BrowserBottomToolBarButtonClickedDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) BrowserBottomToolBar *bottomToolBar;
 @property (nonatomic, assign) CGFloat lastContentOffset;
 @property (nonatomic, assign) BOOL isWebViewDecelerate;
 @property (nonatomic, weak) id<BrowserBottomToolBarButtonClickedDelegate> browserButtonDelegate;
 @property (nonatomic, strong) FindInPageBar *findInPageBar;
 @property (nonatomic, weak) NSLayoutConstraint *findInPageBarbottomLayoutConstaint;
-
+@property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) UITextField *textFiled;
@@ -42,6 +48,7 @@
 @property (nonatomic, strong) NSArray *conentDataAry;
 @property (nonatomic, strong) NSArray *bottomDataAry;
 @property (nonatomic, assign) CGFloat oldOffset;
+@property (nonatomic, strong) NSString *cityLoca;
 
 @end
 
@@ -74,6 +81,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self requestLocation];
+    
     [self.view addSubview:self.tableView];
     
     [self requestData];
@@ -96,6 +105,100 @@
     self.restorationClass = [self class];
     
 }
+
+- (void)requestLocation{
+    self.locationManager = [[CLLocationManager alloc]init];
+    //iOS8之后需要请求权限
+    //判断当前手机系统是否高于8.0
+    if([UIDevice currentDevice].systemVersion.floatValue >= 8.0)
+    {
+        //请求使用期间访问位置信息权限
+        [self.locationManager requestWhenInUseAuthorization];
+        //请求一直访问位置信息权限
+        //[locationManager requestAlwaysAuthorization];
+    }
+    //定位精度 kCLLocationAccuracyBest：最精确
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    //多少米之外去更新用户位置
+    _locationManager.distanceFilter = 100;
+    //设置代理
+    self.locationManager.delegate = self;
+    //开始定位
+    [self.locationManager startUpdatingLocation];
+    NSLog(@"开始定位");
+}
+
+//定位代理方法
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    
+    CLLocation *location = locations.lastObject;
+    
+    [self loadWeatherWith:location];
+    
+    //反地理编码
+    CLGeocoder *geocoder = [CLGeocoder new];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        //放错处理
+        if (placemarks.count == 0 || error) {
+           //定位出错
+            return;
+        }
+        
+        for (CLPlacemark *placemark in placemarks) {
+            
+            //将当前位置赋给控制器属性
+            self.cityLoca = [NSString stringWithFormat:@"%@%@", placemark.locality, placemark.subLocality];
+            
+            //根据当前位置请求天气数据
+            [self loadWeatherWith:placemark.location];
+            
+
+            NSString *ci = [NSString stringWithFormat:@"定位完成\n当前位置：%@", self.cityLoca];
+            NSLog(@"%@", ci);
+        }
+        
+    }];
+    
+    [self.locationManager stopUpdatingLocation];
+    
+}
+
+//请求天气数据方法
+- (void) loadWeatherWith:(CLLocation *)loca {
+    
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *la = [ud objectForKey:@"latitude"];
+    NSString *lo = [ud objectForKey:@"longitude"];
+    self.cityLoca = [ud objectForKey:@"city"];
+    loca = [[CLLocation alloc] initWithLatitude:[la floatValue] longitude:[lo floatValue]];
+    
+    NSString *API = kSeniverseAPI;
+//    NSString *location;
+    NSString *language;
+    NSString *unit;
+
+    NSString *tempURLStr = [NSString stringWithFormat:@"https://api.seniverse.com/v3/weather/now.json?key=%@&location=%@&language=%@&unit=%@", API, loca, language, @"c"];
+
+    
+    [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:nil success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        
+        
+    } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+        
+    }];
+    
+}
+
+
+
+
+
+
+
+
+
+
 
 - (void)requestAllData{
     WS(weakSelf);
@@ -146,6 +249,55 @@
     imageView.image = [UIImage imageNamed:@"版头"];
     _tableView.tableHeaderView = bgView;
     
+    UIView *weatherView = [UIView new];
+    [bgView addSubview:weatherView];
+    [weatherView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bgView).offset(20);
+        make.left.equalTo(bgView).offset(0);
+        make.right.equalTo(bgView);
+        make.height.equalTo(@70);
+    }];
+    
+    
+    UILabel *weaLabel = [UILabel new];
+    weaLabel.text = @"15";
+    weaLabel.textColor = [UIColor whiteColor];
+    weaLabel.font = [UIFont systemFontOfSize:45];
+    [weatherView addSubview:weaLabel];
+    [weaLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weatherView);
+        make.left.equalTo(weatherView).offset(22);
+    }];
+    
+    UILabel *locationLabel = [UILabel new];
+    locationLabel.text = @"浦东新区 小雨";
+    locationLabel.textColor = [UIColor whiteColor];
+    locationLabel.font = [UIFont systemFontOfSize:13];
+    [weatherView addSubview:locationLabel];
+    [locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weaLabel).offset(10);
+        make.left.equalTo(weaLabel.mas_right).offset(20);
+    }];
+    
+    UILabel *numberLabel = [UILabel new];
+    numberLabel.text = @"71 空气良";
+    numberLabel.textColor = [UIColor whiteColor];
+    numberLabel.font = [UIFont systemFontOfSize:13];
+    [weatherView addSubview:numberLabel];
+    [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weaLabel).offset(-10);
+        make.left.equalTo(locationLabel);
+    }];
+    
+    UIImageView *leftImgView = [UIImageView new];
+    leftImgView.image = [UIImage imageNamed:@"天气云"];
+    [weatherView addSubview:leftImgView];
+    [leftImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weatherView);
+        make.width.equalTo(@35);
+        make.height.equalTo(@34);
+        make.right.equalTo(weatherView.mas_right).offset(-15);
+    }];
     
     
     

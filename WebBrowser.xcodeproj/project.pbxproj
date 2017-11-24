@@ -185,6 +185,7 @@
 		BF4EFD371FC7E1A600BCDD84 /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD141FC7E1A600BCDD84 /* NSObject+MJProperty.m */; };
 		BF4EFD381FC7E1A600BCDD84 /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD161FC7E1A600BCDD84 /* NSString+MJExtension.m */; };
 		BF4EFD391FC7E1A600BCDD84 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFD171FC7E1A600BCDD84 /* README.md */; };
+		BF4EFD3C1FC7F73900BCDD84 /* CHMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */; };
 		E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */; };
 		E813B9FC1FB5998000470ECD /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DC1FB5997F00470ECD /* EXTScope.m */; };
 		E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9E01FB5997F00470ECD /* MTLJSONAdapter.m */; };
@@ -608,6 +609,8 @@
 		BF4EFD151FC7E1A600BCDD84 /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
 		BF4EFD161FC7E1A600BCDD84 /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
 		BF4EFD171FC7E1A600BCDD84 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BF4EFD3A1FC7F73900BCDD84 /* CHMLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMLocationManager.h; sourceTree = "<group>"; };
+		BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMLocationManager.m; sourceTree = "<group>"; };
 		E813B9D81FB5997F00470ECD /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
 		E813B9D91FB5997F00470ECD /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
@@ -1226,6 +1229,8 @@
 			children = (
 				BF4EFCCB1FC7D5FB00BCDD84 /* CMNetworkingTool.h */,
 				BF4EFCCA1FC7D5FB00BCDD84 /* CMNetworkingTool.m */,
+				BF4EFD3A1FC7F73900BCDD84 /* CHMLocationManager.h */,
+				BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */,
 				BF4EFCBE1FC6AE2200BCDD84 /* YJHelp.h */,
 				BF4EFCBD1FC6AE2100BCDD84 /* YJHelp.m */,
 				0E681F641D4AFEAA003534F5 /* KeyboardHelper.h */,
@@ -2210,6 +2215,7 @@
 				BF4EFCB91FC6746300BCDD84 /* MLSearchResultsTableViewController.m in Sources */,
 				0E32E2FF1E08C8F600CFBBB5 /* CardCollectionViewLayout.m in Sources */,
 				0E8013DB1EB0A1B60098BF64 /* BookmarkSectionHeaderView.m in Sources */,
+				BF4EFD3C1FC7F73900BCDD84 /* CHMLocationManager.m in Sources */,
 				0E5CC9DE1E79305E0049ABEB /* SessionData.m in Sources */,
 				0E70780E1E96314000E898A8 /* HistorySQLiteManager.m in Sources */,
 				0E5000511E0B6D60004BA658 /* CardMainBottomView.m in Sources */,

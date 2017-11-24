@@ -19,7 +19,7 @@
 #import "TabManager.h"
 #import "PreferenceHelper.h"
 #import "BaseNavigationViewController.h"
-
+#import <CoreLocation/CoreLocation.h>
 static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A300 Safari/602.1";
 
 @interface AppDelegate ()
@@ -73,9 +73,6 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //[DDLog addLogger:[DDTTYLogger sharedInstance]];
-    //[DDLog addLogger:[DDASLLogger sharedInstance]];
-    //DDLogDebug(@"Home Path : %@", HomePath);
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
                                                          diskCapacity:32 * 1024 * 1024
@@ -104,7 +101,22 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
         [self applicationStartPrepare];
     });
     
+    [self locationQuester];
+    
+    
     return YES;
+}
+
+- (void)locationQuester{
+    
+    if(![CLLocationManager locationServicesEnabled]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"定位服务未打开" preferredStyle:UIAlertControllerStyleAlert];
+        //创建按钮
+        //handler:点击按钮执行的事件
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:action];
+        return;
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
