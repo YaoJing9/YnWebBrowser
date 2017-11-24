@@ -151,7 +151,7 @@
         flbutton.tag = 100 + i;
         flbutton.status = FLAlignmentStatusTop;
         flbutton.fl_padding = 10;
-        [flbutton addTarget:self action:@selector(flbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [flbutton addTarget:self action:@selector(flbuttonAction) forControlEvents:UIControlEventTouchUpInside];
         [self.tagsView addSubview:flbutton];
         if (clowBtn) {
             if (i < 4) {
@@ -272,6 +272,9 @@
 }
 
 #pragma mark - 分割线
+-(void)flbuttonAction{
+    
+}
 - (void)canceBtnClick{
     
     [self dismissViewControllerAnimated:YES completion:nil];
