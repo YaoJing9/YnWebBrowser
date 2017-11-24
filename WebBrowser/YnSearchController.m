@@ -9,6 +9,7 @@
 #import "YnSearchController.h"
 #import "MLSearchResultsTableViewController.h"
 #import "HistoryRecordCell.h"
+#import "BrowserViewController.h"
 #define PYSEARCH_SEARCH_HISTORY_CACHE_PATH [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MLSearchhistories.plist"] // 搜索历史存储路径
 
 @interface YnSearchController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -241,8 +242,9 @@
     [self searchUrlForWebView:textField.text];
     return YES;
 }
-
+#pragma mark - 主要回调方法
 -(void)searchUrlForWebView:(NSString *)text{
+    
     if (text.length != 0) {
         [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[text] key:DelegateManagerBrowserContainerLoadURL];
         // 缓存数据并且刷新界面
@@ -251,10 +253,44 @@
         
     }
 }
+/** 进入搜索状态调用此方法 */
+- (void)saveSearchCacheAndRefreshView
+{
+    UITextField *searchBar = self.searchBar;
+    // 回收键盘
+    [searchBar resignFirstResponder];
+    // 先移除再刷新
+    [self.searchHistories removeObject:searchBar.text];
+    [self.searchHistories insertObject:searchBar.text atIndex:0];
+    
+    // 移除多余的缓存
+    if (self.searchHistories.count > self.searchHistoriesCount) {
+        // 移除最后一条缓存
+        [self.searchHistories removeLastObject];
+    }
+    // 保存搜索信息
+    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:self.searchHistoriesCachePath];
+    
+    if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
+        BrowserViewController *vc = [BrowserViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+}
 
+
+
+#pragma mark - 分割线
 - (void)canceBtnClick{
     
-    [self dismissViewControllerAnimated:NO completion:nil];
+    if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+
 }
 
 - (void)tagsViewWithTag
@@ -278,7 +314,12 @@
 
 - (void)cancelDidClick
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
+        BrowserViewController *vc = [BrowserViewController new];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 /** 视图完全显示 */
@@ -388,26 +429,7 @@
     [self.tableView reloadData];
 }
 
-/** 进入搜索状态调用此方法 */
-- (void)saveSearchCacheAndRefreshView
-{
-    UITextField *searchBar = self.searchBar;
-    // 回收键盘
-    [searchBar resignFirstResponder];
-    // 先移除再刷新
-    [self.searchHistories removeObject:searchBar.text];
-    [self.searchHistories insertObject:searchBar.text atIndex:0];
-    
-    // 移除多余的缓存
-    if (self.searchHistories.count > self.searchHistoriesCount) {
-        // 移除最后一条缓存
-        [self.searchHistories removeLastObject];
-    }
-    // 保存搜索信息
-    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:self.searchHistoriesCachePath];
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-}
+
 
 - (void)closeDidClick:(UIButton *)sender
 {

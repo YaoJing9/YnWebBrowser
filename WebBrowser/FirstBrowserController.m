@@ -214,6 +214,7 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     YnSearchController *vc = [[YnSearchController alloc] init];
+    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav  animated:NO completion:nil];
 }

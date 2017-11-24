@@ -8,8 +8,16 @@
 
 #import "BaseViewController.h"
 
+typedef NS_ENUM(NSInteger, FromVCComeInKind) {
+    FromVCComeInKindROOTVC = 0,
+    FromVCComeInKindWEBVIEW
+};
+
+
 @interface YnSearchController : BaseViewController
 @property (nonatomic, strong) NSArray *tagsArray;
 @property (nonatomic, strong) NSString *origTextFieldString;
+@property (nonatomic, assign) FromVCComeInKind fromVCComeInKind;
+
 @end
 
