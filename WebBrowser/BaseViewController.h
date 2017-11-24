@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSInteger, FromVCComeInKind) {
     FromVCComeInKindROOTVC = 0,
-    FromVCComeInKindWEBVIEW
+    FromVCComeInKindWEBVIEW = 1,
+    FromVCComeInKindSEARCH = 2
 };
 
 @interface BaseViewController : UIViewController

@@ -16,5 +16,6 @@ typedef void(^CoverBtnBlock)(void);
 
 @property (nonatomic, weak) id<BrowserBottomToolBarButtonClickedDelegate> browserButtonDelegate;
 @property (nonatomic, copy) CoverBtnBlock coverBtnBlock;
-
+//0 首页 1 web
+@property (nonatomic,assign)NSInteger fromVCComeInKind;
 @end

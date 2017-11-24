@@ -32,7 +32,10 @@
 
 @implementation YnSearchController
 
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self showNavWithTitle:@"" backBtnHiden:YES];
@@ -244,9 +247,10 @@
     
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
         BrowserViewController *vc = [BrowserViewController new];
-        
         vc.url = [self rootSearchStrWebViewWithSug:text];
+        vc.fromVCComeInKind = FromVCComeInKindSEARCH;
         [self.navigationController pushViewController:vc animated:YES];
+        
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -338,7 +342,6 @@
     
     HistoryRecordCell *historyRecordCell = [HistoryRecordCell cellWithTableView:tableView reuseIdentifier:@"HistoryRecordCell"];
     historyRecordCell.title = self.searchHistories[indexPath.row];
-
     return historyRecordCell;
 }
 
