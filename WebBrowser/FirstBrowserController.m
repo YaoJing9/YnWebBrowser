@@ -316,6 +316,7 @@
     
     SettingsTableViewController *settingVc = [[SettingsTableViewController alloc] init];
     HistoryAndBookmarkListViewController *historyAndBookmarkVc = [[HistoryAndBookmarkListViewController alloc] init];
+    
     ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
     switch (index) {
         case 0:
@@ -339,6 +340,7 @@
         case 5:
             
             historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
+            historyAndBookmarkVc.fromVCComeInKind = FromVCComeInKindROOTVC;
             [self.navigationController pushViewController: historyAndBookmarkVc animated:YES];
             break;
         case 6:

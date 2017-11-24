@@ -285,11 +285,7 @@
 #pragma mark - 分割线
 - (void)canceBtnClick{
     
-    if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 
 }
 
@@ -314,12 +310,9 @@
 
 - (void)cancelDidClick
 {
-    if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
-        BrowserViewController *vc = [BrowserViewController new];
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 /** 视图完全显示 */

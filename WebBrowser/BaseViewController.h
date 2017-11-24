@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, FromVCComeInKind) {
+    FromVCComeInKindROOTVC = 0,
+    FromVCComeInKindWEBVIEW
+};
+
 @interface BaseViewController : UIViewController
 @property (nonatomic, strong) NSMutableDictionary *loadingUrlDict;
 @property (nonatomic, strong) UIView *NAVview;

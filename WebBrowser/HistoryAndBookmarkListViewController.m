@@ -10,6 +10,7 @@
 #import "HistoryDataManager.h"
 #import "BookmarkDataManager.h"
 #import "PreferenceHelper.h"
+#import "BrowserViewController.h"
 static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"HistoryAndBookmarkListTableViewCellIdentifier";
 @interface HistoryAndBookmarkListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) HistoryDataManager *historyDataManager;
@@ -91,16 +92,22 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
         HistoryItemModel *itemModel = [self.historyDataManager historyModelForRowAtIndexPath:indexPath];
         
         [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[itemModel.url] key:DelegateManagerBrowserContainerLoadURL];
-        [self.navigationController popViewControllerAnimated:NO];
+        
     }else{
         BookmarkItemModel *model = [self.dataManager bookmarkModelForRowAtIndexPath:indexPath];
         
         if (model.url.length > 0) {
             [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[model.url] key:DelegateManagerBrowserContainerLoadURL];
-            [self.navigationController popViewControllerAnimated:YES];
+            
+            
         }
     }
-    
+    if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
+        BrowserViewController *vc = [BrowserViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     
 }
 #pragma mark - getData

@@ -272,6 +272,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         case 5:
             
             historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
+            historyAndBookmarkVc.fromVCComeInKind = FromVCComeInKindWEBVIEW;
             [self.navigationController pushViewController: historyAndBookmarkVc animated:YES];
             break;
         case 6:

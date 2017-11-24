@@ -13,6 +13,8 @@ typedef NS_ENUM(NSInteger, ListDataOperationKind) {
     ListDataOperationKindBookmark
 };
 
+
 @interface HistoryAndBookmarkListViewController : BaseViewController
 @property(nonatomic,assign)ListDataOperationKind listDataOperationKind;
+@property (nonatomic, assign) FromVCComeInKind fromVCComeInKind;
 @end
