@@ -528,7 +528,6 @@
             [self addBookmark];
             break;
         case 7:
-            
             break;
         case 8:
             [self.navigationController pushViewController: settingVc animated:YES];
@@ -558,8 +557,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BrowserViewController *vc = [BrowserViewController new];
-    vc.url = @"http://blog.csdn.net/tony0822/article/details/50547964";
-    
+    vc.url = @"http://www.baidu.com";
+    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -569,6 +568,7 @@
     
     self.bottomToolBar = ({
         BrowserBottomToolBar *toolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
+        toolBar.fromVCComeInKind = 0;
         [self.view addSubview:toolBar];
         
         toolBar.browserButtonDelegate = self;

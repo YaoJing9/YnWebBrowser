@@ -98,6 +98,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     self.bottomToolBar = ({
         BrowserBottomToolBar *toolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
+        toolBar.fromVCComeInKind = 1;
         [self.view addSubview:toolBar];
         
         toolBar.browserButtonDelegate = self;
@@ -108,7 +109,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     });
     WS(weakSelf);
     self.bottomToolBar.coverBtnBlock = ^{
-        [weakSelf.navigationController popViewControllerAnimated:NO];
+        if (weakSelf.fromVCComeInKind == FromVCComeInKindSEARCH) {
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }else{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }
     };
 }
 
@@ -219,6 +226,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     if ([self.browserButtonDelegate respondsToSelector:@selector(browserBottomToolBarButtonClickedWithTag:)]) {
         [self.browserButtonDelegate browserBottomToolBarButtonClickedWithTag:tag];
     }
+
     if (tag == BottomToolBarMoreButtonTag) {
         [MoreSettingView showInsertionViewSuccessBlock:^{
             
@@ -230,8 +238,32 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             [weakSelf moreSettingClick:index];
         }];
     }
-    if (tag == BottomToolBarFlexibleButtonTag) {
-        [self.navigationController popViewControllerAnimated:NO];
+    
+//    if (tag == BottomToolBarBackButtonTag) {
+//        if (_fromVCComeInKind == FromVCComeInKindSEARCH) {
+//            
+//            if (![self.browserContainerView.webView canGoBack]) {
+//                [self dismissViewControllerAnimated:YES completion:^{
+//                    
+//                }];
+//            }
+//        }else{
+//            if (![self.browserContainerView.webView canGoBack]) {
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }
+//            
+//        }
+//    }
+    
+    if (tag == BottomToolBarFlexibleButtonTag ) {
+        
+        if (_fromVCComeInKind == FromVCComeInKindSEARCH) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }else{
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];

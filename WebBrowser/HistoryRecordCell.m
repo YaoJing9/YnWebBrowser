@@ -12,7 +12,7 @@
 @interface HistoryRecordCell ()
 
 @property(nonatomic ,strong)UILabel *titleLabel;
-
+@property(nonatomic ,strong)UILabel *linkLabel;
 @end
 @implementation HistoryRecordCell
 
@@ -60,23 +60,25 @@
     
     self.titleLabel = titleLabel;
     
-    UILabel *linkLabel = [UILabel new];
-    linkLabel.text = @"baidu.com";
-    linkLabel.textColor = [UIColor colorWithHexString:@"#4b94f7"];
-    linkLabel.font = [UIFont systemFontOfSize:11];
-    [self.contentView addSubview:linkLabel];
-    [linkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(leftImgView.mas_right).offset(5);
-        make.height.equalTo(@15);
-        make.top.equalTo(titleLabel.mas_bottom);
-    }];
+//    UILabel *linkLabel = [UILabel new];
+//    linkLabel.text = @"baidu.com";
+//    linkLabel.textColor = [UIColor colorWithHexString:@"#4b94f7"];
+//    linkLabel.font = [UIFont systemFontOfSize:11];
+//    [self.contentView addSubview:linkLabel];
+//    [linkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(leftImgView.mas_right).offset(5);
+//        make.height.equalTo(@15);
+//        make.top.equalTo(titleLabel.mas_bottom);
+//    }];
     
 }
 
 - (void)setTitle:(NSString *)title{
     self.titleLabel.text = title;
 }
-
+-(void)setUrlStr:(NSString *)urlStr{
+    self.linkLabel.text = urlStr;
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
 }

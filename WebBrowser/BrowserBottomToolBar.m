@@ -10,7 +10,7 @@
 #import "TabManager.h"
 #import "DelegateManager+WebViewDelegate.h"
 #import "BrowserContainerView.h"
-
+#import "NSObject+DXObject.h"
 @interface BrowserBottomToolBar () <WebViewDelegate, BrowserWebViewDelegate>
 
 @property (nonatomic, weak) UIBarButtonItem *refreshOrStopItem;
@@ -111,16 +111,27 @@
     if (self.containerView.webView) {
         BOOL backItemEnabled = [self.containerView.webView canGoBack];
         BOOL forwardItemEnabled = [self.containerView.webView canGoForward];
-        [self.backItem setEnabled:backItemEnabled];
         [self.forwardItem setEnabled:forwardItemEnabled];
-        
+        [self.backItem setEnabled:backItemEnabled];
+//        if (_fromVCComeInKind == 0) {
+//            [self.backItem setEnabled:NO];
+//            backItemEnabled = NO;
+//        }else{
+//            [self.backItem setEnabled:YES];
+//            backItemEnabled = YES;
+//        }
         if (!backItemEnabled) {//返回到最底层webview
             self.coverItem.hidden = NO;
         }else{
             self.coverItem.hidden = YES;
         }
+        if (_fromVCComeInKind == 0) {
+            [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
+        }else{
+            [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
+            [self.coverItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
+        }
         
-//        [self.backItem setImage:[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] forState:normal];
         [self.forwardItem setImage:[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] forState:normal];
     }
 }

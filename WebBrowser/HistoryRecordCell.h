@@ -10,6 +10,8 @@
 
 @interface HistoryRecordCell : UITableViewCell
 @property(nonatomic ,strong)NSString *title;
+@property(nonatomic ,strong)NSString *urlStr;
+
 + (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier;
 
 @end

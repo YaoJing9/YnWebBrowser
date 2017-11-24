@@ -32,7 +32,10 @@
 
 @implementation YnSearchController
 
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self showNavWithTitle:@"" backBtnHiden:YES];
@@ -148,7 +151,7 @@
         flbutton.tag = 100 + i;
         flbutton.status = FLAlignmentStatusTop;
         flbutton.fl_padding = 10;
-        [flbutton addTarget:self action:@selector(flbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [flbutton addTarget:self action:@selector(flbuttonAction) forControlEvents:UIControlEventTouchUpInside];
         [self.tagsView addSubview:flbutton];
         if (clowBtn) {
             if (i < 4) {
@@ -244,9 +247,10 @@
     
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
         BrowserViewController *vc = [BrowserViewController new];
-        
         vc.url = [self rootSearchStrWebViewWithSug:text];
+        vc.fromVCComeInKind = FromVCComeInKindSEARCH;
         [self.navigationController pushViewController:vc animated:YES];
+        
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -268,6 +272,9 @@
 }
 
 #pragma mark - 分割线
+-(void)flbuttonAction{
+    
+}
 - (void)canceBtnClick{
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -338,7 +345,6 @@
     
     HistoryRecordCell *historyRecordCell = [HistoryRecordCell cellWithTableView:tableView reuseIdentifier:@"HistoryRecordCell"];
     historyRecordCell.title = self.searchHistories[indexPath.row];
-
     return historyRecordCell;
 }
 
