@@ -19,7 +19,7 @@
     [JavaScriptHelper setFindInPageWithWebView:webView];
     
     NSURL *url = [NSURL URLWithString:webView.mainFURL];
-    if ([PreferenceHelper boolDefaultYESForKey:KeyBlockBaiduADStatus] && ([url.host isEqualToString:@"m.baidu.com"] || [url.host isEqualToString:@"www.baidu.com"])) {
+    if ([PreferenceHelper boolDefaultYESForKey:KeyBlockBaiduADStatus] && ([url.host isEqualToString:@"wap.sogou.com"] || [url.host isEqualToString:DEFAULT_CARD_CELL_URL])) {
         [JavaScriptHelper setBaiduADBlockWithWebView:webView];
     }
 }
