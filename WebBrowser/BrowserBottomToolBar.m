@@ -125,8 +125,13 @@
         }else{
             self.coverItem.hidden = YES;
         }
+        if (_fromVCComeInKind == 0) {
+            [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
+        }else{
+            [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
+            [self.coverItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
+        }
         
-        [self.backItem setImage:[UIImage imageNamed:(backItemEnabled ?TOOLBAR_BUTTON_BACK_STRING : TOOLBAR_BUTTON_BACK_HILIGHT_STRING)] forState:normal];
         [self.forwardItem setImage:[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] forState:normal];
     }
 }
