@@ -16,5 +16,5 @@ SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(BrowserViewController)
 - (void)findInPageDidUpdateCurrentResult:(NSInteger)currentResult;
 - (void)findInPageDidUpdateTotalResults:(NSInteger)totalResults;
 - (void)findInPageDidSelectForSelection:(NSString *)selection;
-
+@property(nonatomic,strong)NSString *url;
 @end
