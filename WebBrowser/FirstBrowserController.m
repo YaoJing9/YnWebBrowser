@@ -49,6 +49,10 @@
 @property (nonatomic, strong) NSArray *bottomDataAry;
 @property (nonatomic, assign) CGFloat oldOffset;
 @property (nonatomic, strong) NSString *cityLoca;
+@property (nonatomic, strong) UILabel *cityLabel;
+@property (nonatomic, strong) UILabel *temperatureLabel;
+@property (nonatomic, strong) UIImageView *weatherImgView;
+
 
 @end
 
@@ -61,6 +65,8 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorColor = [UIColor colorWithHexString:@"#dedede"];
+        _tableView.backgroundColor = RGBColor(27, 142, 248);
+
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
@@ -80,7 +86,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self requestLocation];
     
     [self.view addSubview:self.tableView];
@@ -129,28 +134,54 @@
 }
 
 //定位代理方法
- 
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    
+    CLLocation *location = locations.lastObject;
+
+    CLLocationCoordinate2D coordinate = location.coordinate;
+    
+    [self loadWeatherWith:coordinate];
+    
+    //反地理编码
+    CLGeocoder *geocoder = [CLGeocoder new];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        //放错处理
+        if (placemarks.count == 0 || error) {
+           //定位出错
+            return;
+        }
+        
+        for (CLPlacemark *placemark in placemarks) {
+            
+            //将当前位置赋给控制器属性
+            self.cityLoca = [NSString stringWithFormat:@"%@%@", placemark.locality, placemark.subLocality];
+            
+            //根据当前位置请求天气数据
+            [self loadWeatherWith:placemark.location.coordinate];
+            
+
+            NSString *ci = [NSString stringWithFormat:@"定位完成\n当前位置：%@", self.cityLoca];
+            NSLog(@"%@", ci);
+        }
+        
+    }];
+    
+    [self.locationManager stopUpdatingLocation];
+    
+}
+
 //请求天气数据方法
-- (void) loadWeatherWith:(CLLocation *)loca {
+- (void) loadWeatherWith:(CLLocationCoordinate2D)loca {
     
-    
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *la = [ud objectForKey:@"latitude"];
-    NSString *lo = [ud objectForKey:@"longitude"];
-    self.cityLoca = [ud objectForKey:@"city"];
-    loca = [[CLLocation alloc] initWithLatitude:[la floatValue] longitude:[lo floatValue]];
     
     NSString *API = kSeniverseAPI;
-//    NSString *location;
-    NSString *language;
-    NSString *unit;
-
-    NSString *tempURLStr = [NSString stringWithFormat:@"https://api.seniverse.com/v3/weather/now.json?key=%@&location=%@&language=%@&unit=%@", API, loca, language, @"c"];
+    NSString *language = @"zh-Hans";
+    NSString *locastr = [NSString stringWithFormat:@"%.2f:%.2f", loca.latitude, loca.longitude];
+    NSString *tempURLStr = [NSString stringWithFormat:@"https://api.seniverse.com/v3/weather/now.json?key=%@&location=%@&language=%@&unit=%@", API, locastr, language, @"c"];
 
     
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:nil success:^(NSURLSessionDataTask *dataTask, id responseObject) {
-        
-        
+        [self updateWeatherView:responseObject[@"results"]];
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         
     }];
@@ -158,7 +189,93 @@
 }
 
 
+- (void)updateWeatherView:(NSArray *)responseObject{
+    _temperatureLabel.text = [NSString stringWithFormat:@"%@°",  responseObject[0][@"now"][@"temperature"]];
+    _cityLabel.text = [NSString stringWithFormat:@"%@",  responseObject[0][@"location"][@"name"]];
 
+    
+    NSInteger code = [responseObject[0][@"now"][@"code"] integerValue];
+    NSString *imgStr = nil;
+    switch (code) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 38:
+            imgStr = @"0";
+            break;
+            
+        case 4:
+            imgStr = @"4";
+            break;
+        case 5:
+        case 7:
+            imgStr = @"5";
+
+            break;
+        case 6:
+        case 8:
+            imgStr = @"6";
+
+            break;
+        case 9:
+            imgStr = @"9";
+
+            break;
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+        case 16:
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+            imgStr = @"10";
+
+            break;
+        case 21:
+        case 22:
+        case 23:
+        case 24:
+        case 25:
+        case 37:
+            imgStr = @"22";
+            break;
+        case 26:
+        case 27:
+        case 28:
+        case 29:
+            imgStr = @"28";
+
+            break;
+        case 30:
+            imgStr = @"30";
+
+            break;
+        case 31:
+            imgStr = @"31";
+            
+            break;
+            
+        case 32:
+        case 33:
+            imgStr = @"32";
+            
+            break;
+        case 34:
+        case 35:
+        case 36:
+            imgStr = @"34";
+            break;
+        default:
+            break;
+    }
+    _weatherImgView.image = [UIImage imageNamed:imgStr];
+    
+}
 
 
 
@@ -209,6 +326,7 @@
 }
 
 - (void)createBgview{
+    WS(weakSelf);
     UIView *bgView = [UIView new];
     bgView.frame = CGRectMake(0, 0, SCREENWIDTH, 215);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:bgView.bounds];
@@ -226,40 +344,40 @@
     }];
     
     
-    UILabel *weaLabel = [UILabel new];
-    weaLabel.text = @"15";
-    weaLabel.textColor = [UIColor whiteColor];
-    weaLabel.font = [UIFont systemFontOfSize:45];
-    [weatherView addSubview:weaLabel];
-    [weaLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _temperatureLabel = [UILabel new];
+    _temperatureLabel.text = @"15";
+    _temperatureLabel.textColor = [UIColor whiteColor];
+    _temperatureLabel.font = [UIFont systemFontOfSize:45];
+    [weatherView addSubview:_temperatureLabel];
+    [_temperatureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weatherView);
         make.left.equalTo(weatherView).offset(22);
     }];
     
-    UILabel *locationLabel = [UILabel new];
-    locationLabel.text = @"浦东新区 小雨";
-    locationLabel.textColor = [UIColor whiteColor];
-    locationLabel.font = [UIFont systemFontOfSize:13];
-    [weatherView addSubview:locationLabel];
-    [locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weaLabel).offset(10);
-        make.left.equalTo(weaLabel.mas_right).offset(20);
+    _cityLabel = [UILabel new];
+    _cityLabel.text = @"浦东新区 小雨";
+    _cityLabel.textColor = [UIColor whiteColor];
+    _cityLabel.font = [UIFont systemFontOfSize:13];
+    [weatherView addSubview:_cityLabel];
+    [_cityLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.temperatureLabel).offset(10);
+        make.left.equalTo(weakSelf.temperatureLabel.mas_right).offset(20);
     }];
     
     UILabel *numberLabel = [UILabel new];
-    numberLabel.text = @"71 空气良";
+    numberLabel.text = @"空气良";
     numberLabel.textColor = [UIColor whiteColor];
     numberLabel.font = [UIFont systemFontOfSize:13];
     [weatherView addSubview:numberLabel];
     [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weaLabel).offset(-10);
-        make.left.equalTo(locationLabel);
+        make.bottom.equalTo(weakSelf.temperatureLabel).offset(-10);
+        make.left.equalTo(weakSelf.cityLabel);
     }];
     
-    UIImageView *leftImgView = [UIImageView new];
-    leftImgView.image = [UIImage imageNamed:@"天气云"];
-    [weatherView addSubview:leftImgView];
-    [leftImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    _weatherImgView = [UIImageView new];
+    _weatherImgView.image = [UIImage imageNamed:@"天气云"];
+    [weatherView addSubview:_weatherImgView];
+    [_weatherImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weatherView);
         make.width.equalTo(@35);
         make.height.equalTo(@34);
@@ -274,7 +392,6 @@
     lable.backgroundColor=[UIColor colorWithWhite:1 alpha:0.5];
     lable.userInteractionEnabled = YES;
     [bgView addSubview:lable];
-    WS(weakSelf);
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(bgView).offset(90);
         make.left.equalTo(bgView).offset(15);
