@@ -86,7 +86,7 @@ NSString *const kBookmarkEditTextFieldCellIdentifier = @"kBookmarkEditTextFieldC
 
 - (void)exit{
     [self.navigationController popViewControllerAnimated:YES];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - UITableViewDataSource

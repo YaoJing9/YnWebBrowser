@@ -159,7 +159,7 @@ static NSString * const CellId = @"SettingsMenuCell";
             vc = [vc performSelector:@selector(topViewController)];
         }
         
-        [self dismissViewControllerAnimated:YES completion:^{
+        [self dismissViewControllerAnimated:NO completion:^{
             [vc.view setNeedsLayout];
             if ([vc respondsToSelector:@selector(collectionView)])
             {
@@ -227,7 +227,7 @@ static NSString * const CellId = @"SettingsMenuCell";
     SettingsMenuItem *item = self.items[indexPath.item];
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self dismissViewControllerAnimated:YES completion:^{
+        [self dismissViewControllerAnimated:NO completion:^{
             if (item.action)
             {
                 CGFloat delayInSeconds = 0.15f;

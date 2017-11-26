@@ -643,7 +643,8 @@
     BrowserViewController *vc = [BrowserViewController new];
     vc.url = @"http://www.baidu.com";
     vc.fromVCComeInKind = FromVCComeInKindROOTVC;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
+
 }
 
 - (void)initializeView{
