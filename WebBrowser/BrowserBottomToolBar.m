@@ -78,7 +78,7 @@
 
 - (UIButton *)createBottomToolBarButtonWithImage:(NSString *)imageName tag:(NSInteger)tag{
     UIButton *item = [UIButton new];
-    [item setImage:[UIImage imageNamed:imageName] forState:normal];
+    [item setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [item addTarget:self action:@selector(handleBottomToolBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     item.tag = tag;
     return item;
@@ -101,10 +101,10 @@
 }
 
 - (void)setToolBarButtonRefreshOrStop:(BOOL)isRefresh{
-    NSString *imageName = isRefresh ? TOOLBAR_BUTTON_REFRESH_STRING : TOOLBAR_BUTTON_STOP_STRING;
-    self.isRefresh = isRefresh;
-
-    self.refreshOrStopItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    NSString *imageName = isRefresh ? TOOLBAR_BUTTON_REFRESH_STRING : TOOLBAR_BUTTON_STOP_STRING;
+//    self.isRefresh = isRefresh;
+//
+//    self.refreshOrStopItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
 - (void)updateForwardBackItem{
@@ -113,26 +113,19 @@
         BOOL forwardItemEnabled = [self.containerView.webView canGoForward];
         [self.forwardItem setEnabled:forwardItemEnabled];
         [self.backItem setEnabled:backItemEnabled];
-//        if (_fromVCComeInKind == 0) {
-//            [self.backItem setEnabled:NO];
-//            backItemEnabled = NO;
-//        }else{
-//            [self.backItem setEnabled:YES];
-//            backItemEnabled = YES;
-//        }
+
         if (!backItemEnabled) {//返回到最底层webview
             self.coverItem.hidden = NO;
         }else{
             self.coverItem.hidden = YES;
         }
         if (_fromVCComeInKind == 0) {
-            [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
+            [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:UIControlStateNormal];
         }else{
-            [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
-            [self.coverItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:normal];
+            [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_STRING] forState:UIControlStateNormal];
         }
         
-        [self.forwardItem setImage:[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] forState:normal];
+        [self.forwardItem setImage:[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] forState:UIControlStateNormal];
     }
 }
 
