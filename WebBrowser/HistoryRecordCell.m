@@ -71,11 +71,11 @@
     }];
     
 }
-
-- (void)setModel:(HistoryItemModel *)model{
-    self.titleLabel.text = model.title;
-    self.linkLabel.text = model.url;
+-(void)setTitle:(NSString *)title{
+    self.titleLabel.text = title;
+    self.linkLabel.text = [NSString stringWithFormat:BAIDU_SEARCH_URL,title];
 }
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

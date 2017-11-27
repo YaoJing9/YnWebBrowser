@@ -238,6 +238,15 @@
     [self.searchHistories removeObject:searchBar.text];
     [self.searchHistories insertObject:searchBar.text atIndex:0];
     
+    // 移除多余的缓存
+    if (self.searchHistories.count > self.searchHistoriesCount) {
+        // 移除最后一条缓存
+        [self.searchHistories removeLastObject];
+    }
+    // 保存搜索信息
+    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:self.searchHistoriesCachePath];
+
+    
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
         BrowserViewController *vc = [BrowserViewController new];
         vc.url = [self rootSearchStrWebViewWithSug:text];
@@ -336,10 +345,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HistoryItemModel *model = self.searchHistories[indexPath.row];
+
     
     HistoryRecordCell *historyRecordCell = [HistoryRecordCell cellWithTableView:tableView reuseIdentifier:@"HistoryRecordCell"];
-    historyRecordCell.model = model;
+    historyRecordCell.title = self.searchHistories[indexPath.row];
     return historyRecordCell;
 }
 
@@ -368,11 +377,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    HistoryItemModel *model = self.searchHistories[indexPath.row];
-    
+    NSString *url = self.searchHistories[indexPath.row];
     // 缓存数据并且刷新界面
-    [self searchUrlForWebView:model.url];
+    [self searchUrlForWebView:url];
 
 }
 
@@ -395,13 +402,15 @@
     
     if (!_searchHistories) {
         self.searchHistoriesCachePath = PYSEARCH_SEARCH_HISTORY_CACHE_PATH;
+        NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:self.searchHistoriesCachePath]];
         _searchHistories = [NSMutableArray array];
-        WEAK_REF(self);
-        [[HistorySQLiteManager alloc] getHistoryDataByLimit:5 offset:1 handler:^(NSMutableArray<HistoryItemModel *> *array) {
-            self_.searchHistories = array;
-            [self_.tableView reloadData];
-        }];
-        
+        for (NSString *str in array) {
+            if (_searchHistories.count == 5) {
+                break;
+            }
+            [_searchHistories addObject:str];
+            
+        }
     }
     return _searchHistories;
 }
@@ -423,8 +432,8 @@
     UITableViewCell *cell = (UITableViewCell *)sender.superview;
     // 移除搜索信息
     [self.searchHistories removeObject:cell.textLabel.text];
-    // 保存搜索信息
-    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSEARCH_SEARCH_HISTORY_CACHE_PATH];
+    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:self.searchHistoriesCachePath];
+
     if (self.searchHistories.count == 0) {
         self.tableView.tableFooterView.hidden = YES;
     }
