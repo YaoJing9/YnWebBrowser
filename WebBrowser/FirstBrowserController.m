@@ -8,6 +8,7 @@
 
 #import "FirstBrowserController.h"
 #import "BrowserBottomToolBar.h"
+#import "BrowserContainerView.h"
 #import "CardMainView.h"
 #import "SettingsViewController.h"
 #import "SettingsTableViewController.h"
@@ -83,7 +84,16 @@
     return _dataArr;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
+        [BrowserVC.browserContainerView removeAllSubviews];
 
+        BrowserVC.browserContainerView = nil;
+        
+//        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self requestLocation];

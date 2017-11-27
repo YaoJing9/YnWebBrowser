@@ -7,6 +7,7 @@
 //
 
 #import <StoreKit/StoreKit.h>
+#import "WebViewHistoryItem.h"
 #import "TabManager.h"
 #import "BrowserViewController.h"
 #import "BrowserContainerView.h"
@@ -33,7 +34,7 @@ static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签
 
 @interface BrowserViewController () <BrowserBottomToolBarButtonClickedDelegate,  UIViewControllerRestoration, KeyboardHelperDelegate>
 
-@property (nonatomic, strong) BrowserContainerView *browserContainerView;
+
 @property (nonatomic, strong) BrowserBottomToolBar *bottomToolBar;
 @property (nonatomic, strong) BrowserTopToolBar *browserTopToolBar;
 @property (nonatomic, assign) CGFloat lastContentOffset;
@@ -71,7 +72,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     [MoreSettingView removeMoreSettingView];
     
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.browserContainerView == nil) {
+        self.browserContainerView = ({
+            BrowserContainerView *browserContainerView = [[BrowserContainerView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+            browserContainerView.url = self.url;
+            [self.view addSubview:browserContainerView];
+            
+            self.browserButtonDelegate = browserContainerView;
+            
+            browserContainerView;
+        });
+        [self.view sendSubviewToBack:self.browserContainerView];
+    }
+}
 - (void)initializeView{
     self.view.backgroundColor = UIColorFromRGB(0xF8F8F8);
     
@@ -243,18 +258,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
 //    if (tag == BottomToolBarBackButtonTag) {
 //        if (_fromVCComeInKind == FromVCComeInKindSEARCH) {
-//            
-//            if (![self.browserContainerView.webView canGoBack]) {
-//                [self dismissViewControllerAnimated:NO completion:^{
-//                    
-//                }];
+//            WebViewBackForwardList *listModel = self.browserContainerView.webView.webViewBackForwardList;
+//            WebViewHistoryItem *itemModel = [listModel.backList lastObject];
+////            NSString *urlStr = self.browserContainerView
+//            if ( [urlStr isEqualToString:@"about:blank"] ) {
+//                if (![self.browserContainerView.webView canGoBack]) {
+//
+//                    [self dismissViewControllerAnimated:NO completion:^{
+//
+//                    }];
+//                }
+//            }else{
+//                if (![self.browserContainerView.webView canGoBack]) {
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                }
+//
 //            }
-//        }else{
-//            if (![self.browserContainerView.webView canGoBack]) {
-//                [self.navigationController popViewControllerAnimated:YES];
 //            }
-//            
-//        }
+//
 //    }
     
     if (tag == BottomToolBarFlexibleButtonTag ) {
