@@ -29,6 +29,7 @@
 #import "YnSearchController.h"
 #import "BrowserViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "PreferenceHelper.h"
 
 #define kSeniverseAPI @"rzk44lplyy7hyai9"
 #define kSeniverseID @"U390895EA3"
@@ -603,7 +604,8 @@
     ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
     switch (index) {
         case 0:
-            
+            extendedFVC.extendedOperationKind = ExtendedOperationKindFULLSCREEN;
+            [self.navigationController pushViewController: extendedFVC animated:YES];
             break;
         case 1:
             extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
@@ -701,11 +703,11 @@
         } btnClickBlock:^(NSInteger index) {
             [weakSelf moreSettingClick:index];
         }];
-        
     }
+    
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
-        [cardMainView reloadCardMainViewWithCompletionBlock:^{
+        [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
             UIImage *image = [self.view snapshot];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
             imageView.frame = cardMainView.bounds;
@@ -722,17 +724,21 @@
 #pragma mark - UIScrollViewDelegate Method
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-//    return;
+    if (![PreferenceHelper boolForKey:KeyFullScreenModeStatus]) {
+        self.tableView.mj_h = SCREENHEIGHT - BOTTOM_TOOL_BAR_HEIGHT;
+        return;
+    }
+    self.tableView.mj_h = SCREENHEIGHT;
     if (scrollView.contentOffset.y > self.oldOffset && scrollView.contentOffset.y > 0 && (scrollView.contentOffset.y < scrollView.contentSize.height - scrollView.mj_h)) {//向上滑动
         
         [UIView animateWithDuration:0.5 animations:^{
-
+            
             self.bottomToolBar.mj_y = self.view.mj_h;
         }];
         
     }else if (scrollView.contentOffset.y < self.oldOffset && scrollView.contentOffset.y > 0 && (scrollView.contentOffset.y < scrollView.contentSize.height - scrollView.mj_h)){//向上滑动
         [UIView animateWithDuration:0.5 animations:^{
+            
             self.bottomToolBar.mj_y = self.view.height - BOTTOM_TOOL_BAR_HEIGHT;
         }];
     }

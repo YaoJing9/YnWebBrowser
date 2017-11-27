@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef void(^CompletionBlock)(void);
-
 @class CardCollectionViewCell;
 @class WebModel;
+
+typedef void(^CompletionBlock)(WebModel *model);
 
 @interface CardMainView : UIView
 

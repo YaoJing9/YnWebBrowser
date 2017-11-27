@@ -87,6 +87,14 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
+    if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
+        //设置亮度
+        [[UIScreen mainScreen] setBrightness:0.2];
+    } else{
+        //设置亮度
+        [[UIScreen mainScreen] setBrightness:1];
+    }
+    
     [ErrorPageHelper registerWithServer:[WebServer sharedInstance]];
     [SessionRestoreHelper registerWithServer:[WebServer sharedInstance]];
     

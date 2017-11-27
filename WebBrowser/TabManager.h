@@ -24,6 +24,7 @@ typedef void(^SwitchOperationBlock)(WebModel *preWebModel, WebModel *curWebModel
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) BrowserWebView *webView;
 @property (nonatomic, assign) BOOL isImageProcessed;
+@property (nonatomic, assign) BOOL isNewWebView;
 @property (nonatomic, strong) SessionData *sessionData;
 
 @end

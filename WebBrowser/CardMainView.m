@@ -100,8 +100,9 @@
         if (self__) {
             [self__ setCardsWithArray:modelArray];
             [self__.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self__.cardArr.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+            WebModel*model = modelArray[self__.cardArr.count - 1];
             if (completion) {
-                completion();
+                completion(model);
             }
         }
     }];
@@ -110,7 +111,8 @@
 - (void)changeCollectionViewLayout{
     UICollectionViewLayout *layout = self.collectionView.collectionViewLayout == self.flatLayout ? self.browserLayout : self.flatLayout;
     [self.collectionView setCollectionViewLayout:layout animated:YES completion:^(BOOL finished){
-        ;
+        
+        
     }];
 }
 

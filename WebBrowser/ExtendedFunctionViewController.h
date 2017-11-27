@@ -12,7 +12,8 @@ typedef NS_ENUM(NSInteger, ExtendedOperationKind) {
     ExtendedOperationKindNOIMAGE = 1,
     ExtendedOperationKindNOHISTORY = 2,
     ExtendedOperationKindTOOPENURL = 3,
-    ExtendedOperationKindGUANGGAOGUOLV = 4
+    ExtendedOperationKindGUANGGAOGUOLV = 4,
+    ExtendedOperationKindFULLSCREEN = 5
 };
 @interface ExtendedFunctionViewController : BaseViewController
 @property(nonatomic,assign)ExtendedOperationKind extendedOperationKind;
