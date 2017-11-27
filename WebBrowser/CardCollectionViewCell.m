@@ -61,7 +61,7 @@
     
     self.imageView = ({
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        imageView.backgroundColor = [UIColor redColor];
+        
         [self.contentView addSubview:imageView];
         
         imageView.userInteractionEnabled = YES;
