@@ -15,9 +15,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor=[UIColor whiteColor];
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    self.navigationController.navigationBar.barTintColor = MyColor;
     [self.navigationController setNavigationBarHidden:YES animated:YES]; // 隐藏导航栏
-    self.view.backgroundColor = appBgColor;
 }
 
 - (void)naLeftButtonClick:(UIButton *)button {
@@ -121,7 +119,6 @@
     lab.textAlignment=NSTextAlignmentCenter;
     lab.text=str;
     lab.font=APPFont(8);
-    lab.textColor=appBlackColor;
     [_NAVview addSubview:lab];
     _centreLabel = lab;
     

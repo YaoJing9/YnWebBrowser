@@ -64,13 +64,6 @@
 
 #define appColor(a) [UIColor colorWithHexString:a]
 
-#define MyColor appColor(@"#EE453B")//app主题色
-#define appBgColor appColor(@"#F0F0F0")//app背景色
-#define LineBgColor appColor(@"#D8D8D8")//app分割线颜色
-#define appBlackColor appColor(@"#333333")
-
-#define appRedColor appColor(@"#EE453B")
-#define appBlackColor appColor(@"#333333")
 #define appBLueColor appColor(@"#558DED")
 
 
@@ -86,9 +79,6 @@
 
 #define ViewBgColor(a, b) a.backgroundColor = appColor(b)
 
-#define cmgreenColor [UIColor colorWithHexString:@"#0FAB0F"]
-#define cmredColor [UIColor colorWithHexString:@"#EE453B "]
-#define cmblackColor [UIColor colorWithHexString:@"#333333"]
 
 
 #define APPFont(a) [UIFont fontWithName:@"PingFangSC-Regular" size:a+12]
