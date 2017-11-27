@@ -50,19 +50,19 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     self.pasteboardChangeCount = [UIPasteboard generalPasteboard].changeCount;
 }
 
-- (void)presentPasteboardChangedAlertWithURL:(NSURL *)url{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"新窗口打开剪切板网址" message:@"您是否需要在新窗口中打开剪切板中的网址？" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
-        NSNotification *notify = [NSNotification notificationWithName:kOpenInNewWindowNotification object:self userInfo:@{@"url": url}];
-        [Notifier postNotification:notify];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alert addAction:defaultAction];
-    [alert addAction:cancelAction];
-    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-}
+//- (void)presentPasteboardChangedAlertWithURL:(NSURL *)url{
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"新窗口打开剪切板网址" message:@"您是否需要在新窗口中打开剪切板中的网址？" preferredStyle:UIAlertControllerStyleAlert];
+//
+//    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
+//        NSNotification *notify = [NSNotification notificationWithName:kOpenInNewWindowNotification object:self userInfo:@{@"url": url}];
+//        [Notifier postNotification:notify];
+//    }];
+//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+//
+//    [alert addAction:defaultAction];
+//    [alert addAction:cancelAction];
+//    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+//}
 
 - (void)applicationStartPrepare{
     [self setAudioPlayInBackgroundMode];
@@ -127,7 +127,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
         NSURL *url = pasteboard.URL;
         if (url && ![[PreferenceHelper URLForKey:KeyPasteboardURL] isEqual:url]) {
             [PreferenceHelper setURL:url forKey:KeyPasteboardURL];
-            [self presentPasteboardChangedAlertWithURL:url];
+//            [self presentPasteboardChangedAlertWithURL:url];
         }
     }
 }
@@ -140,7 +140,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     static NSString *kAVFullScreenViewControllerStr = @"AVFullScreenViewController";
     UIViewController *presentedViewController = [window.rootViewController presentedViewController];
-    
+
     if (presentedViewController && [presentedViewController isKindOfClass:NSClassFromString(kAVFullScreenViewControllerStr)] && [presentedViewController isBeingDismissed] == NO) {
         return UIInterfaceOrientationMaskAll;
     }
