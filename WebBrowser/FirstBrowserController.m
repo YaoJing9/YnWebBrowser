@@ -723,7 +723,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    return;
+//    return;
     if (scrollView.contentOffset.y > self.oldOffset && scrollView.contentOffset.y > 0 && (scrollView.contentOffset.y < scrollView.contentSize.height - scrollView.mj_h)) {//向上滑动
         
         [UIView animateWithDuration:0.5 animations:^{
