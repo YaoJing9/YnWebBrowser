@@ -89,4 +89,14 @@
 
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self
 
+
+
+
+
+
+
+#define YNBaseURL @"http://101.200.172.55/"
+
+
+
 #endif /* WebBrowser_pch */

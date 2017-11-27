@@ -23,4 +23,7 @@ typedef NS_ENUM(NSInteger, NetworkingMethodType) {
                parameters:(id)parameters
                   success:(void (^)(NSURLSessionDataTask * dataTask, id responseObject))success
                   failure:(void (^)(NSURLSessionDataTask * dataTask, NSError * error))failure;
+
++ (NSMutableDictionary *)getPostDict;
+
 @end

@@ -6,7 +6,9 @@
 //
 
 #import "CMNetworkingTool.h"
-
+#import <AdSupport/AdSupport.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
+#include <sys/sysctl.h>
 // 申明一个协议方法
 @protocol CMNetworkingTollProxy <NSObject>
 
@@ -131,5 +133,167 @@
     [task resume];
 }
 
+//获取idfa
++ (NSString *)deviceIdfa
+{
+    NSString *deviceIDFA = [[ASIdentifierManager sharedManager] advertisingIdentifier].UUIDString;
+    return deviceIDFA;
+}
+
+//系统名称sysname
++ (NSString *)systemName
+{
+    return [NSString stringWithFormat:@"%@-%@",[UIDevice currentDevice].systemName,[UIDevice currentDevice].systemVersion];
+}
+
+//设备类型devtype
++ (NSString *)deviceType
+{
+    return [self platformString];
+}
++ (NSString *) platformString{
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
+    free(machine);
+    if ([platform isEqualToString:@"iPhone1,1"])    return @"iPhone 2G";
+    if ([platform isEqualToString:@"iPhone1,2"])    return @"iPhone 3G";
+    if ([platform isEqualToString:@"iPhone2,1"])    return @"iPhone 3GS";
+    if ([platform isEqualToString:@"iPhone3,1"])    return @"iPhone 4";
+    if ([platform isEqualToString:@"iPhone3,2"])    return @"iPhone 4";
+    if ([platform isEqualToString:@"iPhone3,3"])    return @"iPhone 4";
+    if ([platform isEqualToString:@"iPhone4,1"])    return @"iPhone 4S";
+    if ([platform isEqualToString:@"iPhone5,1"])    return @"iPhone 5";
+    if ([platform isEqualToString:@"iPhone5,2"])    return @"iPhone 5";
+    if ([platform isEqualToString:@"iPhone5,3"])    return @"iPhone 5C";
+    if ([platform isEqualToString:@"iPhone5,4"])    return @"iPhone 5C";
+    if ([platform isEqualToString:@"iPhone6,1"])    return @"iPhone 5S";
+    if ([platform isEqualToString:@"iPhone6,2"])    return @"iPhone 5S";
+    if ([platform isEqualToString:@"iPhone7,1"])    return @"iPhone 6 Plus";
+    if ([platform isEqualToString:@"iPhone7,2"])    return @"iPhone 6";
+    if ([platform isEqualToString:@"iPhone8,1"])    return @"iPhone 6s";
+    if ([platform isEqualToString:@"iPhone8,2"])    return @"iPhone 6s Plus";
+    if ([platform isEqualToString:@"iPhone8,4"])    return @"iPhone SE";//添加iPhone SE
+    
+    if ([platform isEqualToString:@"iPod1,1"])      return @"iPod touch";
+    if ([platform isEqualToString:@"iPod2,1"])      return @"iPod touch 2G";
+    if ([platform isEqualToString:@"iPod3,1"])      return @"iPod touch 3G";
+    if ([platform isEqualToString:@"iPod4,1"])      return @"iPod touch 4G";
+    if ([platform isEqualToString:@"iPod5,1"])      return @"iPod touch 5G";
+    if ([platform isEqualToString:@"iPod7,1"])      return @"iPod touch 6G";
+    
+    if ([platform isEqualToString:@"iPad1,1"])      return @"iPad 1";
+    if ([platform isEqualToString:@"iPad1,2"])      return @"iPad 3G";
+    if ([platform isEqualToString:@"iPad2,1"])      return @"iPad 2";
+    if ([platform isEqualToString:@"iPad2,2"])      return @"iPad 2";
+    if ([platform isEqualToString:@"iPad2,3"])      return @"iPad 2";
+    if ([platform isEqualToString:@"iPad2,4"])      return @"iPad 2";
+    if ([platform isEqualToString:@"iPad3,1"])      return @"iPad 3";
+    if ([platform isEqualToString:@"iPad3,2"])      return @"iPad 3";
+    if ([platform isEqualToString:@"iPad3,3"])      return @"iPad 3";
+    if ([platform isEqualToString:@"iPad3,4"])      return @"iPad 4";
+    if ([platform isEqualToString:@"iPad3,5"])      return @"iPad 4";
+    if ([platform isEqualToString:@"iPad3,6"])      return @"iPad 4";
+    if ([platform isEqualToString:@"iPad4,1"])      return @"iPad Air";
+    if ([platform isEqualToString:@"iPad4,2"])      return @"iPad Air";
+    if ([platform isEqualToString:@"iPad4,3"])      return @"iPad Air";
+    if ([platform isEqualToString:@"iPad5,3"])      return @"iPad Air 2";
+    if ([platform isEqualToString:@"iPad5,4"])      return @"iPad Air 2";
+    if ([platform isEqualToString:@"iPad6,7"])      return @"iPad Pro";
+    if ([platform isEqualToString:@"iPad6,8"])      return @"iPad Pro";
+    
+    if ([platform isEqualToString:@"iPad2,5"])      return @"iPad Mini";
+    if ([platform isEqualToString:@"iPad2,6"])      return @"iPad Mini";
+    if ([platform isEqualToString:@"iPad2,7"])      return @"iPad Mini";
+    if ([platform isEqualToString:@"iPad4,4"])      return @"iPad Mini 2";
+    if ([platform isEqualToString:@"iPad4,5"])      return @"iPad Mini 2";
+    if ([platform isEqualToString:@"iPad4,6"])      return @"iPad Mini 2";
+    if ([platform isEqualToString:@"iPad4,7"])      return @"iPad Mini 3";
+    if ([platform isEqualToString:@"iPad4,8"])      return @"iPad Mini 3";
+    if ([platform isEqualToString:@"iPad4,9"])      return @"iPad Mini 3";
+    if ([platform isEqualToString:@"iPad5,1"])      return @"iPad Mini 4";
+    if ([platform isEqualToString:@"iPad5,2"])      return @"iPad Mini 4";
+    
+    if ([platform isEqualToString:@"i386"])         return @"Simulator";
+    if ([platform isEqualToString:@"x86_64"])       return @"Simulator";
+    
+    if ([platform isEqualToString:@"Watch1,1"])     return @"Apple Watch";
+    if ([platform isEqualToString:@"Watch1,2"])     return @"Apple Watch";
+    
+    if ([platform isEqualToString:@"AppleTV2,1"])   return @"Apple TV 2G";
+    if ([platform isEqualToString:@"AppleTV3,1"])   return @"Apple TV 3G";
+    if ([platform isEqualToString:@"AppleTV3,2"])   return @"Apple TV 3G";
+    if ([platform isEqualToString:@"AppleTV5,3"])   return @"Apple TV 4G";
+    
+    return platform;
+}
+
+//应用bundleId
++ (NSString *)appBundleId
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+}
+
+//版本号
++ (NSString *)appVersion
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
+
+//应用名称
++ (NSString *)appName
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+}
+
+//WiFi名称
++ (NSString *)wifiName
+{
+    if ([[self ssIDInfo] count] > 0) {
+        
+        return ((NSString *)[self ssIDInfo][@"SSID"]).length > 0 ? [self ssIDInfo][@"SSID"]:@"";
+        
+    }else
+    {
+        return @"";
+    }
+}
+//路由信息
++ (NSDictionary *)ssIDInfo
+{
+    NSArray *ifs = (__bridge_transfer NSArray *)CNCopySupportedInterfaces();
+    if (!ifs) {
+        return nil;
+    }
+    
+    NSDictionary *info = nil;
+    for (NSString *ifnam in ifs) {
+        info = (__bridge_transfer NSDictionary *)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
+        if (info && [info count]) { break; }
+    }
+    return info;
+}
+
+//设备名称
++ (NSString *)deviceName
+{
+    return [UIDevice currentDevice].name;
+}
+
++ (NSMutableDictionary *)getPostDict{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[self deviceIdfa] forKey:@"idfa"];
+    [dict setValue:[self systemName] forKey:@"sysname"];
+    [dict setValue:[self deviceType] forKey:@"devtype"];
+    [dict setValue:[self appBundleId] forKey:@"bid"];
+    [dict setValue:[self appVersion] forKey:@"appversion"];
+    [dict setValue:[self appName] forKey:@"appname"];
+    [dict setValue:[self wifiName] forKey:@"wifiname"];
+    [dict setValue:[self deviceName] forKey:@"devicename"];
+    return dict;
+    
+}
 
 @end

@@ -101,6 +101,8 @@
     
     [self requestAllData];
 
+    [self requestHomeData];
+    
     
     [self initDataAry];
     
@@ -114,6 +116,10 @@
     
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
+    
+}
+
+- (void)requestHomeData{
     
 }
 

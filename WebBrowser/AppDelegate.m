@@ -50,20 +50,6 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     self.pasteboardChangeCount = [UIPasteboard generalPasteboard].changeCount;
 }
 
-//- (void)presentPasteboardChangedAlertWithURL:(NSURL *)url{
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"新窗口打开剪切板网址" message:@"您是否需要在新窗口中打开剪切板中的网址？" preferredStyle:UIAlertControllerStyleAlert];
-//
-//    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
-//        NSNotification *notify = [NSNotification notificationWithName:kOpenInNewWindowNotification object:self userInfo:@{@"url": url}];
-//        [Notifier postNotification:notify];
-//    }];
-//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-//
-//    [alert addAction:defaultAction];
-//    [alert addAction:cancelAction];
-//    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-//}
-
 - (void)applicationStartPrepare{
     [self setAudioPlayInBackgroundMode];
     [[KeyboardHelper sharedInstance] startObserving];
@@ -111,7 +97,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     
     [self locationQuester];
     
-    
+    //激活接口
+    [self requestActivation];
+    //系统配置
+    [self requestSystem];
     return YES;
 }
 
@@ -126,6 +115,40 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
         return;
     }
 }
+
+- (void)requestActivation{
+
+    NSString *tempURLStr = [NSString stringWithFormat:@"%@ddz/activation", YNBaseURL];
+    
+    NSMutableDictionary *parameters = [CMNetworkingTool getPostDict];
+    
+    [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        
+    } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+        
+    }];
+}
+- (void)requestSystem{
+    
+    NSString *tempURLStr = [NSString stringWithFormat:@"%@/ddz/systemconfig", YNBaseURL];
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    NSString *package = nil;
+
+    [parameters setObject:version forKey:@"version"];
+    
+//    NSMutableDictionary *parameters = [CMNetworkingTool getPostDict];
+    
+    [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        
+    } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+        
+    }];
+}
+
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
