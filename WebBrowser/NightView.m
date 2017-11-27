@@ -24,6 +24,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(NightView)
         _nightView.userInteractionEnabled = NO;
         _nightView.hidden = YES;
         [_nightView createContentView];
+//        [_nightView sendSubviewToBack:UIApplication.sharedApplication.keyWindow];
     }
     return _nightView;
 }

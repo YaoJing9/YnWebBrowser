@@ -217,6 +217,7 @@
         webModel.title = DEFAULT_CARD_CELL_TITLE;
         webModel.url = DEFAULT_CARD_CELL_URL;
         webModel.image = [UIImage imageNamed:DEFAULT_CARD_CELL_IMAGE];
+        webModel.isNewWebView = YES;
         [self.cardArr addObject:webModel];
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:num inSection:0]]];
         [[TabManager sharedInstance] updateWebModelArray:self.cardArr];
