@@ -194,7 +194,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 }
 
 #pragma mark - Handle TopToolBar Scroll
-
 - (void)handleToolBarWithOffset:(CGFloat)offset{
     
     CGRect bottomRect = self.bottomToolBar.frame;
@@ -317,7 +316,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
     switch (index) {
         case 0:
-            
+            extendedFVC.extendedOperationKind = ExtendedOperationKindFULLSCREEN;
+            [self.navigationController pushViewController: extendedFVC animated:NO];
             break;
         case 1:
             extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
