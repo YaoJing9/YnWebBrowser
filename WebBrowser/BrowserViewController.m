@@ -7,7 +7,7 @@
 //
 
 #import <StoreKit/StoreKit.h>
-
+#import "TabManager.h"
 #import "BrowserViewController.h"
 #import "BrowserContainerView.h"
 #import "BrowserTopToolBar.h"
@@ -325,6 +325,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             break;
             
         default:
+        {
+            NSURL *url = self.browserContainerView.webView.request.URL;
+            if ([url isErrorPageURL]) {
+                NSURL *url = [self.browserContainerView.webView.request.URL originalURLFromErrorURL];
+                [self.browserContainerView startLoadWithWebView:self.browserContainerView.webView url:url];
+            }
+            else if (!url || [url.absoluteString isEqualToString:@""]){
+                WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
+                url = [NSURL URLWithString:webModel.url];
+                [self.browserContainerView startLoadWithWebView:self.browserContainerView.webView url:url];
+            }
+            else{
+                [self.browserContainerView.webView reload];
+            }
+            [MoreSettingView removeMoreSettingView];
+            break;
+        }
             break;
     }
 }
@@ -366,9 +383,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     BookmarkItemEditViewController *editVC = [[BookmarkItemEditViewController alloc] initWithDataManager:dataManager item:[BookmarkItemModel bookmarkItemWithTitle:title url:url] sectionIndex:[NSIndexPath indexPathForRow:0 inSection:0] operationKind:BookmarkItemOperationKindItemAdd completion:nil];
     
-    UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:editVC];
+    [self.navigationController pushViewController: editVC animated:NO];
     
-    [self presentViewController:navigationVC animated:NO completion:nil];
 }
 
 #pragma mark - Preseving and Restoring State

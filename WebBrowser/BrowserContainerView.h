@@ -18,5 +18,5 @@ typedef void(^TabCompletion)(WebModel *webModel, BrowserWebView *browserWebView)
 @property (nonatomic, readonly, weak) BrowserWebView *webView;
 @property (nonatomic, strong) NSString *url;
 - (void)restoreWithCompletionHandler:(TabCompletion)completion animation:(BOOL)animation;
-
+- (void)startLoadWithWebView:(BrowserWebView *)webView url:(NSURL *)url;
 @end
