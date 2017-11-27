@@ -16,6 +16,7 @@
 @property (nonatomic, weak) UIBarButtonItem *refreshOrStopItem;
 @property (nonatomic, weak) UIButton *backItem;
 @property (nonatomic, weak) UIButton *forwardItem;
+@property (nonatomic, weak) UIButton *flexibleItem;
 @property (nonatomic, weak) UIButton *coverItem;
 @property (nonatomic, assign) BOOL isRefresh;
 @property (nonatomic, weak) BrowserContainerView *containerView;
@@ -54,20 +55,24 @@
     settingItem.frame = CGRectMake(self.width/5.0 * 2, 0, self.width/5.0, self.height);
     [self addSubview:settingItem];
 
-    UIButton *flexibleItem = [self createBottomToolBarButtonWithImage:@"返回首页" tag:BottomToolBarFlexibleButtonTag];
+    UIButton *flexibleItem = [self createBottomToolBarButtonWithImage:@"返回不能选中" tag:BottomToolBarFlexibleButtonTag];
     flexibleItem.frame = CGRectMake(self.width/5.0 * 3, 0, self.width/5.0, self.height);
     [self addSubview:flexibleItem];
-
+    self.flexibleItem = flexibleItem;
+    
     UIButton *multiWindowItem = [self createBottomToolBarButtonWithImage:@"框架" tag:BottomToolBarMultiWindowButtonTag];
     multiWindowItem.frame = CGRectMake(self.width/5.0 * 4, 0, self.width/5.0, self.height);
     [self addSubview:multiWindowItem];
     
     UIButton *coverItem = [UIButton new];
     coverItem.frame = CGRectMake(0, 0, self.width/5, self.height);
+    coverItem.backgroundColor = [UIColor clearColor];
     [coverItem addTarget:self action:@selector(coverBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.coverItem = coverItem;
     [self addSubview:self.coverItem];
     self.coverItem.hidden = YES;
+    [self.coverItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_STRING] forState:UIControlStateNormal];
+
 }
 
 - (void)coverBtnClick{
@@ -101,10 +106,10 @@
 }
 
 - (void)setToolBarButtonRefreshOrStop:(BOOL)isRefresh{
-//    NSString *imageName = isRefresh ? TOOLBAR_BUTTON_REFRESH_STRING : TOOLBAR_BUTTON_STOP_STRING;
-//    self.isRefresh = isRefresh;
-//
-//    self.refreshOrStopItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    NSString *imageName = isRefresh ? TOOLBAR_BUTTON_REFRESH_STRING : TOOLBAR_BUTTON_STOP_STRING;
+    self.isRefresh = isRefresh;
+
+    self.refreshOrStopItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
 - (void)updateForwardBackItem{
@@ -120,9 +125,11 @@
             self.coverItem.hidden = YES;
         }
         if (_fromVCComeInKind == 0) {
+            self.backItem.hidden = YES;
             [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_HILIGHT_STRING] forState:UIControlStateNormal];
         }else{
             [self.backItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_STRING] forState:UIControlStateNormal];
+            [self.flexibleItem setImage:[UIImage imageNamed:@"返回首页"] forState:UIControlStateNormal];
         }
         
         [self.forwardItem setImage:[UIImage imageNamed:(forwardItemEnabled ? TOOLBAR_BUTTON_FORWARD_STRING : TOOLBAR_BUTTON_FORWARD_HILIGHT_STRING)] forState:UIControlStateNormal];

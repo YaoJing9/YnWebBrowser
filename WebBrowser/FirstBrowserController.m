@@ -660,10 +660,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@"http://www.baidu.com"] key:DelegateManagerBrowserContainerLoadURL];
+    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
     BrowserViewController *vc = [BrowserViewController new];
     
-    vc.url = @"http://www.baidu.com";
+    vc.url = DEFAULT_CARD_CELL_URL;
     vc.fromVCComeInKind = FromVCComeInKindROOTVC;
     [self.navigationController pushViewController:vc animated:NO];
 
