@@ -8,6 +8,7 @@
 
 #import "ExtendedFunctionViewController.h"
 #import "PreferenceHelper.h"
+#import "NightView.h"
 @interface ExtendedFunctionViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *leftLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *switchButton;
@@ -31,6 +32,14 @@
         [self showNavWithTitle:@"夜间模式" backBtnHiden:NO];
         _leftLabel.text = @"夜间模式";
         [self.switchButton setOn:[PreferenceHelper boolForKey:KeyEyeProtectiveStatus]];
+        
+        if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
+            [NightView showNightView];
+        } else{
+            //设置亮度
+            [NightView deleNightView];
+        }
+        
     }else if (_extendedOperationKind == ExtendedOperationKindTOOPENURL){
         [self showNavWithTitle:@"打开上次页面" backBtnHiden:NO];
         _leftLabel.text = @"打开上次页面";
@@ -43,15 +52,7 @@
         [self showNavWithTitle:@"全屏显示" backBtnHiden:NO];
         _leftLabel.text = @"全屏显示";
         [self.switchButton setOn:[PreferenceHelper boolForKey:KeyFullScreenModeStatus]];
-        
-        if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
-            //设置亮度
-            [[UIScreen mainScreen] setBrightness:0.2];
-        } else{
-            //设置亮度
-            [[UIScreen mainScreen] setBrightness:1];
-        }
-        
+
     }
     
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -69,13 +70,19 @@
         
         [Notifier postNotificationName:kEyeProtectiveModeChanged object:nil];
         [PreferenceHelper setInteger:1 forKey:KeyEyeProtectiveColorKind];
-//        [[UIScreen mainScreen] setBrightness: 0.2];
+        if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
+            [NightView showNightView];
+        } else{
+            //设置亮度
+            [NightView deleNightView];
+        }
     }else if (_extendedOperationKind == ExtendedOperationKindTOOPENURL){
         [PreferenceHelper setBool:sender.on forKey:KeyBlockBaiduADStatus];
     }else if(_extendedOperationKind == ExtendedOperationKindGUANGGAOGUOLV){
         [PreferenceHelper setBool:sender.on forKey:KeyBlockBaiduADStatus];
     }else if (_extendedOperationKind == ExtendedOperationKindFULLSCREEN){
         [PreferenceHelper setBool:sender.on forKey:KeyFullScreenModeStatus];
+        
     }
     
 }
