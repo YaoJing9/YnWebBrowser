@@ -118,6 +118,7 @@
 		0EFDD30A1DD42861002AB3FB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD3091DD42861002AB3FB /* AVFoundation.framework */; };
 		0EFDD30C1DD42868002AB3FB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD30B1DD42868002AB3FB /* AudioToolbox.framework */; };
 		0EFDD30E1DD45764002AB3FB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD30D1DD45764002AB3FB /* StoreKit.framework */; };
+		180F39F71FCC0CF8007DB934 /* NightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F39F61FCC0CF8007DB934 /* NightView.m */; };
 		187FFD561FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */; };
 		187FFD571FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */; };
 		18CE6EA31FC595620068091D /* HistoryAndBookmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EA11FC595620068091D /* HistoryAndBookmarkTableViewCell.m */; };
@@ -477,6 +478,8 @@
 		0EFDD3091DD42861002AB3FB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0EFDD30B1DD42868002AB3FB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0EFDD30D1DD45764002AB3FB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		180F39F51FCC0CF8007DB934 /* NightView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NightView.h; sourceTree = "<group>"; };
+		180F39F61FCC0CF8007DB934 /* NightView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NightView.m; sourceTree = "<group>"; };
 		187FFD531FC575B8004A9FEF /* HistoryAndBookmarkListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryAndBookmarkListViewController.h; sourceTree = "<group>"; };
 		187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryAndBookmarkListViewController.m; sourceTree = "<group>"; };
 		187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryAndBookmarkListViewController.xib; sourceTree = "<group>"; };
@@ -997,6 +1000,8 @@
 				BF4EFCAC1FC4381600BCDD84 /* ClassifyCell.m */,
 				BF4EFCB11FC58DA400BCDD84 /* MoreSettingView.h */,
 				BF4EFCB21FC58DA400BCDD84 /* MoreSettingView.m */,
+				180F39F51FCC0CF8007DB934 /* NightView.h */,
+				180F39F61FCC0CF8007DB934 /* NightView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2149,6 +2154,7 @@
 				E87D72B11FB965FC001AB44E /* GCDWebServerDataRequest.m in Sources */,
 				E813BA501FB59D8200470ECD /* SDWebImageDownloader.m in Sources */,
 				BF4EFD2F1FC7E1A600BCDD84 /* MJExtensionConst.m in Sources */,
+				180F39F71FCC0CF8007DB934 /* NightView.m in Sources */,
 				0E6110A51FA2E050009F2568 /* ExtentionsTableViewController.m in Sources */,
 				E813BA5C1FB59D8200470ECD /* UIImage+WebP.m in Sources */,
 				BF4EFD211FC7E1A600BCDD84 /* MJRefreshBackGifFooter.m in Sources */,

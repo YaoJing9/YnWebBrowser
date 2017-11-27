@@ -8,7 +8,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-
+#import "NightView.h"
 #import "AppDelegate.h"
 #import "KeyboardHelper.h"
 #import "MenuHelper.h"
@@ -74,11 +74,9 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     [self.window makeKeyAndVisible];
     
     if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
-        //设置亮度
-        [[UIScreen mainScreen] setBrightness:0.2];
+        [NightView showNightView];
     } else{
-        //设置亮度
-        [[UIScreen mainScreen] setBrightness:1];
+        
     }
     
     [ErrorPageHelper registerWithServer:[WebServer sharedInstance]];
