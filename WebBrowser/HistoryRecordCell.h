@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HistorySQLiteManager.h"
 @interface HistoryRecordCell : UITableViewCell
-@property(nonatomic ,strong)NSString *title;
-@property(nonatomic ,strong)NSString *urlStr;
 
+@property(nonatomic,strong)HistoryItemModel *model;
 + (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier;
 
 @end

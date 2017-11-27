@@ -47,38 +47,35 @@
         make.height.equalTo(@16);
     }];
     
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"快眼看书迷";
-    titleLabel.textColor = [UIColor colorWithHexString:@"#333333"];
-    titleLabel.font = [UIFont systemFontOfSize:16];
-    [self.contentView addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _titleLabel = [UILabel new];
+    _titleLabel.text = @"快眼看书迷";
+    _titleLabel.textColor = [UIColor colorWithHexString:@"#333333"];
+    _titleLabel.font = [UIFont systemFontOfSize:16];
+    [self.contentView addSubview:_titleLabel];
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(leftImgView.mas_right).offset(5);
         make.height.equalTo(@20);
         make.top.equalTo(weakSelf.contentView).offset(15);
     }];
     
-    self.titleLabel = titleLabel;
-    
-    UILabel *linkLabel = [UILabel new];
-    linkLabel.text = @"baidu.com";
-    linkLabel.textColor = [UIColor colorWithHexString:@"#4b94f7"];
-    linkLabel.font = [UIFont systemFontOfSize:11];
-    [self.contentView addSubview:linkLabel];
-    [linkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _linkLabel = [UILabel new];
+//    linkLabel.text = @"baidu.com";
+    _linkLabel.textColor = [UIColor colorWithHexString:@"#4b94f7"];
+    _linkLabel.font = [UIFont systemFontOfSize:11];
+    [self.contentView addSubview:_linkLabel];
+    [_linkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(leftImgView.mas_right).offset(5);
         make.height.equalTo(@15);
-        make.top.equalTo(titleLabel.mas_bottom);
+        make.top.equalTo(_titleLabel.mas_bottom);
     }];
     
 }
 
-- (void)setTitle:(NSString *)title{
-    self.titleLabel.text = title;
+- (void)setModel:(HistoryItemModel *)model{
+    self.titleLabel.text = model.title;
+    self.linkLabel.text = model.url;
 }
--(void)setUrlStr:(NSString *)urlStr{
-    self.linkLabel.text = urlStr;
-}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
 }

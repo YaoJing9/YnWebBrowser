@@ -523,7 +523,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@"http://www.baidu.com"] key:DelegateManagerBrowserContainerLoadURL];
     BrowserViewController *vc = [BrowserViewController new];
+    
     vc.url = @"http://www.baidu.com";
     vc.fromVCComeInKind = FromVCComeInKindROOTVC;
     [self.navigationController pushViewController:vc animated:NO];
