@@ -7,6 +7,7 @@
 //
 
 #import "BrowserContainerView.h"
+#import "FirstBrowserController.h"
 #import "TabManager.h"
 #import "BrowserWebView.h"
 #import "HttpHelper.h"
@@ -121,6 +122,7 @@ static NSString *const BaiduSearchPath = @"https://m.baidu.com/s?ie=utf-8&word="
 
 - (void)restoreWithCompletionHandler:(TabCompletion)completion animation:(BOOL)animation{
     WEAK_REF(self)
+    __block FirstBrowserController *firstVC = [FirstBrowserController new];
     [[TabManager sharedInstance] setCurWebViewOperationBlockWith:^(WebModel *webModel, BrowserWebView *browserWebView){
         STRONG_REF(self_)
         if (self__) {

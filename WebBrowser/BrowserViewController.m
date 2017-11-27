@@ -7,6 +7,7 @@
 //
 
 #import <StoreKit/StoreKit.h>
+#import "PreferenceHelper.h"
 #import "WebViewHistoryItem.h"
 #import "TabManager.h"
 #import "BrowserViewController.h"
@@ -145,6 +146,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 #pragma mark - UIScrollViewDelegate Method
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (![PreferenceHelper boolForKey:KeyFullScreenModeStatus]) {
+        return;
+    }
     //点击新链接或返回时，scrollView会调用该方法
     if (!(!scrollView.decelerating && !scrollView.dragging && !scrollView.tracking)) {
         CGFloat yOffset = scrollView.contentOffset.y - self.lastContentOffset;
@@ -192,7 +196,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 #pragma mark - Handle TopToolBar Scroll
 
 - (void)handleToolBarWithOffset:(CGFloat)offset{
-    return;
+    
     CGRect bottomRect = self.bottomToolBar.frame;
     //缩小toolbar
     if (offset > 0) {
@@ -290,13 +294,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     }
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
-        [cardMainView reloadCardMainViewWithCompletionBlock:^{
+        [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
             UIImage *image = [self.view snapshot];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
             imageView.frame = cardMainView.bounds;
             [cardMainView addSubview:imageView];
             [self.view addSubview:cardMainView];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self.navigationController popViewControllerAnimated:YES];
                 [imageView removeFromSuperview];
                 [cardMainView changeCollectionViewLayout];
             });

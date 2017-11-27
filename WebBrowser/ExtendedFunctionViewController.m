@@ -39,6 +39,19 @@
         [self showNavWithTitle:@"广告过滤" backBtnHiden:NO];
         _leftLabel.text = @"广告过滤";
         [self.switchButton setOn:[PreferenceHelper boolForKey:KeyBlockBaiduADStatus]];
+    }else if (_extendedOperationKind == ExtendedOperationKindFULLSCREEN){
+        [self showNavWithTitle:@"全屏显示" backBtnHiden:NO];
+        _leftLabel.text = @"全屏显示";
+        [self.switchButton setOn:[PreferenceHelper boolForKey:KeyFullScreenModeStatus]];
+        
+        if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
+            //设置亮度
+            [[UIScreen mainScreen] setBrightness:0.2];
+        } else{
+            //设置亮度
+            [[UIScreen mainScreen] setBrightness:1];
+        }
+        
     }
     
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -59,8 +72,10 @@
 //        [[UIScreen mainScreen] setBrightness: 0.2];
     }else if (_extendedOperationKind == ExtendedOperationKindTOOPENURL){
         [PreferenceHelper setBool:sender.on forKey:KeyBlockBaiduADStatus];
-    }else{
+    }else if(_extendedOperationKind == ExtendedOperationKindGUANGGAOGUOLV){
         [PreferenceHelper setBool:sender.on forKey:KeyBlockBaiduADStatus];
+    }else if (_extendedOperationKind == ExtendedOperationKindFULLSCREEN){
+        [PreferenceHelper setBool:sender.on forKey:KeyFullScreenModeStatus];
     }
     
 }
