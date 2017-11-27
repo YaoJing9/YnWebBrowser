@@ -91,7 +91,6 @@
     [self.view addSubview:self.tableView];
     
     [self requestData];
-
     
     [self requestAllData];
 
@@ -131,17 +130,20 @@
     //开始定位
     [self.locationManager startUpdatingLocation];
     NSLog(@"开始定位");
+    
+    
+
 }
 
 //定位代理方法
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    
+
     CLLocation *location = locations.lastObject;
 
     CLLocationCoordinate2D coordinate = location.coordinate;
-    
+
     [self loadWeatherWith:coordinate];
-    
+
     //反地理编码
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
@@ -150,24 +152,24 @@
            //定位出错
             return;
         }
-        
+
         for (CLPlacemark *placemark in placemarks) {
-            
+
             //将当前位置赋给控制器属性
             self.cityLoca = [NSString stringWithFormat:@"%@%@", placemark.locality, placemark.subLocality];
-            
+
             //根据当前位置请求天气数据
             [self loadWeatherWith:placemark.location.coordinate];
-            
+
 
             NSString *ci = [NSString stringWithFormat:@"定位完成\n当前位置：%@", self.cityLoca];
             NSLog(@"%@", ci);
         }
-        
+
     }];
-    
+
     [self.locationManager stopUpdatingLocation];
-    
+
 }
 
 //请求天气数据方法
@@ -277,13 +279,6 @@
     
 }
 
-
-
-
-
-
-
-
 - (void)requestAllData{
     WS(weakSelf);
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -293,13 +288,32 @@
 
 - (void)requestData{
     WS(weakSelf);
-    [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:@"http://m.ieforex.com/talkforexdata/res/getHead.do" parameters:nil success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+    
+    NSString *strUrl = @"http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json";
+
+    [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:strUrl parameters:nil success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        
+        [weakSelf requestLocationData:responseObject[@"city"]];
         
         [weakSelf endRefresh];
 
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         [weakSelf endRefresh];
     }];
+}
+
+- (void)requestLocationData:(NSString *)city{
+    WS(weakSelf);
+        CLGeocoder *myGeocoder = [[CLGeocoder alloc] init];
+        [myGeocoder geocodeAddressString:city completionHandler:^(NSArray *placemarks, NSError *error) {
+            if ([placemarks count] > 0 && error == nil) {
+                CLPlacemark *firstPlacemark = [placemarks objectAtIndex:0];
+                [weakSelf loadWeatherWith:firstPlacemark.location.coordinate];
+            }
+            else if ([placemarks count] == 0 && error == nil) {
+            } else if (error != nil) {
+            }
+        }];
 }
 
 -(void)endRefresh{
@@ -382,9 +396,7 @@
         make.width.equalTo(@35);
         make.height.equalTo(@34);
         make.right.equalTo(weatherView.mas_right).offset(-15);
-    }];
-    
-    
+    }];    
     
     UILabel *lable=[[UILabel alloc] init];
     lable.layer.cornerRadius=5;
@@ -703,28 +715,22 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-        if (scrollView.contentOffset.y >= _oldOffset) {//如果当前位移大于缓存位移，说明scrollView向上滑动
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                CGRect bottomRect = self.bottomToolBar.frame;
-                bottomRect.origin.y = self.view.height;
-                self.bottomToolBar.frame = bottomRect;
-            }];
-        }else{
-            [UIView animateWithDuration:0.5 animations:^{
-                CGRect bottomRect = self.bottomToolBar.frame;
-                bottomRect.origin.y = self.view.height - BOTTOM_TOOL_BAR_HEIGHT;
-                self.bottomToolBar.frame = bottomRect;
-            }];
-        }
-        
     
+    if (scrollView.contentOffset.y > self.oldOffset && scrollView.contentOffset.y > 0 && (scrollView.contentOffset.y < scrollView.contentSize.height - scrollView.mj_h)) {//向上滑动
+        
+        [UIView animateWithDuration:0.5 animations:^{
+
+            self.bottomToolBar.mj_y = self.view.mj_h;
+        }];
+        
+    }else if (scrollView.contentOffset.y < self.oldOffset && scrollView.contentOffset.y > 0 && (scrollView.contentOffset.y < scrollView.contentSize.height - scrollView.mj_h)){//向上滑动
+        [UIView animateWithDuration:0.5 animations:^{
+            self.bottomToolBar.mj_y = self.view.height - BOTTOM_TOOL_BAR_HEIGHT;
+        }];
+    }
+    self.oldOffset = scrollView.contentOffset.y;
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    // 获取开始拖拽时tableview偏移量
-    _oldOffset = scrollView.contentOffset.y;
-}
 
 - (void)addBookmark{
 
