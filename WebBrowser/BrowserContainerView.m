@@ -417,6 +417,7 @@ static NSString *const BaiduSearchPath = @"https://m.baidu.com/s?ie=utf-8&word="
         }
         case BottomToolBarBackButtonTag:
         {
+            
             [self removeHomePageIfNeededWithWebView:self.webView url:self.webView.request.URL needsEqual:YES];
             [self.webView goBack];
             break;

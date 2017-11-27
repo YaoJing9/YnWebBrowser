@@ -7,7 +7,7 @@
 //
 
 #import "PreferenceHelper.h"
-
+NSString * const KeyFullScreenModeStatus = @"KeyFullScreenModeStatus";
 NSString * const KeyHistoryModeStatus = @"KeyNoHistoryModeStatus";
 NSString * const KeyNoImageModeStatus = @"KeyNoImageModeStatus";
 NSString * const KeyBlockBaiduADStatus = @"KeyBlockBaiduADStatus";

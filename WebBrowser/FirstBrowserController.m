@@ -87,11 +87,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
-        [BrowserVC.browserContainerView removeAllSubviews];
-
-        BrowserVC.browserContainerView = nil;
-        
-//        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
+        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
     }
 }
 - (void)viewDidLoad {
@@ -727,7 +723,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    
+    return;
     if (scrollView.contentOffset.y > self.oldOffset && scrollView.contentOffset.y > 0 && (scrollView.contentOffset.y < scrollView.contentSize.height - scrollView.mj_h)) {//向上滑动
         
         [UIView animateWithDuration:0.5 animations:^{
@@ -742,7 +738,6 @@
     }
     self.oldOffset = scrollView.contentOffset.y;
 }
-
 
 - (void)addBookmark{
 

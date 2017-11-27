@@ -54,6 +54,7 @@
     [self.contentView addSubview:_titleLabel];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(leftImgView.mas_right).offset(5);
+        make.right.equalTo(self.mas_right).offset(-10);
         make.height.equalTo(@20);
         make.top.equalTo(weakSelf.contentView).offset(15);
     }];
@@ -64,7 +65,7 @@
     _linkLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:_linkLabel];
     [_linkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(leftImgView.mas_right).offset(5);
+       make.right.equalTo(self.mas_right).offset(-10); make.left.equalTo(leftImgView.mas_right).offset(5);
         make.height.equalTo(@15);
         make.top.equalTo(_titleLabel.mas_bottom);
     }];
