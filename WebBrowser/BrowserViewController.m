@@ -121,7 +121,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         toolBar.browserButtonDelegate = self;
         
         [self.browserContainerView addObserver:toolBar forKeyPath:@"webView" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial context:NULL];
-    
         toolBar;
     });
     WS(weakSelf);

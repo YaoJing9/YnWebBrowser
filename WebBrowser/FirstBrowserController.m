@@ -676,9 +676,6 @@
 }
 
 - (void)initializeView{
-
-    
-    
     self.bottomToolBar = ({
         BrowserBottomToolBar *toolBar = [[BrowserBottomToolBar alloc] initWithFrame:CGRectMake(0, self.view.height - BOTTOM_TOOL_BAR_HEIGHT, self.view.width, BOTTOM_TOOL_BAR_HEIGHT)];
         toolBar.fromVCComeInKind = 0;
@@ -699,6 +696,7 @@
     if ([self.browserButtonDelegate respondsToSelector:@selector(browserBottomToolBarButtonClickedWithTag:)]) {
         [self.browserButtonDelegate browserBottomToolBarButtonClickedWithTag:tag];
     }
+    
     if (tag == BottomToolBarMoreButtonTag) {
         [MoreSettingView showInsertionViewSuccessBlock:^{
             
@@ -754,8 +752,6 @@
 - (void)addBookmark{
 
 }
-
-
 
 #pragma mark - Dealloc Method
 

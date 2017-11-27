@@ -35,14 +35,13 @@
     
     [self.attributes removeAllObjects];
     
-    CGFloat top = -110.0f;
+    CGFloat top = 20.0f;
     CGFloat left = 6.0f;
     CGFloat width = roundf(self.collectionView.frame.size.width - 2*left);
     CGFloat height = roundf((self.collectionView.frame.size.height/self.collectionView.frame.size.width)*width);
     
     for (NSInteger item = 0; item < [self.collectionView numberOfItemsInSection:0]; item++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:0];
-        
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
         
         CGRect frame = CGRectMake(left, top, width, height);
@@ -61,7 +60,7 @@
         }
         
         // rotation
-        CATransform3D rotation = CATransform3DMakeRotation((M_PI*angleOfRotation/180.0f), 1.0f, 0.0f, .0f);
+        CATransform3D rotation = CATransform3DMakeRotation(0, 1.0f, 0.0f, .0f);
         
         // perspective
         CGFloat depth = 300.0f;
