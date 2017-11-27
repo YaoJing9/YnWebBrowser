@@ -7,7 +7,7 @@
 //
 
 #import <StoreKit/StoreKit.h>
-
+#import "TabManager.h"
 #import "BrowserViewController.h"
 #import "BrowserContainerView.h"
 #import "BrowserTopToolBar.h"
@@ -264,7 +264,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
                 
             }];
         }else{
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:NO];
         }
     }
     if (tag == BottomToolBarMultiWindowButtonTag) {
@@ -295,15 +295,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             break;
         case 1:
             extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [self.navigationController pushViewController: extendedFVC animated:NO];
             break;
         case 2:
             extendedFVC.extendedOperationKind = ExtendedOperationKindNOIMAGE;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [self.navigationController pushViewController: extendedFVC animated:NO];
             break;
         case 3:
             extendedFVC.extendedOperationKind = ExtendedOperationKindNOHISTORY;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [self.navigationController pushViewController: extendedFVC animated:NO];
             break;
         case 4:
             
@@ -312,7 +312,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             
             historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
             historyAndBookmarkVc.fromVCComeInKind = FromVCComeInKindWEBVIEW;
-            [self.navigationController pushViewController: historyAndBookmarkVc animated:YES];
+            [self.navigationController pushViewController: historyAndBookmarkVc animated:NO];
             break;
         case 6:
             [self addBookmark];
@@ -321,10 +321,27 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             
             break;
         case 8:
-            [self.navigationController pushViewController: settingVc animated:YES];
+            [self.navigationController pushViewController: settingVc animated:NO];
             break;
             
         default:
+        {
+            NSURL *url = self.browserContainerView.webView.request.URL;
+            if ([url isErrorPageURL]) {
+                NSURL *url = [self.browserContainerView.webView.request.URL originalURLFromErrorURL];
+                [self.browserContainerView startLoadWithWebView:self.browserContainerView.webView url:url];
+            }
+            else if (!url || [url.absoluteString isEqualToString:@""]){
+                WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
+                url = [NSURL URLWithString:webModel.url];
+                [self.browserContainerView startLoadWithWebView:self.browserContainerView.webView url:url];
+            }
+            else{
+                [self.browserContainerView.webView reload];
+            }
+            [MoreSettingView removeMoreSettingView];
+            break;
+        }
             break;
     }
 }
@@ -366,9 +383,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     BookmarkItemEditViewController *editVC = [[BookmarkItemEditViewController alloc] initWithDataManager:dataManager item:[BookmarkItemModel bookmarkItemWithTitle:title url:url] sectionIndex:[NSIndexPath indexPathForRow:0 inSection:0] operationKind:BookmarkItemOperationKindItemAdd completion:nil];
     
-    UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:editVC];
+    [self.navigationController pushViewController: editVC animated:NO];
     
-    [self presentViewController:navigationVC animated:YES completion:nil];
 }
 
 #pragma mark - Preseving and Restoring State

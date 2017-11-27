@@ -339,8 +339,7 @@
     HistoryItemModel *model = self.searchHistories[indexPath.row];
     
     HistoryRecordCell *historyRecordCell = [HistoryRecordCell cellWithTableView:tableView reuseIdentifier:@"HistoryRecordCell"];
-    historyRecordCell.title = model.title;
-    historyRecordCell.urlStr = model.url;
+    historyRecordCell.model = model;
     return historyRecordCell;
 }
 
