@@ -178,7 +178,7 @@
 - (void)updataHomeData:(NSDictionary *)dict{
     
     NSArray *topAry = dict[@"banner_top"];
-    
+    [YnSimpleInterest shareSimpleInterest].searchTopAry = dict[@"title"];
     
     for (NSInteger i = 0;i< topAry.count;i++) {
         NSDictionary *buttonDict = topAry[i];
@@ -617,7 +617,6 @@
 }
 
 - (void)buttonAction:(UIButton *)btn{
-    
 
     NSArray *linkAry = [_allDataDict[@"banner_top"] valueForKeyPath:@"link"];
     
