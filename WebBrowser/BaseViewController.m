@@ -137,7 +137,7 @@
 
 //返回按钮方法
 -(void)backClick:(UIButton*)btn{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 //右按钮方法

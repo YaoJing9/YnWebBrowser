@@ -14,6 +14,14 @@ typedef void(^CompletionBlock)(WebModel *model);
 
 @interface CardMainView : UIView
 
+@property(nonatomic,assign)BOOL isFirstVC;
+/**
+typedef NS_ENUM(NSInteger, FromVCComeInKind) {
+    FromVCComeInKindROOTVC = 0,
+    FromVCComeInKindWEBVIEW = 1,
+    FromVCComeInKindSEARCH = 2
+};*/
+@property(nonatomic,assign)NSInteger fromVCComeInKind;
 - (void)reloadCardMainViewWithCompletionBlock:(CompletionBlock)completion;
 - (void)changeCollectionViewLayout;
 

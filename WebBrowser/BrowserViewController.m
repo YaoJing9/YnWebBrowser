@@ -292,6 +292,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     }
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
+        cardMainView.isFirstVC = NO;
+        cardMainView.fromVCComeInKind = _fromVCComeInKind;
         [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
             UIImage *image = [self.view snapshot];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -299,10 +301,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             [cardMainView addSubview:imageView];
             [self.view addSubview:cardMainView];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (model.isNewWebView == YES) {
-                    [self.navigationController popViewControllerAnimated:NO];
-                }
-                
                 [imageView removeFromSuperview];
                 [cardMainView changeCollectionViewLayout];
             });

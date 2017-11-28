@@ -259,7 +259,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
     dispatch_async(self.synchQueue, ^{
         [_webModelArray enumerateObjectsUsingBlock:^(WebModel *webModel, NSUInteger idx, BOOL *stop){
             webModel.isImageProcessed = NO;
-            UIImage *image = [webModel.webView snapshotForBrowserWebView];
+            UIImage *image = [UIImage new];
+            if (webModel.isNewWebView != YES) {
+                 image = [webModel.webView snapshotForBrowserWebView];
+            }
+           
             if (!image) {
                 image = [self imageFromDiskCacheForKey:webModel.imageKey];
                 if (image) {
@@ -311,7 +315,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
 
 - (void)updateWebModelArray:(NSArray<WebModel *> *)webArray completion:(WebBrowserNoParamsBlock)block{
     NSArray *copyArray = [webArray copy];
-    
+
     dispatch_async(self.synchQueue, ^{
         if (!copyArray.count) {
             [self setDefaultWebArray];
@@ -322,6 +326,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
             [self.webModelArray addObjectsFromArray:copyArray];
         }
         
+        if (copyArray.count == 0) {
+            [self.webModelArray removeAllObjects];
+        }
         
         if (block) {
             dispatch_main_safe_async(^{

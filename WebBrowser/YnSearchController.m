@@ -7,6 +7,7 @@
 //
 
 #import "YnSearchController.h"
+#import "TabManager.h"
 #import "MLSearchResultsTableViewController.h"
 #import "HistoryRecordCell.h"
 #import "BrowserViewController.h"
@@ -248,11 +249,26 @@
 
     
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
-        BrowserViewController *vc = [BrowserViewController new];
-        vc.url = [self rootSearchStrWebViewWithSug:text];
-        vc.fromVCComeInKind = FromVCComeInKindSEARCH;
-        [self.navigationController pushViewController:vc animated:NO];
+        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
         
+        NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
+        WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
+        webModel.isNewWebView = NO;
+        
+        [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
+            NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
+            
+            [dataArray replaceObjectAtIndex:temp - 1 withObject:webModel];
+            
+            [[TabManager sharedInstance] updateWebModelArray:dataArray];
+            
+            BrowserViewController *vc = [BrowserViewController new];
+            
+            vc.url = DEFAULT_CARD_CELL_URL;
+            vc.fromVCComeInKind = FromVCComeInKindSEARCH;
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }];
     }else{
         [self dismissViewControllerAnimated:NO completion:nil];
     }

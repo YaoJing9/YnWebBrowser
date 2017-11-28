@@ -119,6 +119,7 @@
 		0EFDD30C1DD42868002AB3FB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD30B1DD42868002AB3FB /* AudioToolbox.framework */; };
 		0EFDD30E1DD45764002AB3FB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD30D1DD45764002AB3FB /* StoreKit.framework */; };
 		180F39F71FCC0CF8007DB934 /* NightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F39F61FCC0CF8007DB934 /* NightView.m */; };
+		180F39FA1FCD4A90007DB934 /* SaveImageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F39F91FCD4A90007DB934 /* SaveImageTool.m */; };
 		187FFD561FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */; };
 		187FFD571FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */; };
 		18CE6EA31FC595620068091D /* HistoryAndBookmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EA11FC595620068091D /* HistoryAndBookmarkTableViewCell.m */; };
@@ -480,6 +481,8 @@
 		0EFDD30D1DD45764002AB3FB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		180F39F51FCC0CF8007DB934 /* NightView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NightView.h; sourceTree = "<group>"; };
 		180F39F61FCC0CF8007DB934 /* NightView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NightView.m; sourceTree = "<group>"; };
+		180F39F81FCD4A90007DB934 /* SaveImageTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveImageTool.h; sourceTree = "<group>"; };
+		180F39F91FCD4A90007DB934 /* SaveImageTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveImageTool.m; sourceTree = "<group>"; };
 		187FFD531FC575B8004A9FEF /* HistoryAndBookmarkListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryAndBookmarkListViewController.h; sourceTree = "<group>"; };
 		187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryAndBookmarkListViewController.m; sourceTree = "<group>"; };
 		187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryAndBookmarkListViewController.xib; sourceTree = "<group>"; };
@@ -1167,6 +1170,8 @@
 				18CE6EB11FC6B94E0068091D /* UIAlertController+DXAlertController.m */,
 				18CE6EB31FC6B9E30068091D /* NSObject+DXObject.h */,
 				18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */,
+				180F39F81FCD4A90007DB934 /* SaveImageTool.h */,
+				180F39F91FCD4A90007DB934 /* SaveImageTool.m */,
 			);
 			path = WebBrowser;
 			sourceTree = "<group>";
@@ -2228,6 +2233,7 @@
 				BF4EFD281FC7E1A600BCDD84 /* MJRefreshConst.m in Sources */,
 				0E7078111E9633F000E898A8 /* NSDate+ZWUtility.m in Sources */,
 				E813BA4D1FB59D8200470ECD /* SDWebImageCoderHelper.m in Sources */,
+				180F39FA1FCD4A90007DB934 /* SaveImageTool.m in Sources */,
 				0E48FB011DA3FD4B00B8FCDB /* BrowserWebView.m in Sources */,
 				E813B9FE1FB5998000470ECD /* MTLModel+NSCoding.m in Sources */,
 				E813BA001FB5998000470ECD /* MTLReflection.m in Sources */,

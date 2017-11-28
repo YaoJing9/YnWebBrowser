@@ -30,11 +30,13 @@
 {
     [super prepareLayout];
     
-    CGFloat top = 0.0f;
-    CGFloat left = 0.0f;
-    CGFloat width = self.collectionView.frame.size.width;
-    CGFloat height = self.collectionView.frame.size.height;
     
+    CGFloat width = roundf(300);
+    CGFloat height = roundf(width * 1.5);
+    
+    CGFloat top = (self.collectionView.frame.size.height - height) / 2;
+    CGFloat left = 10.0f;
+
     [self.attributes removeAllObjects];
     
     for (NSInteger item = 0; item < [self.collectionView numberOfItemsInSection:0]; item++)
@@ -48,13 +50,13 @@
         
         [self.attributes addObject:attributes];
         
-        top += height;
+        left += width;
     }
     
     if (self.attributes.count)
     {
         UICollectionViewLayoutAttributes *lastItemAttributes = [self.attributes lastObject];
-        self.contentSize = CGSizeMake(width, lastItemAttributes.frame.origin.y + lastItemAttributes.frame.size.height);
+        self.contentSize = CGSizeMake(lastItemAttributes.frame.origin.x + lastItemAttributes.frame.size.width + 10, height);
     }
 }
 
