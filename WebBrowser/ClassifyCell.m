@@ -44,12 +44,11 @@
         [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
         button.tag = 100 + i;
         button.status = FLAlignmentStatusTop;
-        button.fl_padding = 10;
+        button.fl_padding = 7;
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         
         if (clowBtn) {
-            
             
             if (i < 5) {
                 [button mas_makeConstraints:^(MASConstraintMaker *make) {

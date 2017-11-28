@@ -664,7 +664,6 @@
         UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 46)];
         bgView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
         
-        
         UIView *bottomView = [UIView new];
         [bgView addSubview:bottomView];
         bottomView.backgroundColor = [UIColor whiteColor];
@@ -768,13 +767,10 @@
 {
     WS(weakSelf);
     if (indexPath.section == 0) {
-        
         ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[0][2]];
-        
         classifyCell.classifyCellClicKBlock = ^(NSString *link) {
             [weakSelf pushWebViewVc:link];
         };
-        
         return classifyCell;
     }else if (indexPath.section == 1){
         TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:self.dataArr[1][2][indexPath.row]];
@@ -783,13 +779,11 @@
         };
         return cell;
     }else{
-        
         ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[2][2]];
         classifyCell.classifyCellClicKBlock = ^(NSString *link) {
             [weakSelf pushWebViewVc:link];
         };
         return classifyCell;
-
     }
 }
 
