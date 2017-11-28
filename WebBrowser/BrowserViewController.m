@@ -7,6 +7,7 @@
 //
 
 #import <StoreKit/StoreKit.h>
+#import "NightView.h"
 #import "PreferenceHelper.h"
 #import "WebViewHistoryItem.h"
 #import "TabManager.h"
@@ -313,23 +314,26 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     SettingsTableViewController *settingVc = [[SettingsTableViewController alloc] init];
     HistoryAndBookmarkListViewController *historyAndBookmarkVc = [[HistoryAndBookmarkListViewController alloc] init];
-    ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
     switch (index) {
         case 0:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindFULLSCREEN;
-            [self.navigationController pushViewController: extendedFVC animated:NO];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyFullScreenModeStatus] forKey:KeyFullScreenModeStatus];
+            
             break;
         case 1:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
-            [self.navigationController pushViewController: extendedFVC animated:NO];
+            
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyEyeProtectiveStatus] forKey:KeyEyeProtectiveStatus];
+            if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
+                [NightView showNightView];
+            } else{
+                //设置亮度
+                [NightView deleNightView];
+            }
             break;
         case 2:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindNOIMAGE;
-            [self.navigationController pushViewController: extendedFVC animated:NO];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyNoImageModeStatus] forKey:KeyNoImageModeStatus];
             break;
         case 3:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindNOHISTORY;
-            [self.navigationController pushViewController: extendedFVC animated:NO];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyHistoryModeStatus] forKey:KeyHistoryModeStatus];
             break;
         case 4:
             

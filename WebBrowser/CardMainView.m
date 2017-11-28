@@ -132,15 +132,15 @@
                 
                 if (webModel.isNewWebView == YES) {
                     if (_isFirstVC == YES) {
-                        [self__ removeSelfFromSuperView];
+                        
                     }else{
                         if (self__.fromVCComeInKind == FromVCComeInKindSEARCH) {
                             [self__.obtainTopViewController dismissViewControllerAnimated:NO completion:^{
-                                [self__ removeSelfFromSuperView];
+                                
                             }];
                         }else{
                             [[self__ obtainTopViewController].navigationController popViewControllerAnimated:NO];
-                            [self__ removeSelfFromSuperView];
+                            
                         }
                     }
                     
@@ -155,12 +155,11 @@
                             vc.fromVCComeInKind = FromVCComeInKindROOTVC;
                             [[self__ obtainTopViewController].navigationController pushViewController:vc animated:NO];
                     }
-                    [self__ removeSelfFromSuperView];
                     
                 }
                 
             }
-            
+            [self__ removeSelfFromSuperView];
         }];
     }
     else{

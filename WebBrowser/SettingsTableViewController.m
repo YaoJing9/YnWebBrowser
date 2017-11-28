@@ -33,7 +33,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
     
     [self showNavWithTitle:@"设置" backBtnHiden:NO];
     
-    self.dataArray = @[@"意见反馈",@"清除缓存",@"清除历史记录",@"分享给朋友",@"启动时打开上次页面",@"广告过滤"];
+    self.dataArray = @[@"意见反馈",@"清除缓存",@"清除历史记录",@"分享给朋友",@"广告过滤"];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64) style:UITableViewStyleGrouped];
     
@@ -72,7 +72,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
         }];
     }else if (index == 4){
         ExtendedFunctionViewController *vc = [[ExtendedFunctionViewController alloc] init];
-        vc.extendedOperationKind = ExtendedOperationKindTOOPENURL;
+        vc.extendedOperationKind = ExtendedOperationKindGUANGGAOGUOLV;
         [self.navigationController pushViewController:vc animated:NO];
     }else if (index == 5){
         ExtendedFunctionViewController *vc = [[ExtendedFunctionViewController alloc] init];

@@ -7,6 +7,8 @@
 //
 
 #import "FirstBrowserController.h"
+#import "NightView.h"
+#import "PreferenceHelper.h"
 #import "SaveImageTool.h"
 #import "TabManager.h"
 #import "BrowserBottomToolBar.h"
@@ -720,23 +722,27 @@
     SettingsTableViewController *settingVc = [[SettingsTableViewController alloc] init];
     HistoryAndBookmarkListViewController *historyAndBookmarkVc = [[HistoryAndBookmarkListViewController alloc] init];
     
-    ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
+    
     switch (index) {
         case 0:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindFULLSCREEN;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyFullScreenModeStatus] forKey:KeyFullScreenModeStatus];
+
             break;
         case 1:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyEyeProtectiveStatus] forKey:KeyEyeProtectiveStatus];
+            if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
+                [NightView showNightView];
+            } else{
+                //设置亮度
+                [NightView deleNightView];
+            }
             break;
         case 2:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindNOIMAGE;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyNoImageModeStatus] forKey:KeyNoImageModeStatus];
             break;
         case 3:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindNOHISTORY;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyHistoryModeStatus] forKey:KeyHistoryModeStatus];
             break;
         case 4:
             
@@ -859,6 +865,7 @@
     
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
+        cardMainView.isFirstVC = YES;
         [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
             UIImage *image = [self.view snapshot];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
