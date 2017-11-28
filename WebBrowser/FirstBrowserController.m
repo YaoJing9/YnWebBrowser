@@ -7,6 +7,8 @@
 //
 
 #import "FirstBrowserController.h"
+#import "SaveImageTool.h"
+#import "TabManager.h"
 #import "BrowserBottomToolBar.h"
 #import "BrowserContainerView.h"
 #import "CardMainView.h"
@@ -87,12 +89,31 @@
     }
     return _dataArr;
 }
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
         [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
+    }else{
+        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
     }
+    
+    
+    NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
+    WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
+    webModel.image = [self.view snapshot];
+    
+    [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
+    
+    webModel.isNewWebView = YES;
+    
+    [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
+        NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
+        
+        [dataArray replaceObjectAtIndex:temp - 1 withObject:webModel];
+        
+        [[TabManager sharedInstance] updateWebModelArray:dataArray];
+        
+    }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -778,12 +799,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
-//    BrowserViewController *vc = [BrowserViewController new];
-//
-//    vc.url = DEFAULT_CARD_CELL_URL;
-//    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
-//    [self.navigationController pushViewController:vc animated:NO];
+
+    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+    
+    NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
+    WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
+    webModel.isNewWebView = NO;
+    
+    [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
+        NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
+        
+        [dataArray replaceObjectAtIndex:temp - 1 withObject:webModel];
+        
+        [[TabManager sharedInstance] updateWebModelArray:dataArray];
+        
+        BrowserViewController *vc = [BrowserViewController new];
+        
+        vc.url = DEFAULT_CARD_CELL_URL;
+        vc.fromVCComeInKind = FromVCComeInKindROOTVC;
+        [self.navigationController pushViewController:vc animated:NO];
+        
+    }];
     
 }
 
