@@ -47,12 +47,7 @@ static UIView *_bgView;
         bgView.layer.cornerRadius = 15;
         [bgBigView addSubview:bgView];
         bgView.frame = CGRectMake(10, SCREENHEIGHT, SCREENWIDTH - 20, 250);
-//        [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(@10);
-//            make.right.equalTo(@-10);
-//            make.height.equalTo(@250);
-//            make.top.equalTo(bgBigView.mas_bottom);
-//        }];
+
         _bgView = bgView;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:bgBigView action:@selector(clickBannerView:)];
         [bgBigView addGestureRecognizer:tapGesture];
@@ -164,7 +159,7 @@ static UIView *_bgView;
 {
     [UIView animateWithDuration:0.3 animations:^{
 
-        _bgView.mj_y = SCREENHEIGHT - 294;
+        _bgView.mj_y = SCREENHEIGHT - 250;
         
     } completion:^(BOOL finished) {
 

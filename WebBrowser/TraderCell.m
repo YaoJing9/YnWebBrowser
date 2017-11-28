@@ -47,10 +47,16 @@
 
     WS(weakSelf);
     FL_Button *clowBtn;
+    
+    _dataAry = buttonTitleArray;
+    
     for (int i=0; i<buttonTitleArray.count; i++) {
+        
+        NSDictionary *dict = buttonTitleArray[i];
+        
         FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
-        [button setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:15];
+        [button setTitle:dict[@"name"] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:16];
         if (i == 0) {
             [button setTitleColor:[UIColor colorWithHexString:@"#999999"] forState:UIControlStateNormal];
         }else{
@@ -92,9 +98,18 @@
     }
     
 }
-- (void)buttonAction:(FL_Button *)nbtn{
+
+- (void)buttonAction:(FL_Button *)btn{
     
+    NSInteger index = btn.tag - 100;
+    
+    NSString *link = _dataAry[index][@"link"];
+    
+    if (self.traderCellClicKBlock) {
+        self.traderCellClicKBlock(link);
+    }
 }
+
 - (void)awakeFromNib {
     [super awakeFromNib];
 }

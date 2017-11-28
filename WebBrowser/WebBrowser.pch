@@ -11,7 +11,6 @@
 
 #import <UIKit/UIKit.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
-
 #import "MacroMethod.h"
 #import "MacroConstants.h"
 #import "UIView+ZWUtility.h"
@@ -26,11 +25,16 @@
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "CMNetworkingTool.h"
+#import "SDWebImage/UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+
 #if DEBUG
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else
 //static const DDLogLevel ddLogLevel = DDLogLevelError;
 #endif
+
+
 
 
 #define MinX(v)            CGRectGetMinX((v).frame) // 获得控件屏幕的x坐标
@@ -96,6 +100,7 @@
 
 
 #define YNBaseURL @"http://101.200.172.55/"
+#define WEATHERURL @"https://www.seniverse.com/weather/city/CHSH000000"
 
 
 

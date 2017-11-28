@@ -54,6 +54,9 @@
 @property (nonatomic, strong) UILabel *cityLabel;
 @property (nonatomic, strong) UILabel *temperatureLabel;
 @property (nonatomic, strong) UIImageView *weatherImgView;
+@property (nonatomic, strong) NSMutableArray *dataAry;
+@property (nonatomic, strong) NSMutableArray *topImagAry;
+@property (nonatomic, strong) NSDictionary *allDataDict;
 
 
 @end
@@ -67,8 +70,8 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorColor = [UIColor colorWithHexString:@"#dedede"];
-        _tableView.backgroundColor = RGBColor(27, 142, 248);
-
+//        _tableView.backgroundColor = RGBColor(27, 142, 248);
+        
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
@@ -80,7 +83,7 @@
 
 - (NSMutableArray *)dataArr{
     if (_dataArr == nil) {
-        _dataArr = [NSMutableArray arrayWithObjects:@[@1,@145], @[@5,@50], @[@1,@173], nil];
+        _dataArr = [NSMutableArray array];
     }
     return _dataArr;
 }
@@ -93,21 +96,25 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self initDataAry];
+
+    
     [self requestLocation];
+    
     
     [self.view addSubview:self.tableView];
     
     [self requestData];
     
     [self requestAllData];
-
+    
     [self requestHomeData];
     
     
-    [self initDataAry];
     
     [self createBgview];
-
+    
     [self initializeView];
     
     self.lastContentOffset = - TOP_TOOL_BAR_HEIGHT;
@@ -121,6 +128,79 @@
 
 - (void)requestHomeData{
     
+    WS(weakSelf);
+    NSString *tempURLStr = [NSString stringWithFormat:@"%@browserapi/getmainconfig", YNBaseURL];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    NSString *version = [CMNetworkingTool appVersion];
+    NSString *package = [CMNetworkingTool appBundleId];
+    [parameters setObject:version forKey:@"version"];
+    [parameters setObject:package forKey:@"package"];
+    
+    [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        
+    } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+        
+        NSLog(@"%@", [YJHelp codeWithError:error]);
+        weakSelf.allDataDict = [YJHelp codeWithError:error][@"data"][@"data"];
+        [weakSelf updataHomeData:[YJHelp codeWithError:error][@"data"][@"data"]];
+        [weakSelf.tableView reloadData];
+        
+        
+        
+    }];
+}
+
+- (void)updataHomeData:(NSDictionary *)dict{
+    
+    NSArray *topAry = dict[@"banner_top"];
+    
+    
+    for (NSInteger i = 0;i< topAry.count;i++) {
+        NSDictionary *buttonDict = topAry[i];
+        FL_Button *button =_topImagAry[i];
+        [button sd_setImageWithURL:[NSURL URLWithString:buttonDict[@"icon"]] forState:normal placeholderImage:nil];
+        [button setTitle:buttonDict[@"name"] forState:normal];
+    }
+    
+    
+    NSMutableArray *dataAry1 = dict[@"title"];
+    NSDictionary *dataDict = dict[@"navigation"];
+    NSMutableArray *dataAry3 = dict[@"banner_bottom"];
+
+
+    CGFloat height1 = 0;
+    if (dataAry1.count%5 == 0) {
+        height1 = (dataAry1.count/5)*75;
+    }else{
+        height1 = (dataAry1.count/5 + 1)*75;
+    }
+    CGFloat height3 = 0;
+    if (dataAry3.count%5 == 0) {
+        height3 = (dataAry3.count/5)*90;
+    }else{
+        height3 = (dataAry3.count/5 + 1)*90;
+    }
+    
+    NSArray *ary = [dataDict allKeys];
+    
+    NSMutableArray *dataAry2 = [NSMutableArray array];
+    
+    for (NSInteger i = 0; i < ary.count; i++) {
+        
+        NSString *key = ary[i];
+        NSArray *subary = dataDict[key];
+        NSMutableArray *mary = [subary mutableCopy];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict setObject:key forKey:@"name"];
+        [dict setObject:@"" forKey:@"link"];
+        [dict setObject:@"" forKey:@"linktype"];
+        [mary insertObject:dict atIndex:0];
+        [dataAry2 addObject:mary];
+    }
+    
+    self.dataArr = [NSMutableArray arrayWithObjects:@[@1,@(height1),dataAry1], @[@(dataAry2.count),@50,dataAry2], @[@1,@(height3),dataAry3], nil];
 }
 
 - (void)requestLocation{
@@ -145,44 +225,44 @@
     NSLog(@"开始定位");
     
     
-
+    
 }
 
 //定位代理方法
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-
+    
     CLLocation *location = locations.lastObject;
-
+    
     CLLocationCoordinate2D coordinate = location.coordinate;
-
+    
     [self loadWeatherWith:coordinate];
-
+    
     //反地理编码
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         //放错处理
         if (placemarks.count == 0 || error) {
-           //定位出错
+            //定位出错
             return;
         }
-
+        
         for (CLPlacemark *placemark in placemarks) {
-
+            
             //将当前位置赋给控制器属性
             self.cityLoca = [NSString stringWithFormat:@"%@%@", placemark.locality, placemark.subLocality];
-
+            
             //根据当前位置请求天气数据
             [self loadWeatherWith:placemark.location.coordinate];
-
-
+            
+            
             NSString *ci = [NSString stringWithFormat:@"定位完成\n当前位置：%@", self.cityLoca];
             NSLog(@"%@", ci);
         }
-
+        
     }];
-
+    
     [self.locationManager stopUpdatingLocation];
-
+    
 }
 
 //请求天气数据方法
@@ -193,7 +273,7 @@
     NSString *language = @"zh-Hans";
     NSString *locastr = [NSString stringWithFormat:@"%.2f:%.2f", loca.latitude, loca.longitude];
     NSString *tempURLStr = [NSString stringWithFormat:@"https://api.seniverse.com/v3/weather/now.json?key=%@&location=%@&language=%@&unit=%@", API, locastr, language, @"c"];
-
+    
     
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:nil success:^(NSURLSessionDataTask *dataTask, id responseObject) {
         [self updateWeatherView:responseObject[@"results"]];
@@ -207,7 +287,7 @@
 - (void)updateWeatherView:(NSArray *)responseObject{
     _temperatureLabel.text = [NSString stringWithFormat:@"%@°",  responseObject[0][@"now"][@"temperature"]];
     _cityLabel.text = [NSString stringWithFormat:@"%@",  responseObject[0][@"location"][@"name"]];
-
+    
     
     NSInteger code = [responseObject[0][@"now"][@"code"] integerValue];
     NSString *imgStr = nil;
@@ -226,16 +306,16 @@
         case 5:
         case 7:
             imgStr = @"5";
-
+            
             break;
         case 6:
         case 8:
             imgStr = @"6";
-
+            
             break;
         case 9:
             imgStr = @"9";
-
+            
             break;
         case 10:
         case 11:
@@ -249,7 +329,7 @@
         case 19:
         case 20:
             imgStr = @"10";
-
+            
             break;
         case 21:
         case 22:
@@ -264,11 +344,11 @@
         case 28:
         case 29:
             imgStr = @"28";
-
+            
             break;
         case 30:
             imgStr = @"30";
-
+            
             break;
         case 31:
             imgStr = @"31";
@@ -303,13 +383,13 @@
     WS(weakSelf);
     
     NSString *strUrl = @"http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json";
-
+    
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:strUrl parameters:nil success:^(NSURLSessionDataTask *dataTask, id responseObject) {
         
         [weakSelf requestLocationData:responseObject[@"city"]];
         
         [weakSelf endRefresh];
-
+        
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         [weakSelf endRefresh];
     }];
@@ -317,16 +397,16 @@
 
 - (void)requestLocationData:(NSString *)city{
     WS(weakSelf);
-        CLGeocoder *myGeocoder = [[CLGeocoder alloc] init];
-        [myGeocoder geocodeAddressString:city completionHandler:^(NSArray *placemarks, NSError *error) {
-            if ([placemarks count] > 0 && error == nil) {
-                CLPlacemark *firstPlacemark = [placemarks objectAtIndex:0];
-                [weakSelf loadWeatherWith:firstPlacemark.location.coordinate];
-            }
-            else if ([placemarks count] == 0 && error == nil) {
-            } else if (error != nil) {
-            }
-        }];
+    CLGeocoder *myGeocoder = [[CLGeocoder alloc] init];
+    [myGeocoder geocodeAddressString:city completionHandler:^(NSArray *placemarks, NSError *error) {
+        if ([placemarks count] > 0 && error == nil) {
+            CLPlacemark *firstPlacemark = [placemarks objectAtIndex:0];
+            [weakSelf loadWeatherWith:firstPlacemark.location.coordinate];
+        }
+        else if ([placemarks count] == 0 && error == nil) {
+        } else if (error != nil) {
+        }
+    }];
 }
 
 -(void)endRefresh{
@@ -340,16 +420,7 @@
 }
 
 - (void)initDataAry{
-    _oldOffset = 0;
-    _topDataAry = @[@"新浪",@"百度",@"微博",@"二手车",@"同城",@"淘宝",@"携程",@"苏宁",@"优酷"];
-    _bottomDataAry = @[@"订酒店",@"订机票",@"火车票",@"电影票",@"美食",@"58同城",@"租房",@"找工作",@"家政服务",@"兼职"];
-    _conentDataAry = @[
-                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
-                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
-                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
-                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"],
-                       @[@"新闻", @"头条", @"新浪", @"腾讯", @"搜狐"]
-                       ];
+    _topImagAry = [NSMutableArray array];
 }
 
 - (void)createBgview{
@@ -370,6 +441,10 @@
         make.height.equalTo(@70);
     }];
     
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(weatherViewClick:)];
+    [weatherView addGestureRecognizer:tap];
     
     _temperatureLabel = [UILabel new];
     _temperatureLabel.text = @"15";
@@ -409,7 +484,7 @@
         make.width.equalTo(@35);
         make.height.equalTo(@34);
         make.right.equalTo(weatherView.mas_right).offset(-15);
-    }];    
+    }];
     
     UILabel *lable=[[UILabel alloc] init];
     lable.layer.cornerRadius=5;
@@ -421,7 +496,7 @@
         make.top.equalTo(bgView).offset(90);
         make.left.equalTo(bgView).offset(15);
         make.right.equalTo(weakSelf.view).offset(-15);
-        make.height.equalTo(@32);
+        make.height.equalTo(@44);
     }];
     
     UIImageView *leftImg = [UIImageView new];
@@ -455,20 +530,19 @@
     
     FL_Button *clowBtn;
     
-    NSArray *buttonTitleArray = @[@"网址",@"小说",@"视频",@"奇趣",@"漫画"];
+    NSArray *buttonTitleArray = @[@"",@"",@"",@"",@""];
     
     for (int i=0; i<buttonTitleArray.count; i++) {
         FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
         [button setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:13];
+        button.titleLabel.font = [UIFont systemFontOfSize:11];
         [button setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
         button.tag = 100 + i;
         button.status = FLAlignmentStatusTop;
-        button.fl_padding = 10;
+        button.fl_padding = 5;
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:button];
-        
-        
+        [_topImagAry addObject:button];
         if (clowBtn) {
             [button mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(clowBtn);
@@ -491,9 +565,19 @@
     
 }
 
+//天气跳转
+- (void)weatherViewClick:(UITapGestureRecognizer *)tap{
+    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[WEATHERURL] key:DelegateManagerBrowserContainerLoadURL];
+    BrowserViewController *vc = [BrowserViewController new];
+    
+    vc.url = WEATHERURL;
+    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
+    [self.navigationController pushViewController:vc animated:NO];
+}
+
 #pragma mark-键盘的监听事件
 -(void)infoAction{
-
+    
     
     if (_textFiled.text.length == 0) {
         
@@ -511,6 +595,14 @@
 
 - (void)buttonAction:(UIButton *)btn{
     
+
+    NSArray *linkAry = [_allDataDict[@"banner_top"] valueForKeyPath:@"link"];
+    
+    NSInteger index = btn.tag - 100;
+    
+    NSString *link = linkAry[index];
+    
+    [self pushWebViewVc:link];
 }
 
 
@@ -650,29 +742,49 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    WS(weakSelf);
     if (indexPath.section == 0) {
         
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:_topDataAry];
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[0][2]];
+        
+        classifyCell.classifyCellClicKBlock = ^(NSString *link) {
+            [weakSelf pushWebViewVc:link];
+        };
+        
         return classifyCell;
     }else if (indexPath.section == 1){
-        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:_conentDataAry[indexPath.row]];
+        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:self.dataArr[1][2][indexPath.row]];
+        cell.traderCellClicKBlock = ^(NSString *link) {
+            [weakSelf pushWebViewVc:link];
+        };
         return cell;
     }else{
         
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:_bottomDataAry];
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[2][2]];
+        classifyCell.classifyCellClicKBlock = ^(NSString *link) {
+            [weakSelf pushWebViewVc:link];
+        };
         return classifyCell;
+
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+- (void)pushWebViewVc:(NSString *)link{
+    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[link] key:DelegateManagerBrowserContainerLoadURL];
     BrowserViewController *vc = [BrowserViewController new];
-    
-    vc.url = DEFAULT_CARD_CELL_URL;
+    vc.url = link;
     vc.fromVCComeInKind = FromVCComeInKindROOTVC;
     [self.navigationController pushViewController:vc animated:NO];
+}
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+//    BrowserViewController *vc = [BrowserViewController new];
+//
+//    vc.url = DEFAULT_CARD_CELL_URL;
+//    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
+//    [self.navigationController pushViewController:vc animated:NO];
+    
 }
 
 - (void)initializeView{
@@ -682,7 +794,7 @@
         [self.view addSubview:toolBar];
         
         toolBar.browserButtonDelegate = self;
-                
+        
         toolBar;
     });
 }
@@ -692,7 +804,7 @@
 
 - (void)browserBottomToolBarButtonClickedWithTag:(BottomToolBarButtonTag)tag{
     WS(weakSelf);
-
+    
     if ([self.browserButtonDelegate respondsToSelector:@selector(browserBottomToolBarButtonClickedWithTag:)]) {
         [self.browserButtonDelegate browserBottomToolBarButtonClickedWithTag:tag];
     }
@@ -750,7 +862,7 @@
 }
 
 - (void)addBookmark{
-
+    
 }
 
 #pragma mark - Dealloc Method

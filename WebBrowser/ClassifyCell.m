@@ -7,7 +7,6 @@
 //
 
 #import "ClassifyCell.h"
-
 @implementation ClassifyCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageAry:(NSArray *)imageAry
@@ -33,13 +32,15 @@
     
     WS(weakSelf);
     
+    _dataAry = buttonTitleArray;
+    
     FL_Button *clowBtn;
     
     for (int i=0; i<buttonTitleArray.count; i++) {
         FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
-        [button setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:13];
-        [button setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
+        [button setTitle:buttonTitleArray[i][@"name"] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:11];
+        [button sd_setImageWithURL:[NSURL URLWithString:buttonTitleArray[i][@"icon"]] forState:normal placeholderImage:nil];
         [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
         button.tag = 100 + i;
         button.status = FLAlignmentStatusTop;
@@ -89,6 +90,18 @@
     }
     
 }
+
+- (void)buttonAction:(FL_Button *)btn{
+    
+    NSInteger index = btn.tag - 100;
+    
+    NSString *link = _dataAry[index][@"link"];
+
+    if (self.classifyCellClicKBlock) {
+        self.classifyCellClicKBlock(link);
+    }
+}
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

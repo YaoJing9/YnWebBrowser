@@ -574,16 +574,16 @@
 }
 
 //获取AFN错误json
-//+(id)codeWithError:(NSError *)error{
-//
-//    NSData * data = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseDataErrorKey];
-//    id json = nil;
-//    if (data && (json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil])) {
-////        NSUInteger code = [[json objectForKey:@"code"] integerValue];
-//        return json;
-//    }
-//    return json;
-//}
++(id)codeWithError:(NSError *)error{
+
+    NSData * data = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseDataErrorKey];
+    id json = nil;
+    if (data && (json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil])) {
+//        NSUInteger code = [[json objectForKey:@"code"] integerValue];
+        return json;
+    }
+    return json;
+}
 
 //空字符串的统一处理
 + (NSString *)replaceNullValue:(NSString *)string
