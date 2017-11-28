@@ -7,8 +7,6 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
-#import "SDWebImage/SDWebImageManager.h"
-
 #import "HTTPManager.h"
 #import "BaiduSugResponseModel.h"
 #import "HTTPErrorCode.h"

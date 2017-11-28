@@ -6,10 +6,15 @@
 //  Copyright © 2017年 钟武. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 
-@interface ClassifyCell : UITableViewCell
+typedef void(^ClassifyCellClicKBlock)(NSString *);
 
+
+@interface ClassifyCell : UITableViewCell
+@property(nonatomic, copy)ClassifyCellClicKBlock classifyCellClicKBlock;
+@property(nonatomic, strong)NSArray *dataAry;
 + (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier imageAry:(NSArray *)imageAry;
 
 @end

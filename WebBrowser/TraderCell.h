@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef void(^TraderCellClicKBlock)(NSString *);
 
 @interface TraderCell : UITableViewCell
+
+@property(nonatomic, copy)TraderCellClicKBlock traderCellClicKBlock;
+@property(nonatomic, strong)NSArray *dataAry;
+
 + (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier titleAry:(NSArray *)titleAry;
 
 @end
