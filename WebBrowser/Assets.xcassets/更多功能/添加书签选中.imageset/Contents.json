@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "不能点.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "书签:历史.png",
       "scale" : "2x"
     },
     {

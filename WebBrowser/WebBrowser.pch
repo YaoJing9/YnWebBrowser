@@ -28,6 +28,7 @@
 #import "SDWebImage/UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
 #import "YnSimpleInterest.h"
+#import "PreferenceHelper.h"
 #if DEBUG
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else

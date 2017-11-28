@@ -169,8 +169,7 @@
         weakSelf.allDataDict = [YJHelp codeWithError:error][@"data"][@"data"];
         [weakSelf updataHomeData:[YJHelp codeWithError:error][@"data"][@"data"]];
         [weakSelf.tableView reloadData];
-        
-        
+        [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
         
     }];
 }
@@ -178,7 +177,7 @@
 - (void)updataHomeData:(NSDictionary *)dict{
     
     NSArray *topAry = dict[@"banner_top"];
-    [YnSimpleInterest shareSimpleInterest].searchTopAry = dict[@"title"];
+    [YnSimpleInterest shareSimpleInterest].searchTopAry = dict[@"suggest"];
     
     for (NSInteger i = 0;i< topAry.count;i++) {
         NSDictionary *buttonDict = topAry[i];
@@ -195,9 +194,9 @@
 
     CGFloat height1 = 0;
     if (dataAry1.count%5 == 0) {
-        height1 = (dataAry1.count/5)*75;
+        height1 = (dataAry1.count/5)*70;
     }else{
-        height1 = (dataAry1.count/5 + 1)*75;
+        height1 = (dataAry1.count/5 + 1)*70;
     }
     CGFloat height3 = 0;
     if (dataAry3.count%5 == 0) {
@@ -585,7 +584,6 @@
         clowBtn = button;
     }
     
-    
 }
 
 //天气跳转
@@ -796,16 +794,8 @@
 }
 
 - (void)pushWebViewVc:(NSString *)link{
+    
     [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[link] key:DelegateManagerBrowserContainerLoadURL];
-    BrowserViewController *vc = [BrowserViewController new];
-    vc.url = link;
-    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
-    [self.navigationController pushViewController:vc animated:NO];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
     
     NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
@@ -820,11 +810,18 @@
         
         BrowserViewController *vc = [BrowserViewController new];
         
-        vc.url = DEFAULT_CARD_CELL_URL;
+        vc.url = link;
         vc.fromVCComeInKind = FromVCComeInKindROOTVC;
         [self.navigationController pushViewController:vc animated:NO];
         
     }];
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+
     
 }
 

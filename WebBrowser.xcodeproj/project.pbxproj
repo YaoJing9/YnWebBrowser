@@ -188,6 +188,7 @@
 		BF4EFD381FC7E1A600BCDD84 /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD161FC7E1A600BCDD84 /* NSString+MJExtension.m */; };
 		BF4EFD391FC7E1A600BCDD84 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFD171FC7E1A600BCDD84 /* README.md */; };
 		BF4EFD3C1FC7F73900BCDD84 /* CHMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */; };
+		BF59F55C1FCD65D600041D5F /* YnSimpleInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = BF59F55B1FCD65D600041D5F /* YnSimpleInterest.m */; };
 		E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */; };
 		E813B9FC1FB5998000470ECD /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DC1FB5997F00470ECD /* EXTScope.m */; };
 		E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9E01FB5997F00470ECD /* MTLJSONAdapter.m */; };
@@ -617,6 +618,8 @@
 		BF4EFD171FC7E1A600BCDD84 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BF4EFD3A1FC7F73900BCDD84 /* CHMLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMLocationManager.h; sourceTree = "<group>"; };
 		BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMLocationManager.m; sourceTree = "<group>"; };
+		BF59F55A1FCD65D500041D5F /* YnSimpleInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YnSimpleInterest.h; sourceTree = "<group>"; };
+		BF59F55B1FCD65D600041D5F /* YnSimpleInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YnSimpleInterest.m; sourceTree = "<group>"; };
 		E813B9D81FB5997F00470ECD /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
 		E813B9D91FB5997F00470ECD /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
@@ -1237,6 +1240,8 @@
 		0E681F631D4AFE93003534F5 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				BF59F55A1FCD65D500041D5F /* YnSimpleInterest.h */,
+				BF59F55B1FCD65D600041D5F /* YnSimpleInterest.m */,
 				BF4EFCCB1FC7D5FB00BCDD84 /* CMNetworkingTool.h */,
 				BF4EFCCA1FC7D5FB00BCDD84 /* CMNetworkingTool.m */,
 				BF4EFD3A1FC7F73900BCDD84 /* CHMLocationManager.h */,
@@ -2242,6 +2247,7 @@
 				E813BA571FB59D8200470ECD /* SDWebImageWebPCoder.m in Sources */,
 				0EF0256A1DD9554F0011019F /* HTTPClient+SearchSug.m in Sources */,
 				BF4EFD341FC7E1A600BCDD84 /* NSObject+MJClass.m in Sources */,
+				BF59F55C1FCD65D600041D5F /* YnSimpleInterest.m in Sources */,
 				0EBFFE731E5299A500404199 /* JavaScriptHelper.m in Sources */,
 				E813BA531FB59D8200470ECD /* SDWebImageGIFCoder.m in Sources */,
 				BF4EFCA11FC4115000BCDD84 /* ViewController+MASAdditions.m in Sources */,

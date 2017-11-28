@@ -25,7 +25,6 @@ static UIView *_bgView;
     return self;
 }
 
-
 + (void)showInsertionViewSuccessBlock:(InsertionSuccessBlock)successBlock clickBlock:(ClickBlock)clickBlock removeBlock:(RemoveBlock)removeBlock btnClickBlock:(BtnClickBlock)btnClickBlock
 {
     
@@ -63,21 +62,29 @@ static UIView *_bgView;
             [flbutton setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
             
             if (i == 0) {
-                [flbutton setImage:[UIImage imageNamed:@"全屏模式全屏"] forState:UIControlStateSelected];
+                [flbutton setImage:[UIImage imageNamed:@"全屏模式选中"] forState:UIControlStateSelected];
+                flbutton.selected = [PreferenceHelper boolForKey:KeyFullScreenModeStatus];
+
             }
             if (i == 1) {
-                [flbutton setImage:[UIImage imageNamed:@"夜间模式全屏"] forState:UIControlStateSelected];
+                [flbutton setImage:[UIImage imageNamed:@"夜间模式选中"] forState:UIControlStateSelected];
+                flbutton.selected = [PreferenceHelper boolForKey:KeyEyeProtectiveStatus];
+
             }
             if (i == 2) {
-                [flbutton setImage:[UIImage imageNamed:@"无图模式全屏"] forState:UIControlStateSelected];
+                [flbutton setImage:[UIImage imageNamed:@"无图模式选中"] forState:UIControlStateSelected];
+                flbutton.selected = [PreferenceHelper boolForKey:KeyNoImageModeStatus];
+
             }
             if (i == 3) {
-                [flbutton setImage:[UIImage imageNamed:@"无痕模式全屏"] forState:UIControlStateSelected];
+                [flbutton setImage:[UIImage imageNamed:@"无痕模式选中"] forState:UIControlStateSelected];
+                flbutton.selected = [PreferenceHelper boolForKey:KeyHistoryModeStatus];
+
             }
             
             flbutton.tag = 100 + i;
             flbutton.status = FLAlignmentStatusTop;
-            flbutton.fl_padding = 10;
+            flbutton.fl_padding = 0;
             [flbutton addTarget:bgBigView action:@selector(flbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
             [bgView addSubview:flbutton];            
             
