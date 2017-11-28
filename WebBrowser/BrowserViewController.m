@@ -72,7 +72,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MoreSettingView removeMoreSettingView];
-    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

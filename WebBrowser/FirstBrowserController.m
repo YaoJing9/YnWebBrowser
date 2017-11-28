@@ -104,7 +104,7 @@
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
     webModel.image = [self.view snapshot];
     
-    [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
+//    [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
     
     webModel.isNewWebView = YES;
     
