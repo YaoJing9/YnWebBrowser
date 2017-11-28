@@ -132,22 +132,26 @@
     titleLabel.textColor = [UIColor grayColor];
     [titleLabel sizeToFit];
     [self.headerView addSubview:titleLabel];
-                       
-    self.tagsView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, SCREENWIDTH, 195)];
+    
+    CGFloat height1 = 0;
+    if ([YnSimpleInterest shareSimpleInterest].searchTopAry.count%5 == 0) {
+        height1 = ([YnSimpleInterest shareSimpleInterest].searchTopAry.count/5)*75;
+    }else{
+        height1 = ([YnSimpleInterest shareSimpleInterest].searchTopAry.count/5 + 1)*75;
+    }
+    
+    self.tagsView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, SCREENWIDTH, height1)];
     [self.headerView addSubview:self.tagsView];
-    self.tableView.tableHeaderView = self.headerView;
-    
-    
+    self.tableView.tableHeaderView = self.headerView;    
     
     FL_Button *clowBtn;
     
-    NSArray *buttonTitleArray = @[@"全屏模式",@"夜间模式",@"无图模式",@"无痕模式",@"我的视频",@"书签／历史",@"添加书签",@"分享"];
-    NSInteger btnW = (SCREENWIDTH)/4.0;
-    for (int i=0; i<buttonTitleArray.count; i++) {
+    NSInteger btnW = (SCREENWIDTH)/5.0;
+    for (int i=0; i<[YnSimpleInterest shareSimpleInterest].searchTopAry.count; i++) {
         FL_Button *flbutton = [FL_Button new];
-        [flbutton setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
+        [flbutton setTitle:[YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"name"] forState:UIControlStateNormal];
         flbutton.titleLabel.font = [UIFont systemFontOfSize:13];
-        [flbutton setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
+        [flbutton sd_setImageWithURL:[NSURL URLWithString:[YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"icon"]] forState:UIControlStateNormal];
         [flbutton setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
         flbutton.tag = 100 + i;
         flbutton.status = FLAlignmentStatusTop;
@@ -155,14 +159,14 @@
         [flbutton addTarget:self action:@selector(flbuttonAction) forControlEvents:UIControlEventTouchUpInside];
         [self.tagsView addSubview:flbutton];
         if (clowBtn) {
-            if (i < 4) {
+            if (i < 5) {
                 [flbutton mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(clowBtn);
                     make.left.equalTo(clowBtn.mas_right);
                     make.width.equalTo(clowBtn);
                     make.height.equalTo(clowBtn);
                 }];
-            }else if (i == 4){
+            }else if (i == 5){
                 [flbutton mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(@(195/2.0));
                     make.left.equalTo(weakSelf.tagsView);

@@ -51,7 +51,6 @@ static UIView *_bgView;
         _bgView = bgView;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:bgBigView action:@selector(clickBannerView:)];
         [bgBigView addGestureRecognizer:tapGesture];
-        
         FL_Button *clowBtn;
         
         NSArray *buttonTitleArray = @[@"全屏模式",@"夜间模式",@"无图模式",@"无痕模式",@"我的视频",@"书签／历史",@"添加书签",@"分享",@"设置", @"刷新"];
@@ -62,6 +61,20 @@ static UIView *_bgView;
             flbutton.titleLabel.font = [UIFont systemFontOfSize:13];
             [flbutton setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
             [flbutton setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+            
+            if (i == 0) {
+                [flbutton setImage:[UIImage imageNamed:@"全屏模式全屏"] forState:UIControlStateSelected];
+            }
+            if (i == 1) {
+                [flbutton setImage:[UIImage imageNamed:@"夜间模式全屏"] forState:UIControlStateSelected];
+            }
+            if (i == 2) {
+                [flbutton setImage:[UIImage imageNamed:@"无图模式全屏"] forState:UIControlStateSelected];
+            }
+            if (i == 3) {
+                [flbutton setImage:[UIImage imageNamed:@"无痕模式全屏"] forState:UIControlStateSelected];
+            }
+            
             flbutton.tag = 100 + i;
             flbutton.status = FLAlignmentStatusTop;
             flbutton.fl_padding = 10;
@@ -121,8 +134,29 @@ static UIView *_bgView;
 }
 
 - (void)flbuttonAction:(FL_Button *)btn{
+    
+    NSInteger index = btn.tag - 100;
+    
+    switch (index) {
+        case 0:
+            btn.selected = !btn.selected;
+            break;
+        case 1:
+            btn.selected = !btn.selected;
+            break;
+        case 2:
+            btn.selected = !btn.selected;
+            break;
+        case 3:
+            btn.selected = !btn.selected;
+            break;
+        default:
+            break;
+    }
+    
+    
     if (_insertionGgView.btnClickBlock) {
-        _insertionGgView.btnClickBlock(btn.tag - 100);
+        _insertionGgView.btnClickBlock(index);
     }
 }
 

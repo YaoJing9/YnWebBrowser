@@ -27,7 +27,7 @@
 #import "CMNetworkingTool.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
-
+#import "YnSimpleInterest.h"
 #if DEBUG
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else
@@ -99,7 +99,7 @@
 
 
 
-#define YNBaseURL @"http://101.200.172.55/"
+#define YNBaseURL @"http://www.crazyzha.com/"
 #define WEATHERURL @"https://www.seniverse.com/weather/city/CHSH000000"
 
 
