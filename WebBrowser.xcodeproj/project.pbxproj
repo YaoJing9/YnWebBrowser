@@ -120,6 +120,7 @@
 		0EFDD30E1DD45764002AB3FB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFDD30D1DD45764002AB3FB /* StoreKit.framework */; };
 		180F39F71FCC0CF8007DB934 /* NightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F39F61FCC0CF8007DB934 /* NightView.m */; };
 		180F39FA1FCD4A90007DB934 /* SaveImageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F39F91FCD4A90007DB934 /* SaveImageTool.m */; };
+		180F39FD1FCD6D8C007DB934 /* YnSimpleInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F39FB1FCD6D8B007DB934 /* YnSimpleInterest.m */; };
 		187FFD561FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */; };
 		187FFD571FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */; };
 		18CE6EA31FC595620068091D /* HistoryAndBookmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EA11FC595620068091D /* HistoryAndBookmarkTableViewCell.m */; };
@@ -484,6 +485,8 @@
 		180F39F61FCC0CF8007DB934 /* NightView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NightView.m; sourceTree = "<group>"; };
 		180F39F81FCD4A90007DB934 /* SaveImageTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveImageTool.h; sourceTree = "<group>"; };
 		180F39F91FCD4A90007DB934 /* SaveImageTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveImageTool.m; sourceTree = "<group>"; };
+		180F39FB1FCD6D8B007DB934 /* YnSimpleInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YnSimpleInterest.m; sourceTree = "<group>"; };
+		180F39FC1FCD6D8C007DB934 /* YnSimpleInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YnSimpleInterest.h; sourceTree = "<group>"; };
 		187FFD531FC575B8004A9FEF /* HistoryAndBookmarkListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryAndBookmarkListViewController.h; sourceTree = "<group>"; };
 		187FFD541FC575B8004A9FEF /* HistoryAndBookmarkListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryAndBookmarkListViewController.m; sourceTree = "<group>"; };
 		187FFD551FC575B8004A9FEF /* HistoryAndBookmarkListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryAndBookmarkListViewController.xib; sourceTree = "<group>"; };
@@ -1175,6 +1178,8 @@
 				18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */,
 				180F39F81FCD4A90007DB934 /* SaveImageTool.h */,
 				180F39F91FCD4A90007DB934 /* SaveImageTool.m */,
+				180F39FC1FCD6D8C007DB934 /* YnSimpleInterest.h */,
+				180F39FB1FCD6D8B007DB934 /* YnSimpleInterest.m */,
 			);
 			path = WebBrowser;
 			sourceTree = "<group>";
@@ -2247,7 +2252,11 @@
 				E813BA571FB59D8200470ECD /* SDWebImageWebPCoder.m in Sources */,
 				0EF0256A1DD9554F0011019F /* HTTPClient+SearchSug.m in Sources */,
 				BF4EFD341FC7E1A600BCDD84 /* NSObject+MJClass.m in Sources */,
+<<<<<<< HEAD
 				BF59F55C1FCD65D600041D5F /* YnSimpleInterest.m in Sources */,
+=======
+				180F39FD1FCD6D8C007DB934 /* YnSimpleInterest.m in Sources */,
+>>>>>>> 7930abbb136c84d9026ba6bf85c43d823e71878d
 				0EBFFE731E5299A500404199 /* JavaScriptHelper.m in Sources */,
 				E813BA531FB59D8200470ECD /* SDWebImageGIFCoder.m in Sources */,
 				BF4EFCA11FC4115000BCDD84 /* ViewController+MASAdditions.m in Sources */,

@@ -104,7 +104,7 @@
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
     webModel.image = [self.view snapshot];
     
-    [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
+//    [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
     
     webModel.isNewWebView = YES;
     
@@ -561,7 +561,7 @@
         [button setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
         button.tag = 100 + i;
         button.status = FLAlignmentStatusTop;
-        button.fl_padding = 5;
+        button.fl_padding = 2;
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:button];
         [_topImagAry addObject:button];

@@ -225,8 +225,8 @@
 
 - (void)removeSelfFromSuperView{
     [[TabManager sharedInstance].browserContainerView restoreWithCompletionHandler:^(WebModel *webModel, BrowserWebView *browserWebView){
-        NSNotification *notify = [NSNotification notificationWithName:kWebTabSwitch object:self userInfo:@{@"webView":browserWebView}];
-        [Notifier postNotification:notify];
+//        NSNotification *notify = [NSNotification notificationWithName:kWebTabSwitch object:self userInfo:@{@"webView":browserWebView}];
+//        [Notifier postNotification:notify];
     } animation:NO];
     
     WEAK_REF(self)

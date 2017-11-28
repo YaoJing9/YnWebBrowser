@@ -36,7 +36,7 @@
     [self.attributes removeAllObjects];
     
     CGFloat width = roundf(300);
-    CGFloat height = roundf(width * 1.5);
+    CGFloat height = roundf(width * (SCREENHEIGHT / SCREENWIDTH));
     CGFloat top = (self.collectionView.frame.size.height - height) / 2;
     CGFloat left = 10.0f;
     
