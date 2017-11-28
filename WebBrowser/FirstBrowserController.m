@@ -7,6 +7,10 @@
 //
 
 #import "FirstBrowserController.h"
+#import "NightView.h"
+#import "PreferenceHelper.h"
+#import "SaveImageTool.h"
+#import "TabManager.h"
 #import "BrowserBottomToolBar.h"
 #import "BrowserContainerView.h"
 #import "CardMainView.h"
@@ -87,12 +91,31 @@
     }
     return _dataArr;
 }
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
         [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
+    }else{
+        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
     }
+    
+    
+    NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
+    WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
+    webModel.image = [self.view snapshot];
+    
+    [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
+    
+    webModel.isNewWebView = YES;
+    
+    [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
+        NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
+        
+        [dataArray replaceObjectAtIndex:temp - 1 withObject:webModel];
+        
+        [[TabManager sharedInstance] updateWebModelArray:dataArray];
+        
+    }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -698,23 +721,27 @@
     SettingsTableViewController *settingVc = [[SettingsTableViewController alloc] init];
     HistoryAndBookmarkListViewController *historyAndBookmarkVc = [[HistoryAndBookmarkListViewController alloc] init];
     
-    ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
+    
     switch (index) {
         case 0:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindFULLSCREEN;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyFullScreenModeStatus] forKey:KeyFullScreenModeStatus];
+
             break;
         case 1:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyEyeProtectiveStatus] forKey:KeyEyeProtectiveStatus];
+            if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
+                [NightView showNightView];
+            } else{
+                //设置亮度
+                [NightView deleNightView];
+            }
             break;
         case 2:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindNOIMAGE;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyNoImageModeStatus] forKey:KeyNoImageModeStatus];
             break;
         case 3:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindNOHISTORY;
-            [self.navigationController pushViewController: extendedFVC animated:YES];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyHistoryModeStatus] forKey:KeyHistoryModeStatus];
             break;
         case 4:
             
@@ -777,12 +804,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
-//    BrowserViewController *vc = [BrowserViewController new];
-//
-//    vc.url = DEFAULT_CARD_CELL_URL;
-//    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
-//    [self.navigationController pushViewController:vc animated:NO];
+
+    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+    
+    NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
+    WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
+    webModel.isNewWebView = NO;
+    
+    [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
+        NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
+        
+        [dataArray replaceObjectAtIndex:temp - 1 withObject:webModel];
+        
+        [[TabManager sharedInstance] updateWebModelArray:dataArray];
+        
+        BrowserViewController *vc = [BrowserViewController new];
+        
+        vc.url = DEFAULT_CARD_CELL_URL;
+        vc.fromVCComeInKind = FromVCComeInKindROOTVC;
+        [self.navigationController pushViewController:vc animated:NO];
+        
+    }];
     
 }
 
@@ -822,6 +864,7 @@
     
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
+        cardMainView.isFirstVC = YES;
         [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
             UIImage *image = [self.view snapshot];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];

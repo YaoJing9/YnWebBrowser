@@ -7,6 +7,7 @@
 //
 
 #import <StoreKit/StoreKit.h>
+#import "NightView.h"
 #import "PreferenceHelper.h"
 #import "WebViewHistoryItem.h"
 #import "TabManager.h"
@@ -292,6 +293,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     }
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
+        cardMainView.isFirstVC = NO;
+        cardMainView.fromVCComeInKind = _fromVCComeInKind;
         [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
             UIImage *image = [self.view snapshot];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -299,10 +302,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             [cardMainView addSubview:imageView];
             [self.view addSubview:cardMainView];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (model.isNewWebView == YES) {
-                    [self.navigationController popViewControllerAnimated:NO];
-                }
-                
                 [imageView removeFromSuperview];
                 [cardMainView changeCollectionViewLayout];
             });
@@ -315,23 +314,26 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     SettingsTableViewController *settingVc = [[SettingsTableViewController alloc] init];
     HistoryAndBookmarkListViewController *historyAndBookmarkVc = [[HistoryAndBookmarkListViewController alloc] init];
-    ExtendedFunctionViewController *extendedFVC = [[ExtendedFunctionViewController alloc] init];
     switch (index) {
         case 0:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindFULLSCREEN;
-            [self.navigationController pushViewController: extendedFVC animated:NO];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyFullScreenModeStatus] forKey:KeyFullScreenModeStatus];
+            
             break;
         case 1:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindYEJIAN;
-            [self.navigationController pushViewController: extendedFVC animated:NO];
+            
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyEyeProtectiveStatus] forKey:KeyEyeProtectiveStatus];
+            if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
+                [NightView showNightView];
+            } else{
+                //设置亮度
+                [NightView deleNightView];
+            }
             break;
         case 2:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindNOIMAGE;
-            [self.navigationController pushViewController: extendedFVC animated:NO];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyNoImageModeStatus] forKey:KeyNoImageModeStatus];
             break;
         case 3:
-            extendedFVC.extendedOperationKind = ExtendedOperationKindNOHISTORY;
-            [self.navigationController pushViewController: extendedFVC animated:NO];
+            [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyHistoryModeStatus] forKey:KeyHistoryModeStatus];
             break;
         case 4:
             

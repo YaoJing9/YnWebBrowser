@@ -7,6 +7,7 @@
 //
 
 #import "CardMainView.h"
+#import "SaveImageTool.h"
 #import "CardBrowserFlatLayout.h"
 #import "CardBrowserCollectionViewLayout.h"
 #import "CardCollectionViewCell.h"
@@ -15,7 +16,8 @@
 #import "TabManager.h"
 #import "BrowserWebView.h"
 #import "BrowserContainerView.h"
-
+#import "BrowserViewController.h"
+#import "NSObject+DXObject.h"
 #define CardCellIdentifier @"cell"
 #define CollectionViewTopMargin 50
 #define CollectionViewSideMargin 50
@@ -68,18 +70,18 @@
 
         collectionView.backgroundColor = [UIColor lightGrayColor];
         collectionView.showsVerticalScrollIndicator = NO;
-        collectionView.alwaysBounceVertical = YES;
+        collectionView.alwaysBounceVertical = NO;
         collectionView.delegate = self;
         collectionView.dataSource = self;
         [collectionView registerClass:[CardCollectionViewCell class] forCellWithReuseIdentifier:CardCellIdentifier];
         
         [self addSubview:collectionView];
         
-        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
-        panGestureRecognizer.minimumNumberOfTouches = 1;
-        panGestureRecognizer.maximumNumberOfTouches = 1;
-        panGestureRecognizer.delegate = self;
-        [collectionView addGestureRecognizer:panGestureRecognizer];
+//        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+//        panGestureRecognizer.minimumNumberOfTouches = 1;
+//        panGestureRecognizer.maximumNumberOfTouches = 1;
+//        panGestureRecognizer.delegate = self;
+//        [collectionView addGestureRecognizer:panGestureRecognizer];
 
         collectionView;
     });
@@ -99,7 +101,7 @@
         STRONG_REF(self_)
         if (self__) {
             [self__ setCardsWithArray:modelArray];
-            [self__.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self__.cardArr.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+            [self__.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self__.cardArr.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             WebModel*model = modelArray[self__.cardArr.count - 1];
             if (completion) {
                 completion(model);
@@ -127,8 +129,37 @@
         [[TabManager sharedInstance] updateWebModelArray:self.cardArr completion:^{
             STRONG_REF(self_)
             if (self__) {
-                [self__ removeSelfFromSuperView];
+                
+                if (webModel.isNewWebView == YES) {
+                    if (_isFirstVC == YES) {
+                        
+                    }else{
+                        if (self__.fromVCComeInKind == FromVCComeInKindSEARCH) {
+                            [self__.obtainTopViewController dismissViewControllerAnimated:NO completion:^{
+                                
+                            }];
+                        }else{
+                            [[self__ obtainTopViewController].navigationController popViewControllerAnimated:NO];
+                            
+                        }
+                    }
+                    
+                }else{
+                    
+                    if (_isFirstVC == YES) {
+                        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+                
+                            BrowserViewController *vc = [BrowserViewController new];
+                            
+                            vc.url = DEFAULT_CARD_CELL_URL;
+                            vc.fromVCComeInKind = FromVCComeInKindROOTVC;
+                            [[self__ obtainTopViewController].navigationController pushViewController:vc animated:NO];
+                    }
+                    
+                }
+                
             }
+            [self__ removeSelfFromSuperView];
         }];
     }
     else{
@@ -159,7 +190,10 @@
         }
     };
     WebModel *webModel = self.cardArr[indexPath.item];
-    
+    if (webModel.isNewWebView == YES) {
+        webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
+        webModel.isImageProcessed = YES;
+    }
     [cell updateWithWebModel:webModel];
     
     return cell;
@@ -172,7 +206,7 @@
         case ReturnButtonClicked:
         {
             if ([self.collectionView numberOfItemsInSection:0]) {
-                [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:0] - 1 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionBottom];
+                [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:0] - 1 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
             }
 
             [self removeSelfFromSuperView];
@@ -209,14 +243,14 @@
     NSInteger num = [self.collectionView numberOfItemsInSection:0];
 
     if (num >= 1) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:num - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:num - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         WebModel *webModel = [WebModel new];
         webModel.title = DEFAULT_CARD_CELL_TITLE;
         webModel.url = DEFAULT_CARD_CELL_URL;
-        webModel.image = [UIImage imageNamed:DEFAULT_CARD_CELL_IMAGE];
+        webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
         webModel.isNewWebView = YES;
         [self.cardArr addObject:webModel];
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:num inSection:0]]];
