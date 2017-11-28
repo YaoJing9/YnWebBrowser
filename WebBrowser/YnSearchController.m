@@ -73,9 +73,9 @@
     
     [self.NAVview addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.NAVview).offset(15);
+        make.left.equalTo(weakSelf.NAVview).offset(12);
         make.right.equalTo(weakSelf.NAVview).offset(-60);
-        make.height.equalTo(@32);
+        make.height.equalTo(@36);
         make.bottom.equalTo(weakSelf.NAVview.mas_bottom);
     }];
     
@@ -84,7 +84,7 @@
     [lable addSubview:leftImg];
     [leftImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(lable);
-        make.left.equalTo(lable).offset(5);
+        make.left.equalTo(lable).offset(8);
         make.height.equalTo(@17);
         make.width.equalTo(@17);
     }];
@@ -93,7 +93,7 @@
     _searchBar=[[UITextField alloc] init];
     _searchBar.delegate=self;
     _searchBar.textColor=[UIColor blackColor];
-    _searchBar.font=[UIFont fontWithName:@"PingFangSC-Regular" size:15];
+    _searchBar.font=PFSCRegularFont(16);
     _searchBar.text = _origTextFieldString;
     _searchBar.placeholder=@"搜索或者输入网址";
     [_searchBar setValue:[UIColor colorWithHexString:@"#555555"] forKeyPath:@"_placeholderLabel.textColor"];
@@ -112,7 +112,7 @@
     UIButton *canceBtn = [UIButton new];
     [canceBtn setTitle:@"取消" forState:UIControlStateNormal];
     [canceBtn setTitleColor:[UIColor colorWithHexString:@"#2696ff"] forState:UIControlStateNormal];
-    canceBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    canceBtn.titleLabel.font = PFSCMediumFont(16);
     [canceBtn addTarget:self action:@selector(canceBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.NAVview addSubview:canceBtn];
     [canceBtn mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -45,7 +45,7 @@ static UIView *_bgView;
         bgView.clipsToBounds = YES;
         bgView.layer.cornerRadius = 15;
         [bgBigView addSubview:bgView];
-        bgView.frame = CGRectMake(10, SCREENHEIGHT, SCREENWIDTH - 20, 250);
+        bgView.frame = CGRectMake(10, SCREENHEIGHT, SCREENWIDTH - 20, 253);
 
         _bgView = bgView;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:bgBigView action:@selector(clickBannerView:)];
@@ -57,7 +57,7 @@ static UIView *_bgView;
         for (int i=0; i<buttonTitleArray.count; i++) {
             FL_Button *flbutton = [FL_Button new];
             [flbutton setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
-            flbutton.titleLabel.font = [UIFont systemFontOfSize:13];
+            flbutton.titleLabel.font = [UIFont systemFontOfSize:12];
             [flbutton setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
             [flbutton setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
             
@@ -101,7 +101,7 @@ static UIView *_bgView;
                     }];
                 }else if (i == 5){
                     [flbutton mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(@(250/3.0 + 20));
+                        make.top.equalTo(@(253/3.0 + 20));
                         make.left.equalTo(bgView);
                         make.width.equalTo(clowBtn);
                         make.height.equalTo(clowBtn);
@@ -120,7 +120,7 @@ static UIView *_bgView;
                     make.top.equalTo(bgView).offset(20);
                     make.left.equalTo(bgView);
                     make.width.equalTo(@(btnW));
-                    make.height.equalTo(@(250/3.0));
+                    make.height.equalTo(@(253/3.0));
                 }];
                 
             }
@@ -200,7 +200,7 @@ static UIView *_bgView;
 {
     [UIView animateWithDuration:0.3 animations:^{
 
-        _bgView.mj_y = SCREENHEIGHT - 250;
+        _bgView.mj_y = SCREENHEIGHT - 253;
         
     } completion:^(BOOL finished) {
 

@@ -96,9 +96,13 @@
 
 
 
-
-
-
+//特细
+#define PFSCUltralightFont(a) [UIFont fontWithName:@"PingFangSC-Ultralight" size:a]
+//中等
+#define PFSCMediumFont(a) [UIFont fontWithName:@"PingFangSC-Medium" size:a]
+//粗体
+#define PFSCSemiboldFont(a) [UIFont fontWithName:@"PingFangSC-Semibold" size:a]
+#define PFSCRegularFont(a) [UIFont fontWithName:@"PingFangSC-Regular" size:a]
 
 #define YNBaseURL @"http://www.crazyzha.com/"
 #define WEATHERURL @"https://www.seniverse.com/weather/city/CHSH000000"

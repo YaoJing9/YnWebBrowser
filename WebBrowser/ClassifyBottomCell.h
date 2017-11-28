@@ -1,19 +1,18 @@
 //
-//  ClassifyCell.h
+//  ClassifyBottomCell.h
 //  WebBrowser
 //
-//  Created by yaojing on 2017/11/21.
+//  Created by yaojing on 2017/11/28.
 //  Copyright © 2017年 钟武. All rights reserved.
 //
 
-
-#define ClassifyCellGap 17
-#define ClassifyViewHeight 45
+#define ClassifyBottomCellGap 15
+#define ClassifyBottomViewHeight 63
 
 #import <UIKit/UIKit.h>
 typedef void(^ClassifyCellClicKBlock)(NSString *);
 
-@interface ClassifyCell : UITableViewCell
+@interface ClassifyBottomCell : UITableViewCell
 
 @property(nonatomic, copy)ClassifyCellClicKBlock classifyCellClicKBlock;
 @property(nonatomic, strong)NSArray *dataAry;

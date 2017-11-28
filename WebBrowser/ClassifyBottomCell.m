@@ -1,13 +1,14 @@
 //
-//  ClassifyCell.m
+//  ClassifyBottomCell.m
 //  WebBrowser
 //
-//  Created by yaojing on 2017/11/21.
+//  Created by yaojing on 2017/11/28.
 //  Copyright © 2017年 钟武. All rights reserved.
 //
 
-#import "ClassifyCell.h"
-@implementation ClassifyCell
+#import "ClassifyBottomCell.h"
+
+@implementation ClassifyBottomCell
 #define BTNWH 40
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageAry:(NSArray *)imageAry
@@ -21,9 +22,9 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier imageAry:(NSArray *)imageAry;
 {
-    ClassifyCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    ClassifyBottomCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[ClassifyCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier imageAry:imageAry];
+        cell = [[ClassifyBottomCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier imageAry:imageAry];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -38,13 +39,13 @@
     for (int i=0; i<buttonTitleArray.count; i++) {
         FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
         [button setTitle:buttonTitleArray[i][@"name"] forState:UIControlStateNormal];
-        button.titleLabel.font = PFSCMediumFont(11);
+        button.titleLabel.font = PFSCMediumFont(13);
         [button sd_setImageWithURL:[NSURL URLWithString:buttonTitleArray[i][@"icon"]] forState:normal placeholderImage:nil];
         [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
         button.tag = 100 + i;
         button.fl_imageWidth = BTNWH;
         button.fl_imageHeight = BTNWH;
-        button.fl_padding = 7;
+        button.fl_padding = 10;
         button.status = FLAlignmentStatusTop;
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
@@ -54,10 +55,10 @@
         CGFloat cellWidth = SCREENWIDTH/5;
         
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.contentView).offset(ClassifyCellGap + (ClassifyCellGap + ClassifyViewHeight)*clow);
+            make.top.equalTo(weakSelf.contentView).offset(ClassifyBottomCellGap + (ClassifyBottomCellGap + ClassifyBottomViewHeight)*clow);
             make.left.equalTo(weakSelf.contentView).offset(cellWidth * line);
             make.width.equalTo(@(cellWidth));
-            make.height.equalTo(@(ClassifyViewHeight));
+            make.height.equalTo(@(ClassifyBottomViewHeight));
         }];
     }
     
@@ -68,7 +69,7 @@
     NSInteger index = btn.tag - 100;
     
     NSString *link = _dataAry[index][@"link"];
-
+    
     if (self.classifyCellClicKBlock) {
         self.classifyCellClicKBlock(link);
     }
@@ -82,5 +83,4 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
-
 @end

@@ -53,22 +53,30 @@
     _titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:_titleLabel];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(leftImgView.mas_right).offset(5);
-        make.right.equalTo(self.mas_right).offset(-10);
-        make.height.equalTo(@20);
-        make.top.equalTo(weakSelf.contentView).offset(15);
+        make.left.equalTo(leftImgView.mas_right).offset(10);
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(-45);
+        make.top.equalTo(weakSelf.contentView).offset(13);
     }];
     
     _linkLabel = [UILabel new];
-//    linkLabel.text = @"baidu.com";
     _linkLabel.textColor = [UIColor colorWithHexString:@"#4b94f7"];
     _linkLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:_linkLabel];
     [_linkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       make.right.equalTo(self.mas_right).offset(-10); make.left.equalTo(leftImgView.mas_right).offset(5);
-        make.height.equalTo(@15);
-        make.top.equalTo(_titleLabel.mas_bottom);
+       make.right.equalTo(weakSelf.contentView.mas_right).offset(-45);
+       make.left.equalTo(leftImgView.mas_right).offset(10);
+       make.bottom.equalTo(weakSelf.contentView).offset(-10);
     }];
+    
+    UIImageView *rightImageView = [UIImageView new];
+    rightImageView.image = [UIImage imageNamed:@"示意icon"];
+    [self.contentView addSubview:rightImageView];
+    [rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(-20);
+        make.centerY.equalTo(weakSelf.contentView);
+        make.width.height.equalTo(@14);
+    }];
+    
     
 }
 -(void)setTitle:(NSString *)title{

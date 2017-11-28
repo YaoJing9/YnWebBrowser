@@ -32,6 +32,8 @@ typedef enum{
  */
 @property (nonatomic,assign)FLAlignmentStatus status;
 @property (nonatomic,assign)CGFloat fl_padding;
+@property (nonatomic,assign)CGFloat fl_imageWidth;
+@property (nonatomic,assign)CGFloat fl_imageHeight;
 
 + (instancetype)fl_shareButton;
 

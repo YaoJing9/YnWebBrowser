@@ -189,6 +189,7 @@
 		BF4EFD381FC7E1A600BCDD84 /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD161FC7E1A600BCDD84 /* NSString+MJExtension.m */; };
 		BF4EFD391FC7E1A600BCDD84 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFD171FC7E1A600BCDD84 /* README.md */; };
 		BF4EFD3C1FC7F73900BCDD84 /* CHMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */; };
+		BF59F55F1FCDA3FA00041D5F /* ClassifyBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF59F55E1FCDA3FA00041D5F /* ClassifyBottomCell.m */; };
 		E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */; };
 		E813B9FC1FB5998000470ECD /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9DC1FB5997F00470ECD /* EXTScope.m */; };
 		E813B9FD1FB5998000470ECD /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E813B9E01FB5997F00470ECD /* MTLJSONAdapter.m */; };
@@ -620,6 +621,8 @@
 		BF4EFD171FC7E1A600BCDD84 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BF4EFD3A1FC7F73900BCDD84 /* CHMLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMLocationManager.h; sourceTree = "<group>"; };
 		BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMLocationManager.m; sourceTree = "<group>"; };
+		BF59F55D1FCDA3FA00041D5F /* ClassifyBottomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassifyBottomCell.h; sourceTree = "<group>"; };
+		BF59F55E1FCDA3FA00041D5F /* ClassifyBottomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassifyBottomCell.m; sourceTree = "<group>"; };
 		E813B9D81FB5997F00470ECD /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
 		E813B9D91FB5997F00470ECD /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		E813B9DA1FB5997F00470ECD /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
@@ -1004,6 +1007,8 @@
 				BF4EFCA91FC42F5600BCDD84 /* FL_Button.m */,
 				BF4EFCAB1FC4381600BCDD84 /* ClassifyCell.h */,
 				BF4EFCAC1FC4381600BCDD84 /* ClassifyCell.m */,
+				BF59F55D1FCDA3FA00041D5F /* ClassifyBottomCell.h */,
+				BF59F55E1FCDA3FA00041D5F /* ClassifyBottomCell.m */,
 				BF4EFCB11FC58DA400BCDD84 /* MoreSettingView.h */,
 				BF4EFCB21FC58DA400BCDD84 /* MoreSettingView.m */,
 				180F39F51FCC0CF8007DB934 /* NightView.h */,
@@ -2119,6 +2124,7 @@
 				0E7795931E20F8C800CE86BE /* SearchTableViewCell.m in Sources */,
 				E813BA601FB59D8200470ECD /* UIView+WebCacheOperation.m in Sources */,
 				E87D72AC1FB965FC001AB44E /* GCDWebServer.m in Sources */,
+				BF59F55F1FCDA3FA00041D5F /* ClassifyBottomCell.m in Sources */,
 				0EA7DEE31DB0ABD8005C592E /* BaseViewController.m in Sources */,
 				0E829CD71E12075B008FF0A8 /* SearchViewController.m in Sources */,
 				BF4EFD2B1FC7E1A600BCDD84 /* UIScrollView+MJRefresh.m in Sources */,

@@ -17,8 +17,8 @@
 #define fl_labelWidth self.titleLabel.bounds.size.width
 #define fl_labelHeight self.titleLabel.bounds.size.height
 //    获得按钮中image图标的大小
-#define fl_imageWidth self.imageView.bounds.size.width
-#define fl_imageHeight self.imageView.bounds.size.height
+#define _fl_imageWidth self.imageView.bounds.size.width
+#define _fl_imageHeight self.imageView.bounds.size.height
 
 @implementation FL_Button
 
@@ -31,6 +31,14 @@
     fl_button.status = status;
     return fl_button;
 }
+
+//- (void)setFl_imageWidth:(CGFloat)fl_imageWidth{
+//    _fl_imageWidth = fl_imageWidth;
+//}
+//
+//- (void)setFl_imageHeight:(CGFloat)fl_imageHeight{
+//    _fl_imageHeight = fl_imageHeight;
+//}
 
 - (void)setStatus:(FLAlignmentStatus)status{
     _status = status;
@@ -60,7 +68,7 @@
     CGRect frame = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dictM context:nil];
     
     CGRect imageFrame = self.imageView.frame;
-    imageFrame.origin.x = self.bounds.size.width - fl_imageWidth;
+    imageFrame.origin.x = self.bounds.size.width - _fl_imageWidth;
     CGRect titleFrame = self.titleLabel.frame;
     titleFrame.origin.x = imageFrame.origin.x - frame.size.width - _fl_padding;
     //    重写赋值frame
@@ -71,7 +79,7 @@
 #pragma mark - 居中对齐
 - (void)alignmentCenter{
     //    设置文本的坐标
-    CGFloat labelX = (fl_btnWidth - fl_labelWidth - fl_imageWidth - _fl_padding) * 0.5;
+    CGFloat labelX = (fl_btnWidth - fl_labelWidth - _fl_imageWidth - _fl_padding) * 0.5;
     CGFloat labelY = (fl_btnHeight - fl_labelHeight) * 0.5;
     
     //    设置label的frame
@@ -79,9 +87,9 @@
     
     //    设置图片的坐标
     CGFloat imageX = CGRectGetMaxX(self.titleLabel.frame) + _fl_padding;
-    CGFloat imageY = (fl_btnHeight - fl_imageHeight) * 0.5;
+    CGFloat imageY = (fl_btnHeight - _fl_imageHeight) * 0.5;
     //    设置图片的frame
-    self.imageView.frame = CGRectMake(imageX, imageY, fl_imageWidth, fl_imageHeight);
+    self.imageView.frame = CGRectMake(imageX, imageY, _fl_imageWidth, _fl_imageHeight);
 }
 
 #pragma mark - 图标在上，文本在下(居中)
@@ -90,9 +98,9 @@
     NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
     dictM[NSFontAttributeName] = self.titleLabel.font;
 //  CGRect frame = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dictM context:nil];
-    CGFloat imageY = (fl_btnHeight - fl_imageHeight - fl_labelHeight -_fl_padding) * 0.5;
-    CGFloat imageX = (fl_btnWidth - fl_imageWidth) * 0.5;
-    self.imageView.frame = CGRectMake(imageX, imageY, fl_imageWidth, fl_imageHeight);
+    CGFloat imageY = (fl_btnHeight - _fl_imageHeight - fl_labelHeight -_fl_padding) * 0.5;
+    CGFloat imageX = (fl_btnWidth - _fl_imageWidth) * 0.5;
+    self.imageView.frame = CGRectMake(imageX, imageY, _fl_imageWidth, _fl_imageHeight);
 //    self.titleLabel.frame = CGRectMake((self.center.x - frame.size.width) * 0.5, MaxY(self.imageView) + _fl_padding, fl_labelWidth, fl_labelHeight);
     self.titleLabel.frame = CGRectMake(0, MaxY(self.imageView) + _fl_padding, self.frame.size.width, fl_labelHeight);
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -109,10 +117,10 @@
     dictM[NSFontAttributeName] = self.titleLabel.font;
     CGRect frame = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dictM context:nil];
     
-    CGFloat imageY = (fl_btnHeight - fl_imageHeight - fl_labelHeight -_fl_padding) * 0.5;
-    CGFloat imageX = (fl_btnWidth - fl_imageWidth) * 0.5;
+    CGFloat imageY = (fl_btnHeight - _fl_imageHeight - fl_labelHeight -_fl_padding) * 0.5;
+    CGFloat imageX = (fl_btnWidth - _fl_imageWidth) * 0.5;
     self.titleLabel.frame = CGRectMake((self.center.x - frame.size.width) * 0.5, imageY, fl_labelWidth, fl_labelHeight);
-    self.imageView.frame = CGRectMake(imageX, MaxY(self.titleLabel) + _fl_padding, fl_imageWidth, fl_imageHeight);
+    self.imageView.frame = CGRectMake(imageX, MaxY(self.titleLabel) + _fl_padding, _fl_imageWidth, _fl_imageHeight);
     CGPoint labelCenter = self.titleLabel.center;
     labelCenter.x = self.imageView.center.x;
     self.titleLabel.center = labelCenter;

@@ -28,6 +28,7 @@
 #import "ExtentionsTableViewController.h"
 #import "TraderCell.h"
 #import "ClassifyCell.h"
+#import "ClassifyBottomCell.h"
 #import "MoreSettingView.h"
 #import "ExtendedFunctionViewController.h"
 #import "YnSearchController.h"
@@ -57,11 +58,10 @@
 @property (nonatomic, strong) NSString *cityLoca;
 @property (nonatomic, strong) UILabel *cityLabel;
 @property (nonatomic, strong) UILabel *temperatureLabel;
-@property (nonatomic, strong) UIImageView *weatherImgView;
+@property (nonatomic,  ) UIImageView *weatherImgView;
 @property (nonatomic, strong) NSMutableArray *dataAry;
 @property (nonatomic, strong) NSMutableArray *topImagAry;
 @property (nonatomic, strong) NSDictionary *allDataDict;
-
 
 @end
 
@@ -150,27 +150,20 @@
 }
 
 - (void)requestHomeData{
-    
     WS(weakSelf);
     NSString *tempURLStr = [NSString stringWithFormat:@"%@browserapi/getmainconfig", YNBaseURL];
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
     NSString *version = [CMNetworkingTool appVersion];
     NSString *package = [CMNetworkingTool appBundleId];
     [parameters setObject:version forKey:@"version"];
     [parameters setObject:package forKey:@"package"];
     
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
-        
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
-        
-        NSLog(@"%@", [YJHelp codeWithError:error]);
         weakSelf.allDataDict = [YJHelp codeWithError:error][@"data"][@"data"];
         [weakSelf updataHomeData:[YJHelp codeWithError:error][@"data"][@"data"]];
         [weakSelf.tableView reloadData];
         [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
-        
     }];
 }
 
@@ -186,29 +179,30 @@
         [button setTitle:buttonDict[@"name"] forState:normal];
     }
     
-    
+//    NSMutableArray *dataAry1 = [dict[@"title"] subarrayWithRange:NSMakeRange(0, 3)];
     NSMutableArray *dataAry1 = dict[@"title"];
     NSDictionary *dataDict = dict[@"navigation"];
     NSMutableArray *dataAry3 = dict[@"banner_bottom"];
 
-
     CGFloat height1 = 0;
     if (dataAry1.count%5 == 0) {
-        height1 = (dataAry1.count/5)*70;
+        
+        if (dataAry1.count == 5) {
+            height1 = (dataAry1.count/5)*ClassifyViewHeight + 2*ClassifyCellGap;
+        }else{
+            height1 = (dataAry1.count/5)*ClassifyViewHeight + 3*ClassifyCellGap;
+        }
     }else{
-        height1 = (dataAry1.count/5 + 1)*70;
+        if (dataAry1.count < 5) {
+            height1 = (dataAry1.count/5 + 1)*ClassifyViewHeight + 2*ClassifyCellGap;
+        }else{
+            height1 = (dataAry1.count/5 + 1)*ClassifyViewHeight + 3*ClassifyCellGap;
+        }
     }
-    CGFloat height3 = 0;
-    if (dataAry3.count%5 == 0) {
-        height3 = (dataAry3.count/5)*90;
-    }else{
-        height3 = (dataAry3.count/5 + 1)*90;
-    }
+    
     
     NSArray *ary = [dataDict allKeys];
-    
     NSMutableArray *dataAry2 = [NSMutableArray array];
-    
     for (NSInteger i = 0; i < ary.count; i++) {
         
         NSString *key = ary[i];
@@ -221,6 +215,23 @@
         [mary insertObject:dict atIndex:0];
         [dataAry2 addObject:mary];
     }
+    
+    
+    CGFloat height3 = 0;
+    if (dataAry3.count%5 == 0) {
+        if (dataAry1.count == 5) {
+            height3 = (dataAry3.count/5)*ClassifyBottomViewHeight + 2*ClassifyBottomCellGap;
+        }else{
+            height3 = (dataAry3.count/5)*ClassifyBottomViewHeight + 3*ClassifyBottomCellGap;
+        }
+    }else{
+        if (dataAry1.count < 5) {
+            height3 = (dataAry3.count/5 + 1)*ClassifyBottomViewHeight + 2*ClassifyBottomCellGap;
+        }else{
+            height3 = (dataAry3.count/5 + 1)*ClassifyBottomViewHeight + 3*ClassifyBottomCellGap;
+        }
+    }
+    
     
     self.dataArr = [NSMutableArray arrayWithObjects:@[@1,@(height1),dataAry1], @[@(dataAry2.count),@50,dataAry2], @[@1,@(height3),dataAry3], nil];
 }
@@ -471,7 +482,15 @@
     _temperatureLabel = [UILabel new];
     _temperatureLabel.text = @"15";
     _temperatureLabel.textColor = [UIColor whiteColor];
-    _temperatureLabel.font = [UIFont systemFontOfSize:45];
+    _temperatureLabel.font = PFSCUltralightFont(45);
+    
+    
+//    fontName = PingFangSC-Medium
+//    fontName = PingFangSC-Semibold
+//    fontName = PingFangSC-Light
+//    fontName = PingFangSC-Ultralight
+//    fontName = PingFangSC-Regular
+//    fontName = PingFangSC-Thin
     [weatherView addSubview:_temperatureLabel];
     [_temperatureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weatherView);
@@ -479,22 +498,22 @@
     }];
     
     _cityLabel = [UILabel new];
-    _cityLabel.text = @"浦东新区 小雨";
+    _cityLabel.text = @"";
     _cityLabel.textColor = [UIColor whiteColor];
-    _cityLabel.font = [UIFont systemFontOfSize:13];
+    _cityLabel.font = PFSCMediumFont(13);
     [weatherView addSubview:_cityLabel];
     [_cityLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.temperatureLabel).offset(10);
-        make.left.equalTo(weakSelf.temperatureLabel.mas_right).offset(20);
+        make.top.equalTo(weakSelf.temperatureLabel).offset(12);
+        make.left.equalTo(weakSelf.temperatureLabel.mas_right).offset(15);
     }];
     
     UILabel *numberLabel = [UILabel new];
     numberLabel.text = @"空气良";
     numberLabel.textColor = [UIColor whiteColor];
-    numberLabel.font = [UIFont systemFontOfSize:13];
+    numberLabel.font = PFSCMediumFont(13);
     [weatherView addSubview:numberLabel];
     [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.temperatureLabel).offset(-10);
+        make.top.equalTo(weakSelf.cityLabel.mas_bottom).offset(0);
         make.left.equalTo(weakSelf.cityLabel);
     }];
     
@@ -511,7 +530,7 @@
     UILabel *lable=[[UILabel alloc] init];
     lable.layer.cornerRadius=5;
     lable.clipsToBounds=YES;
-    lable.backgroundColor=[UIColor colorWithWhite:1 alpha:0.5];
+    lable.backgroundColor=[UIColor colorWithWhite:1 alpha:0.4];
     lable.userInteractionEnabled = YES;
     [bgView addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -534,7 +553,7 @@
     _textFiled=[[UITextField alloc] initWithFrame:CGRectMake(AUTOSIZEH(45), 27, SCREENWIDTH-AUTOSIZEH(130), 30)];
     _textFiled.delegate=self;
     _textFiled.textColor=[UIColor blackColor];
-    _textFiled.font=[UIFont fontWithName:@"PingFangSC-Regular" size:15];
+    _textFiled.font=PFSCMediumFont(16);
     _textFiled.placeholder=@"搜索或者输入网址";
     [_textFiled setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     _textFiled.keyboardType = UIKeyboardTypeASCIICapable;
@@ -542,7 +561,7 @@
     [lable addSubview:_textFiled];
     [_textFiled mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lable).offset(0);
-        make.left.equalTo(leftImg.mas_right).offset(5);
+        make.left.equalTo(leftImg.mas_right).offset(7);
         make.height.equalTo(lable);
         make.right.equalTo(lable);
     }];
@@ -553,6 +572,10 @@
     FL_Button *clowBtn;
     
     NSArray *buttonTitleArray = @[@"",@"",@"",@"",@""];
+    
+    
+    
+    
     
     for (int i=0; i<buttonTitleArray.count; i++) {
         FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
@@ -686,7 +709,7 @@
             make.left.equalTo(bottomView).offset(15);
             make.right.bottom.equalTo(bottomView);
         }];
-        
+
         UIImageView *sendLine = [UIImageView new];
         sendLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
         [bgView addSubview:sendLine];
@@ -779,7 +802,7 @@
         };
         return cell;
     }else{
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[2][2]];
+        ClassifyBottomCell *classifyCell = [ClassifyBottomCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[2][2]];
         classifyCell.classifyCellClicKBlock = ^(NSString *link) {
             [weakSelf pushWebViewVc:link];
         };
