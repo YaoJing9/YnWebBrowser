@@ -21,12 +21,15 @@
 #import "PreferenceHelper.h"
 #import "BaseNavigationViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "BaiduMobAdSDK/BaiduMobAdSplash.h"
+#import "BaiduMobAdSDK/BaiduMobAdSetting.h"
 static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A300 Safari/602.1";
 
-@interface AppDelegate ()
+@interface AppDelegate ()<BaiduMobAdSplashDelegate>
 
 @property (nonatomic, assign) NSInteger pasteboardChangeCount;
-
+@property (nonatomic, strong) BaiduMobAdSplash *splash;
+@property (nonatomic, retain) UIView *customSplashView;
 @end
 
 @implementation AppDelegate
@@ -60,6 +63,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
                                                          diskCapacity:32 * 1024 * 1024
@@ -109,11 +113,48 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     browserViewController.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = browserViewController;
     
-//    [self getFontNames];
-    
-    
     return YES;
 }
+
+- (void)baidugg{
+    [BaiduMobAdSetting sharedInstance].supportHttps = YES;
+
+    //    设置视频缓存阀值，单位M, 取值范围15M-100M,默认30M
+    [BaiduMobAdSetting setMaxVideoCacheCapacityMb:30];
+
+    //    自定义开屏
+    //
+    BaiduMobAdSplash *splash = [[BaiduMobAdSplash alloc] init];
+    splash.delegate = self;
+    splash.AdUnitTag = @"2058492";
+    splash.canSplashClick = YES;
+    self.splash = splash;
+
+    //可以在customSplashView上显示包含icon的自定义开屏
+    self.customSplashView = [[UIView alloc]initWithFrame:self.window.frame];
+    self.customSplashView.backgroundColor = [UIColor whiteColor];
+    [self.window addSubview:self.customSplashView];
+
+    CGFloat screenWidth = self.window.frame.size.width;
+    CGFloat screenHeight = self.window.frame.size.height;
+
+    //在baiduSplashContainer用做上展现百度广告的容器，注意尺寸必须大于200*200，并且baiduSplashContainer需要全部在window内，同时开机画面不建议旋转
+    UIView * baiduSplashContainer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight - 40)];
+    [self.customSplashView addSubview:baiduSplashContainer];
+
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, screenHeight - 40, screenWidth, 20)];
+    label.text = @"浏览器";
+    label.textAlignment = NSTextAlignmentCenter;
+    [self.customSplashView addSubview:label];
+    //
+    //在的baiduSplashContainer里展现百度广告
+    [splash loadAndDisplayUsingContainerView:baiduSplashContainer];
+}
+
+- (NSString *)publisherId {
+    return @"ccb60059";
+}
+
 
 - (void)getFontNames
 {
@@ -167,16 +208,61 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     [parameters setObject:package forKey:@"package"];
 
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        FirstBrowserController *browserViewController = [FirstBrowserController new];
+        BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
+        self.window.rootViewController = navigationController;
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         [YnSimpleInterest shareSimpleInterest].isApprove = [[YJHelp codeWithError:error][@"isApprove"] boolValue];
         NSLog(@"%@", [YJHelp codeWithError:error]);
         FirstBrowserController *browserViewController = [FirstBrowserController new];
         BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
         self.window.rootViewController = navigationController;
+        
+        [self baidugg];
+
+//        if ([YnSimpleInterest shareSimpleInterest].isApprove) {
+//            [NewSystemView showInsertionView:^{
+//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[YJHelp codeWithError:error][@"shareUrl"]]];
+//
+//            }];
+//
+//        }
+        
     }];
 }
 
+- (void)splashDidClicked:(BaiduMobAdSplash *)splash {
+    NSLog(@"splashDidClicked");
+}
 
+- (void)splashDidDismissLp:(BaiduMobAdSplash *)splash {
+    NSLog(@"splashDidDismissLp");
+}
+
+- (void)splashDidDismissScreen:(BaiduMobAdSplash *)splash {
+    NSLog(@"splashDidDismissScreen");
+    [self removeSplash];
+}
+
+- (void)splashSuccessPresentScreen:(BaiduMobAdSplash *)splash {
+    NSLog(@"splashSuccessPresentScreen");
+}
+
+- (void)splashlFailPresentScreen:(BaiduMobAdSplash *)splash withError:(BaiduMobFailReason)reason {
+    NSLog(@"splashlFailPresentScreen withError %d", reason);
+    [self removeSplash];
+}
+
+/**
+ *  展示结束or展示失败后, 手动移除splash和delegate
+ */
+- (void) removeSplash {
+    if (self.splash) {
+        self.splash.delegate = nil;
+        self.splash = nil;
+        [self.customSplashView removeFromSuperview];
+    }
+}
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];

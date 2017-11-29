@@ -40,6 +40,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>Allow Arbitrary Loads</key>
+	<true/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>App需要您的同意,才能访问日历</string>
 	<key>NSCameraUsageDescription</key>
