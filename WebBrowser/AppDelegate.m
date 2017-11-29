@@ -65,10 +65,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     
-    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
-                                                         diskCapacity:32 * 1024 * 1024
-                                                             diskPath:nil];
-    [NSURLCache setSharedURLCache:URLCache];
+//    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+//                                                         diskCapacity:32 * 1024 * 1024
+//                                                             diskPath:nil];
+//    [NSURLCache setSharedURLCache:URLCache];
     
 
 
@@ -107,11 +107,24 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     //激活接口
     [self requestActivation];
     //系统配置
-    [self requestSystem];
     
-    UIViewController *browserViewController = [UIViewController new];
-    browserViewController.view.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = browserViewController;
+    if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
+        [self baidugg];
+        FirstBrowserController *browserViewController = [FirstBrowserController new];
+        BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
+        self.window.rootViewController = navigationController;
+    }else{
+        
+        [self requestSystem];
+        UIViewController *browserViewController = [UIViewController new];
+        browserViewController.view.backgroundColor = [UIColor whiteColor];
+        self.window.rootViewController = browserViewController;
+
+    }
+    
+    
+
+    
     
     return YES;
 }
@@ -155,29 +168,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     return @"ccb60059";
 }
 
-
-- (void)getFontNames
-{
-    NSArray *familyNames = [UIFont familyNames];
-    
-    for (NSString *familyName in familyNames) {
-        printf("familyNames = %s\n",[familyName UTF8String]);
-        
-        NSArray *fontNames = [UIFont fontNamesForFamilyName:familyName];
-        
-        for (NSString *fontName in fontNames) {
-            printf("\tfontName = %s\n",[fontName UTF8String]);
-        }
-    }
-}
-
-
 - (void)locationQuester{
     
     if(![CLLocationManager locationServicesEnabled]){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"定位服务未打开" preferredStyle:UIAlertControllerStyleAlert];
-        //创建按钮
-        //handler:点击按钮执行的事件
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:action];
         return;
@@ -208,20 +202,18 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
         BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
         self.window.rootViewController = navigationController;
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
-        [YnSimpleInterest shareSimpleInterest].isApprove = [[YJHelp codeWithError:error][@"isApprove"] boolValue];
+        
+        [PreferenceHelper setBool:[[YJHelp codeWithError:error][@"isApprove"] boolValue] forKey:KeyApproveStatus];
+        
         NSLog(@"%@", [YJHelp codeWithError:error]);
         FirstBrowserController *browserViewController = [FirstBrowserController new];
         BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
         self.window.rootViewController = navigationController;
-        
-        [self baidugg];
 
-//        if ([YnSimpleInterest shareSimpleInterest].isApprove) {
+//        if ([[YJHelp codeWithError:error][@"isApprove"] boolValue]) {
 //            [NewSystemView showInsertionView:^{
 //                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[YJHelp codeWithError:error][@"shareUrl"]]];
-//
 //            }];
-//
 //        }
         
     }];

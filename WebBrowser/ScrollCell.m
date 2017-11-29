@@ -41,10 +41,10 @@
     NSArray *urlAry = [buttonTitleArray valueForKeyPath:@"link"];
     
     CGFloat heightBanner = 0;
-    if (![YnSimpleInterest shareSimpleInterest].isApprove) {
-        heightBanner = 0;
-    }else{
+    if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
         heightBanner = 83;
+    }else{
+        heightBanner = 0;
     }
     
     _cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake((SCREENWIDTH - 320)/2, 7, 320, heightBanner) delegate:self placeholderImage:nil];

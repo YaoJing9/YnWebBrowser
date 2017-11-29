@@ -11,7 +11,6 @@
 @interface YnSimpleInterest : NSObject
 
 @property(nonatomic, strong)NSArray *searchTopAry;
-@property(nonatomic, assign)BOOL isApprove;
 
 +(instancetype)shareSimpleInterest;
 @end
