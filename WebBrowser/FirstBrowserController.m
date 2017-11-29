@@ -233,10 +233,10 @@
     }
     
     CGFloat heightBanner = 0;
-    if (![YnSimpleInterest shareSimpleInterest].isApprove) {
-        heightBanner = 0;
-    }else{
+    if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
         heightBanner = 90;
+    }else{
+        heightBanner = 0;
     }
     
     self.dataArr = [NSMutableArray arrayWithObjects:@[@1,@(height1),dataAry1],
@@ -592,10 +592,10 @@
         [bgView addSubview:button];
         [_topImagAry addObject:button];
         
-        if (![YnSimpleInterest shareSimpleInterest].isApprove) {
-            button.hidden = YES;
-        }else{
+        if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
             button.hidden = NO;
+        }else{
+            button.hidden = YES;
         }
         
         if (clowBtn) {

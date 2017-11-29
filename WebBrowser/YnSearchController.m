@@ -290,8 +290,13 @@
 #pragma mark - 分割线
 -(void)flbuttonAction:(FL_Button *)btn{
     
+    NSArray *linkAry = [[YnSimpleInterest shareSimpleInterest].searchTopAry valueForKeyPath:@"link"];
     
+    NSInteger index = btn.tag - 100;
     
+    NSString *link = linkAry[index];
+    
+    [self searchUrlForWebView:link];
 }
 - (void)canceBtnClick{
     
