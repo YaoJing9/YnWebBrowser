@@ -7,6 +7,7 @@
 //
 
 #import <StoreKit/StoreKit.h>
+#import "FirstBrowserController.h"
 #import "NightView.h"
 #import "PreferenceHelper.h"
 #import "WebViewHistoryItem.h"
@@ -294,13 +295,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
         cardMainView.isFirstVC = NO;
         cardMainView.fromVCComeInKind = _fromVCComeInKind;
+        
+        cardMainView.block = ^(WebModel *model) {
+            [self.navigationController popViewControllerAnimated:YES];
+            NSLog(@"%@ ------  %@",BrowserVC,self);
+        };
+        
         [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
             UIImage *image = [self.view snapshot];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
             imageView.frame = cardMainView.bounds;
             [cardMainView addSubview:imageView];
-            [self.view addSubview:cardMainView];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIApplication.sharedApplication.keyWindow addSubview:cardMainView];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [imageView removeFromSuperview];
                 [cardMainView changeCollectionViewLayout];
             });

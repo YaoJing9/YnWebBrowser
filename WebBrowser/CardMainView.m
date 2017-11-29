@@ -130,45 +130,15 @@
         [self.cardArr removeObjectAtIndex:indexPath.item];
         [self.cardArr addObject:webModel];
         WEAK_REF(self)
-        //更新数据源顺序
+        //更新数据源s
         [[TabManager sharedInstance] updateWebModelArray:self.cardArr completion:^{
             STRONG_REF(self_)
-            if (self__) {
-                
-                if (webModel.isNewWebView == YES) {
-                    if (_isFirstVC == YES) {
-                        
-                    }else{
-                        if (self__.fromVCComeInKind == FromVCComeInKindSEARCH) {
-                            [self__.obtainTopViewController dismissViewControllerAnimated:NO completion:^{
-                                
-                            }];
-                        }else{
-                            [[self__ obtainTopViewController].navigationController popViewControllerAnimated:NO];
-                            
-                        }
-                    }
-                    
-                }else{
-                    
-                    if (_isFirstVC == YES) {
-                        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
-                
-                            BrowserViewController *vc = [BrowserViewController new];
-                            
-                            vc.url = DEFAULT_CARD_CELL_URL;
-                            vc.fromVCComeInKind = FromVCComeInKindROOTVC;
-                            [[self__ obtainTopViewController].navigationController pushViewController:vc animated:NO];
-                    }
-                    
-                }
-                
-            }
-            [self__ removeSelfFromSuperView];
+        
+            [self__ removeSelfFromSuperViewWith:webModel];
         }];
     }
     else{
-        [self removeSelfFromSuperView];
+        [self removeSelfFromSuperViewWith:nil];
     }
 }
 
@@ -191,7 +161,7 @@
             [self__.cardArr removeObjectAtIndex:index.item];
             [[TabManager sharedInstance] updateWebModelArray:self__.cardArr];
             [self__.collectionView performBatchUpdates:^{
-                [self__.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index.item inSection:0]]];
+            [self__.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index.item inSection:0]]];
             }completion:nil];
         }
     };
@@ -215,7 +185,7 @@
                 [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:0] - 1 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
             }
 
-            [self removeSelfFromSuperView];
+            [self removeSelfFromSuperViewWith:nil];
             break;
         }
         case AddButtonClicked:
@@ -228,8 +198,10 @@
             break;
     }
 }
-
-- (void)removeSelfFromSuperView{
+-(void)popMainViewWithCompletionBlock:(PopBlock)completion{
+    self.block = completion;
+}
+- (void)removeSelfFromSuperViewWith:(WebModel *)webModel{
     [[TabManager sharedInstance].browserContainerView restoreWithCompletionHandler:^(WebModel *webModel, BrowserWebView *browserWebView){
         NSNotification *notify = [NSNotification notificationWithName:kWebTabSwitch object:self userInfo:@{@"webView":browserWebView}];
         [Notifier postNotification:notify];
@@ -239,6 +211,38 @@
     [self.collectionView setCollectionViewLayout:self.flatLayout animated:YES completion:^(BOOL finished){
         STRONG_REF(self_)
         if (self__) {
+            if (webModel != nil) {
+                
+                if (webModel.isNewWebView == YES) {
+                    if (_isFirstVC == YES) {
+                        
+                    }else{
+                        self__.block(webModel);
+//                        if (self__.fromVCComeInKind == FromVCComeInKindSEARCH) {
+//                            [BrowserVC dismissViewControllerAnimated:NO completion:^{
+//
+//                            }];
+//                        }else{
+//                            [[self__ obtainTopViewController].navigationController popViewControllerAnimated:NO];
+//
+//                        }
+                    }
+                    
+                }else{
+                    
+                    if (_isFirstVC == YES) {
+                        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+                        
+                        BrowserViewController *vc = [BrowserViewController new];
+                        
+                        vc.url = DEFAULT_CARD_CELL_URL;
+                        vc.fromVCComeInKind = FromVCComeInKindROOTVC;
+                        [[self__ obtainTopViewController].navigationController pushViewController:vc animated:NO];
+                    }
+                    
+                }
+            }
+            
             [self__ removeFromSuperview];
         }
         [[TabManager sharedInstance] saveWebModelData];
