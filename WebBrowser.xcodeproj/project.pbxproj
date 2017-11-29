@@ -192,6 +192,18 @@
 		BF59F55F1FCDA3FA00041D5F /* ClassifyBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF59F55E1FCDA3FA00041D5F /* ClassifyBottomCell.m */; };
 		BFCBB5CC1FCE856E0046F0A6 /* ImgTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCBB5CB1FCE856E0046F0A6 /* ImgTitleView.m */; };
 		BFCBB5D01FCEA0740046F0A6 /* NewSystemView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCBB5CF1FCEA0740046F0A6 /* NewSystemView.m */; };
+		BFCBB5DA1FCEA9570046F0A6 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5D91FCEA9490046F0A6 /* SafariServices.framework */; };
+		BFCBB5DB1FCEA9630046F0A6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5D81FCEA93B0046F0A6 /* SystemConfiguration.framework */; };
+		BFCBB5DC1FCEA9700046F0A6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5D71FCEA9280046F0A6 /* CoreTelephony.framework */; };
+		BFCBB5E41FCEADF60046F0A6 /* BaiduMobAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5E31FCEADF50046F0A6 /* BaiduMobAdSDK.framework */; };
+		BFCBB5E51FCEB05B0046F0A6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5D61FCEA8B90046F0A6 /* CoreLocation.framework */; };
+		BFCBB5E61FCEB0A20046F0A6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5D41FCEA8A70046F0A6 /* CoreMotion.framework */; };
+		BFCBB5E81FCEB0C60046F0A6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5E71FCEB0C00046F0A6 /* CoreMedia.framework */; };
+		BFCBB5E91FCEB0E00046F0A6 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5D51FCEA8B00046F0A6 /* MessageUI.framework */; };
+		BFCBB5EA1FCEB0F50046F0A6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5D31FCEA8700046F0A6 /* AdSupport.framework */; };
+		BFCBB5EC1FCEB1150046F0A6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5EB1FCEB10F0046F0A6 /* QuartzCore.framework */; };
+		BFCBB5EE1FCEB12E0046F0A6 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5ED1FCEB1270046F0A6 /* EventKit.framework */; };
+		BFCBB5F01FCEB1450046F0A6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCBB5EF1FCEB1400046F0A6 /* CoreGraphics.framework */; };
 		BFFF2F7C1FCE649600C07CE1 /* ScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F7B1FCE649600C07CE1 /* ScrollCell.m */; };
 		BFFF2F961FCE65DE00C07CE1 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F891FCE65DD00C07CE1 /* TAAbstractDotView.m */; };
 		BFFF2F971FCE65DE00C07CE1 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F8B1FCE65DD00C07CE1 /* TAAnimatedDotView.m */; };
@@ -637,6 +649,18 @@
 		BFCBB5CB1FCE856E0046F0A6 /* ImgTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImgTitleView.m; sourceTree = "<group>"; };
 		BFCBB5CE1FCEA0740046F0A6 /* NewSystemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSystemView.h; sourceTree = "<group>"; };
 		BFCBB5CF1FCEA0740046F0A6 /* NewSystemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSystemView.m; sourceTree = "<group>"; };
+		BFCBB5D31FCEA8700046F0A6 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		BFCBB5D41FCEA8A70046F0A6 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		BFCBB5D51FCEA8B00046F0A6 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		BFCBB5D61FCEA8B90046F0A6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BFCBB5D71FCEA9280046F0A6 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		BFCBB5D81FCEA93B0046F0A6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BFCBB5D91FCEA9490046F0A6 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		BFCBB5E31FCEADF50046F0A6 /* BaiduMobAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMobAdSDK.framework; path = Frameworks/BaiduMobAdSDK.framework; sourceTree = "<group>"; };
+		BFCBB5E71FCEB0C00046F0A6 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		BFCBB5EB1FCEB10F0046F0A6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BFCBB5ED1FCEB1270046F0A6 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		BFCBB5EF1FCEB1400046F0A6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BFFF2F7A1FCE649600C07CE1 /* ScrollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollCell.h; sourceTree = "<group>"; };
 		BFFF2F7B1FCE649600C07CE1 /* ScrollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollCell.m; sourceTree = "<group>"; };
 		BFFF2F881FCE65DD00C07CE1 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
@@ -805,6 +829,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFCBB5F01FCEB1450046F0A6 /* CoreGraphics.framework in Frameworks */,
+				BFCBB5EE1FCEB12E0046F0A6 /* EventKit.framework in Frameworks */,
+				BFCBB5EC1FCEB1150046F0A6 /* QuartzCore.framework in Frameworks */,
+				0EAA18B91DD35D5D0072F9B3 /* WebKit.framework in Frameworks */,
+				BFCBB5EA1FCEB0F50046F0A6 /* AdSupport.framework in Frameworks */,
+				BFCBB5E91FCEB0E00046F0A6 /* MessageUI.framework in Frameworks */,
+				BFCBB5E81FCEB0C60046F0A6 /* CoreMedia.framework in Frameworks */,
+				BFCBB5E61FCEB0A20046F0A6 /* CoreMotion.framework in Frameworks */,
+				BFCBB5E51FCEB05B0046F0A6 /* CoreLocation.framework in Frameworks */,
+				BFCBB5DC1FCEA9700046F0A6 /* CoreTelephony.framework in Frameworks */,
+				BFCBB5DB1FCEA9630046F0A6 /* SystemConfiguration.framework in Frameworks */,
+				BFCBB5DA1FCEA9570046F0A6 /* SafariServices.framework in Frameworks */,
 				0EFDD30E1DD45764002AB3FB /* StoreKit.framework in Frameworks */,
 				E848F5371FB95D0F004FAE96 /* CFNetwork.framework in Frameworks */,
 				E87D733D1FB9710A001AB44E /* CocoaLumberjack.framework in Frameworks */,
@@ -814,7 +850,7 @@
 				E848F52A1FB9514C004FAE96 /* libxml2.2.tbd in Frameworks */,
 				E848F5351FB956AC004FAE96 /* libz.1.2.11.tbd in Frameworks */,
 				0EFDD30A1DD42861002AB3FB /* AVFoundation.framework in Frameworks */,
-				0EAA18B91DD35D5D0072F9B3 /* WebKit.framework in Frameworks */,
+				BFCBB5E41FCEADF60046F0A6 /* BaiduMobAdSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,6 +1200,7 @@
 		0E681F1C1D4AEC3F003534F5 = {
 			isa = PBXGroup;
 			children = (
+				BFCBB5E31FCEADF50046F0A6 /* BaiduMobAdSDK.framework */,
 				0E681F271D4AEC3F003534F5 /* WebBrowser */,
 				0E681F411D4AEC3F003534F5 /* WebBrowserTests */,
 				0E681F4C1D4AEC3F003534F5 /* WebBrowserUITests */,
@@ -1450,6 +1487,17 @@
 		0EBF3A621DCF33ED00CD77C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFCBB5EF1FCEB1400046F0A6 /* CoreGraphics.framework */,
+				BFCBB5ED1FCEB1270046F0A6 /* EventKit.framework */,
+				BFCBB5EB1FCEB10F0046F0A6 /* QuartzCore.framework */,
+				BFCBB5E71FCEB0C00046F0A6 /* CoreMedia.framework */,
+				BFCBB5D91FCEA9490046F0A6 /* SafariServices.framework */,
+				BFCBB5D81FCEA93B0046F0A6 /* SystemConfiguration.framework */,
+				BFCBB5D71FCEA9280046F0A6 /* CoreTelephony.framework */,
+				BFCBB5D61FCEA8B90046F0A6 /* CoreLocation.framework */,
+				BFCBB5D51FCEA8B00046F0A6 /* MessageUI.framework */,
+				BFCBB5D41FCEA8A70046F0A6 /* CoreMotion.framework */,
+				BFCBB5D31FCEA8700046F0A6 /* AdSupport.framework */,
 				E87D733C1FB9710A001AB44E /* CocoaLumberjack.framework */,
 				E848F5341FB956AB004FAE96 /* libz.1.2.11.tbd */,
 				E848F5321FB95417004FAE96 /* libc++.tbd */,
@@ -2506,15 +2554,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NQUYKKNU6A;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WebBrowser",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WebBrowser/WebBrowser.pch;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Headers";
 				INFOPLIST_FILE = WebBrowser/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2540,15 +2589,16 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = NQUYKKNU6A;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WebBrowser",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WebBrowser/WebBrowser.pch;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Headers";
 				INFOPLIST_FILE = WebBrowser/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

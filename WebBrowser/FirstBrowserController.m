@@ -148,7 +148,14 @@
         [weakSelf endRefresh];
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         weakSelf.allDataDict = [YJHelp codeWithError:error][@"data"][@"data"];
+        
+        if (!weakSelf.allDataDict) {
+            return;
+        }
         [weakSelf updataHomeData:[YJHelp codeWithError:error][@"data"][@"data"]];
+        
+
+        
         [weakSelf.tableView reloadData];
         dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0/*延迟执行时间*/ * NSEC_PER_SEC));
         dispatch_after(delayTime, dispatch_get_main_queue(), ^{
