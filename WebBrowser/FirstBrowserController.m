@@ -101,9 +101,7 @@
     
     NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
-    webModel.image = [self.view snapshot];
-    
-//    [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
+    webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
     
     webModel.isNewWebView = YES;
     

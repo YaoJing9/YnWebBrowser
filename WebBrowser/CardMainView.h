@@ -11,7 +11,7 @@
 @class WebModel;
 
 typedef void(^CompletionBlock)(WebModel *model);
-
+typedef void(^PopBlock)(WebModel *model);
 @interface CardMainView : UIView
 
 @property(nonatomic,assign)BOOL isFirstVC;
@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger, FromVCComeInKind) {
 };*/
 @property(nonatomic,assign)NSInteger fromVCComeInKind;
 - (void)reloadCardMainViewWithCompletionBlock:(CompletionBlock)completion;
+@property(nonatomic,copy)PopBlock block;
+- (void)popMainViewWithCompletionBlock:(PopBlock)completion;
 - (void)changeCollectionViewLayout;
 
 @end
