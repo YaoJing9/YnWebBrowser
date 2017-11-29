@@ -97,16 +97,18 @@
     // 计算文本的的宽度
     NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
     dictM[NSFontAttributeName] = self.titleLabel.font;
-//  CGRect frame = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dictM context:nil];
+
     CGFloat imageY = (fl_btnHeight - _fl_imageHeight - fl_labelHeight -_fl_padding) * 0.5;
     CGFloat imageX = (fl_btnWidth - _fl_imageWidth) * 0.5;
     self.imageView.frame = CGRectMake(imageX, imageY, _fl_imageWidth, _fl_imageHeight);
-//    self.titleLabel.frame = CGRectMake((self.center.x - frame.size.width) * 0.5, MaxY(self.imageView) + _fl_padding, fl_labelWidth, fl_labelHeight);
+
     self.titleLabel.frame = CGRectMake(0, MaxY(self.imageView) + _fl_padding, self.frame.size.width, fl_labelHeight);
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     CGPoint labelCenter = self.titleLabel.center;
     labelCenter.x = self.imageView.center.x;
     self.titleLabel.center = labelCenter;
+    
+//    self.titleLabel.backgroundColor = [UIColor redColor];
 }
 
 #pragma mark - 图标在下，文本在上(居中)

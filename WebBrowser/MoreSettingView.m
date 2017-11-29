@@ -202,7 +202,7 @@ static UIView *_bgView;
 {
     [UIView animateWithDuration:0.3 animations:^{
 
-        _bgView.mj_y = SCREENHEIGHT - 253;
+        _bgView.mj_y = SCREENHEIGHT - 263;
         
     } completion:^(BOOL finished) {
 

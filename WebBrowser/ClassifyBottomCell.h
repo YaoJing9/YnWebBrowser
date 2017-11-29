@@ -7,9 +7,10 @@
 //
 
 #define ClassifyBottomCellGap 15
-#define ClassifyBottomViewHeight 63
+#define ClassifyBottomViewHeight 65
 
 #import <UIKit/UIKit.h>
+#import "SDCycleScrollView.h"
 typedef void(^ClassifyCellClicKBlock)(NSString *);
 
 @interface ClassifyBottomCell : UITableViewCell
