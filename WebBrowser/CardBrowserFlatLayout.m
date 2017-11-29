@@ -30,7 +30,6 @@
 {
     [super prepareLayout];
     
-    
     CGFloat width = roundf(300);
     CGFloat height = roundf(width * (SCREENHEIGHT / SCREENWIDTH));;
     
@@ -56,6 +55,7 @@
     if (self.attributes.count)
     {
         UICollectionViewLayoutAttributes *lastItemAttributes = [self.attributes lastObject];
+        
         self.contentSize = CGSizeMake(lastItemAttributes.frame.origin.x + lastItemAttributes.frame.size.width + 10, height);
     }
 }
