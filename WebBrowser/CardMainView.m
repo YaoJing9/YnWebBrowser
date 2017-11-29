@@ -101,7 +101,10 @@
         STRONG_REF(self_)
         if (self__) {
             [self__ setCardsWithArray:modelArray];
-            [self__.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self__.cardArr.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            if (self__.cardArr.count != 0) {
+                [self__.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self__.cardArr.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            }
+            
             WebModel*model = modelArray[self__.cardArr.count - 1];
             if (completion) {
                 completion(model);
@@ -192,7 +195,7 @@
     WebModel *webModel = self.cardArr[indexPath.item];
     if (webModel.isNewWebView == YES) {
         webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
-        webModel.isImageProcessed = YES;
+        
     }
     [cell updateWithWebModel:webModel];
     
@@ -225,8 +228,8 @@
 
 - (void)removeSelfFromSuperView{
     [[TabManager sharedInstance].browserContainerView restoreWithCompletionHandler:^(WebModel *webModel, BrowserWebView *browserWebView){
-//        NSNotification *notify = [NSNotification notificationWithName:kWebTabSwitch object:self userInfo:@{@"webView":browserWebView}];
-//        [Notifier postNotification:notify];
+        NSNotification *notify = [NSNotification notificationWithName:kWebTabSwitch object:self userInfo:@{@"webView":browserWebView}];
+        [Notifier postNotification:notify];
     } animation:NO];
     
     WEAK_REF(self)
@@ -254,6 +257,7 @@
         webModel.isNewWebView = YES;
         [self.cardArr addObject:webModel];
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:num inSection:0]]];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:num inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
         [[TabManager sharedInstance] updateWebModelArray:self.cardArr];
     });
 }
@@ -297,7 +301,6 @@
 }
 
 #pragma mark - UIGestureRecognizerDelegate
-
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.collectionView];

@@ -132,6 +132,7 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
     if (indexPath.section == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:kBookmarkEditTextFieldCellIdentifier];
         UITextField *textField = [(BookmarkEditTextFieldTableViewCell *)cell textField];
+        textField.font = PFSCRegularFont(17);
         if (indexPath.row == 0) {
             [textField becomeFirstResponder];
             textField.placeholder = @"标题";
@@ -156,7 +157,9 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
     
     return cell;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

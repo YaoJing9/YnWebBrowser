@@ -35,7 +35,7 @@
                     </connections>
                 </segmentedControl>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h2r-gc-UeE">
-                    <rect key="frame" x="0.0" y="129" width="375" height="538"/>
+                    <rect key="frame" x="0.0" y="130" width="375" height="537"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="qdK-ax-kjJ"/>
@@ -49,7 +49,7 @@
                 <constraint firstItem="h2r-gc-UeE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="D7Y-6J-REK"/>
                 <constraint firstAttribute="trailing" secondItem="h2r-gc-UeE" secondAttribute="trailing" id="G0D-rn-Mzz"/>
                 <constraint firstItem="4Nx-Vb-tbB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="79" id="eph-WI-PbL"/>
-                <constraint firstItem="h2r-gc-UeE" firstAttribute="top" secondItem="4Nx-Vb-tbB" secondAttribute="bottom" constant="20" id="oHT-JM-6Qa"/>
+                <constraint firstItem="h2r-gc-UeE" firstAttribute="top" secondItem="4Nx-Vb-tbB" secondAttribute="bottom" constant="21" id="oHT-JM-6Qa"/>
                 <constraint firstAttribute="bottom" secondItem="h2r-gc-UeE" secondAttribute="bottom" id="sXq-Zs-e6k"/>
                 <constraint firstItem="4Nx-Vb-tbB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="spH-Ro-ZKS"/>
             </constraints>

@@ -87,9 +87,11 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+    return 50;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -101,7 +103,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
     UITableViewCell *tableCell = [self.tableView dequeueReusableCellWithIdentifier:SettingPlaceholderTableViewCellIdentifier];
     if (tableCell == nil) {
         tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SettingPlaceholderTableViewCellIdentifier];
-        tableCell.textLabel.font = [UIFont systemFontOfSize:14];
+        tableCell.textLabel.font = PFSCRegularFont(17);
         
         tableCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }

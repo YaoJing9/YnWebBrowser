@@ -81,7 +81,7 @@
     //because of user may operate on webView,so needs update image every time.
     CGRect rect = self.imageView.bounds;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        if (!webModel.isImageProcessed) {
+        if (!webModel.isImageProcessed && webModel.isNewWebView == NO) {
             UIImage *finalImage;
             finalImage = [webModel.image getCornerImageWithFrame:rect cornerRadius:0 text:webModel.title atPoint:CGPointMake(15, 5)];
             webModel.image = finalImage;
