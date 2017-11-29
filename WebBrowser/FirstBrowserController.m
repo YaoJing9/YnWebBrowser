@@ -35,7 +35,7 @@
 #import "BrowserViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "PreferenceHelper.h"
-
+#import "ScrollCell.h"
 #define kSeniverseAPI @"rzk44lplyy7hyai9"
 #define kSeniverseID @"U390895EA3"
 
@@ -184,9 +184,14 @@
         [button setTitle:buttonDict[@"name"] forState:normal];
     }
     
-//    NSMutableArray *dataAry1 = [dict[@"title"] subarrayWithRange:NSMakeRange(0, 3)];
     NSMutableArray *dataAry1 = dict[@"title"];
+    
+    NSMutableArray *dataAryBanner = dict[@"banner_img"];
+
+    
     NSDictionary *dataDict = dict[@"navigation"];
+    
+    
     NSMutableArray *dataAry3 = dict[@"banner_bottom"];
 
     CGFloat height1 = 0;
@@ -204,6 +209,8 @@
             height1 = (dataAry1.count/5 + 1)*ClassifyViewHeight + 3*ClassifyCellGap;
         }
     }
+    
+    
     
     
     NSArray *ary = [dataDict allKeys];
@@ -238,7 +245,10 @@
     }
     
     
-    self.dataArr = [NSMutableArray arrayWithObjects:@[@1,@(height1),dataAry1], @[@(dataAry2.count),@50,dataAry2], @[@1,@(height3),dataAry3], nil];
+    self.dataArr = [NSMutableArray arrayWithObjects:@[@1,@(height1),dataAry1],
+                                                    @[@1,@95,dataAryBanner],
+                                                    @[@(dataAry2.count),@50,dataAry2],
+                                                    @[@1,@(height3),dataAry3], nil];
 }
 
 - (void)requestLocation{
@@ -490,12 +500,6 @@
     _temperatureLabel.font = PFSCUltralightFont(45);
     
     
-//    fontName = PingFangSC-Medium
-//    fontName = PingFangSC-Semibold
-//    fontName = PingFangSC-Light
-//    fontName = PingFangSC-Ultralight
-//    fontName = PingFangSC-Regular
-//    fontName = PingFangSC-Thin
     [weatherView addSubview:_temperatureLabel];
     [_temperatureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weatherView);
@@ -679,7 +683,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 0 || section == 1) {
         return 0;
     }else{
         return 46;
@@ -689,7 +693,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    NSArray *imageAry = @[@"",@"快速导航", @"生活服务"];
+    NSArray *imageAry = @[@"",@"",@"快速导航", @"生活服务"];
     
     if (section == 0) {
         return nil;
@@ -806,13 +810,19 @@
         };
         return classifyCell;
     }else if (indexPath.section == 1){
-        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:self.dataArr[1][2][indexPath.row]];
+        ScrollCell *cell = [ScrollCell cellWithTableView:tableView reuseIdentifier:@"ScrollCell" imageAry:self.dataArr[indexPath.section][2]];
+        cell.scrollCellClicKBlock = ^(NSString *link) {
+            [weakSelf pushWebViewVc:link];
+        };
+        return cell;
+    }else if (indexPath.section == 2){
+        TraderCell *cell = [TraderCell cellWithTableView:tableView reuseIdentifier:@"VoiceCell" titleAry:self.dataArr[indexPath.section][2][indexPath.row]];
         cell.traderCellClicKBlock = ^(NSString *link) {
             [weakSelf pushWebViewVc:link];
         };
         return cell;
     }else{
-        ClassifyBottomCell *classifyCell = [ClassifyBottomCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[2][2]];
+        ClassifyBottomCell *classifyCell = [ClassifyBottomCell cellWithTableView:tableView reuseIdentifier:@"ClassifyBottomCell" imageAry:self.dataArr[indexPath.section][2]];
         classifyCell.classifyCellClicKBlock = ^(NSString *link) {
             [weakSelf pushWebViewVc:link];
         };

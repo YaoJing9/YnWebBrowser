@@ -64,9 +64,9 @@
 }
 
 - (void)buttonAction:(FL_Button *)btn{
-    
+
     NSInteger index = btn.tag - 100;
-    
+
     NSString *link = _dataAry[index][@"link"];
 
     if (self.classifyCellClicKBlock) {
