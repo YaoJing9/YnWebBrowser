@@ -126,9 +126,11 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.item < [self collectionView:collectionView numberOfItemsInSection:0]) {
         WebModel *webModel = [self.cardArr objectAtIndex:indexPath.item];
+        //将原来微博本地数据源当前位置的model删除 然后加到最后一个
         [self.cardArr removeObjectAtIndex:indexPath.item];
         [self.cardArr addObject:webModel];
         WEAK_REF(self)
+        //更新数据源顺序
         [[TabManager sharedInstance] updateWebModelArray:self.cardArr completion:^{
             STRONG_REF(self_)
             if (self__) {
