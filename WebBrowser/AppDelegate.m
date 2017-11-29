@@ -69,12 +69,13 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 //                                                         diskCapacity:32 * 1024 * 1024
 //                                                             diskPath:nil];
 //    [NSURLCache setSharedURLCache:URLCache];
-    
-
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    FirstBrowserController *browserViewController = [FirstBrowserController new];
+    BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
+    self.window.rootViewController = navigationController;
     
     if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
         [NightView showNightView];
@@ -101,29 +102,19 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
         [self applicationStartPrepare];
     });
     
+    //系统配置
+    [self requestSystem];
     
     [self locationQuester];
     
     //激活接口
     [self requestActivation];
-    //系统配置
     
     if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
         [self baidugg];
-        FirstBrowserController *browserViewController = [FirstBrowserController new];
-        BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
-        self.window.rootViewController = navigationController;
     }else{
         
-        [self requestSystem];
-        UIViewController *browserViewController = [UIViewController new];
-        browserViewController.view.backgroundColor = [UIColor whiteColor];
-        self.window.rootViewController = browserViewController;
-
     }
-    
-    
-
     
     
     return YES;
@@ -133,7 +124,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     [BaiduMobAdSetting sharedInstance].supportHttps = YES;
 
     //    设置视频缓存阀值，单位M, 取值范围15M-100M,默认30M
-    [BaiduMobAdSetting setMaxVideoCacheCapacityMb:30];
+//    [BaiduMobAdSetting setMaxVideoCacheCapacityMb:30];
 
     //    自定义开屏
     //
@@ -198,23 +189,23 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     [parameters setObject:package forKey:@"package"];
 
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
-        FirstBrowserController *browserViewController = [FirstBrowserController new];
-        BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
-        self.window.rootViewController = navigationController;
+
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         
-        [PreferenceHelper setBool:[[YJHelp codeWithError:error][@"isApprove"] boolValue] forKey:KeyApproveStatus];
+        
+        if ([[YJHelp codeWithError:error][@"isApprove"] boolValue] && ![PreferenceHelper boolForKey:KeyApproveStatus]) {
+            [PreferenceHelper setBool:[[YJHelp codeWithError:error][@"isApprove"] boolValue] forKey:KeyApproveStatus];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"llqAppisApprove" object:nil];
+        }
+
         
         NSLog(@"%@", [YJHelp codeWithError:error]);
-        FirstBrowserController *browserViewController = [FirstBrowserController new];
-        BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
-        self.window.rootViewController = navigationController;
 
-//        if ([[YJHelp codeWithError:error][@"isApprove"] boolValue]) {
-//            [NewSystemView showInsertionView:^{
-//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[YJHelp codeWithError:error][@"shareUrl"]]];
-//            }];
-//        }
+        if ([[YJHelp codeWithError:error][@"bUpdate"] boolValue]) {
+            [NewSystemView showInsertionViewtitle:[YJHelp codeWithError:error][@"updateDes"] clickBlock:^{
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[YJHelp codeWithError:error][@"updateUrl"]]];
+            }];
+        }
         
     }];
 }

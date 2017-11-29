@@ -37,30 +37,39 @@
     _dataAry = buttonTitleArray;
     
     for (int i=0; i<buttonTitleArray.count; i++) {
-        FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
-        [button setTitle:buttonTitleArray[i][@"name"] forState:UIControlStateNormal];
-        button.titleLabel.font = PFSCMediumFont(13);
-        [button sd_setImageWithURL:[NSURL URLWithString:buttonTitleArray[i][@"icon"]] forState:normal placeholderImage:nil];
-        [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
-        button.tag = 100 + i;
-        button.fl_imageWidth = BTNWH;
-        button.fl_imageHeight = BTNWH;
-        button.fl_padding = 7;
-        button.status = FLAlignmentStatusTop;
-        [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:button];
+        
         
         NSInteger line = i%5;
         NSInteger clow = i/5;
-        CGFloat cellWidth = SCREENWIDTH/5;        
-
+        CGFloat cellWidth = SCREENWIDTH/5;
         
-        [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.contentView).offset(ClassifyBottomCellGap + (ClassifyBottomCellGap + ClassifyBottomViewHeight)*clow);
-            make.left.equalTo(weakSelf.contentView).offset(cellWidth * line);
-            make.width.equalTo(@(cellWidth + 5));
-            make.height.equalTo(@(ClassifyBottomViewHeight));
-        }];
+        CGFloat cellX = cellWidth * line;
+        CGFloat cellY = ClassifyBottomCellGap + (ClassifyBottomCellGap + ClassifyBottomViewHeight)*clow;
+        ImgTitleView *button = [[ImgTitleView alloc] initWithFrame:CGRectMake(cellX, cellY, cellWidth, ClassifyBottomViewHeight) imageView:CGSizeMake(BTNWH, BTNWH) gap:7 font:PFSCMediumFont(13) color:[UIColor colorWithHexString:@"#333333"] tag:i + 100];
+        button.title = buttonTitleArray[i][@"name"];
+        button.placeholderImage = @"bottomzw";
+        button.imageUrl = buttonTitleArray[i][@"icon"];
+        
+//        FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
+//        button.titleLabel.font = PFSCMediumFont(13);
+//        [button setTitle:buttonTitleArray[i][@"name"] forState:UIControlStateNormal];
+//        [button sd_setImageWithURL:[NSURL URLWithString:buttonTitleArray[i][@"icon"]] forState:normal placeholderImage:nil];
+//        [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+//        button.tag = 100 + i;
+//        button.fl_imageWidth = BTNWH;
+//        button.fl_imageHeight = BTNWH;
+//        button.fl_padding = 7;
+//        button.status = FLAlignmentStatusTop;
+//        [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:button];
+        
+//
+//        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(weakSelf.contentView).offset(ClassifyBottomCellGap + (ClassifyBottomCellGap + ClassifyBottomViewHeight)*clow);
+//            make.left.equalTo(weakSelf.contentView).offset(cellWidth * line);
+//            make.width.equalTo(@(cellWidth));
+//            make.height.equalTo(@(ClassifyBottomViewHeight));
+//        }];
     }
     
 }

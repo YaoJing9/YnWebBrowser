@@ -163,17 +163,21 @@
     }];
 }
 
-- (void)updataHomeData:(NSDictionary *)dict{
-    
-    NSArray *topAry = dict[@"banner_top"];
-    [YnSimpleInterest shareSimpleInterest].searchTopAry = dict[@"suggest"];
-    
+- (void)updataHeaderData{
+    NSArray *topAry = _allDataDict[@"banner_top"];
     for (NSInteger i = 0;i< topAry.count;i++) {
         NSDictionary *buttonDict = topAry[i];
-        FL_Button *button =_topImagAry[i];
-        [button sd_setImageWithURL:[NSURL URLWithString:buttonDict[@"icon"]] forState:normal placeholderImage:nil];
-        [button setTitle:buttonDict[@"name"] forState:normal];
+        ImgTitleView *button =_topImagAry[i];
+        button.title = buttonDict[@"name"];
+        button.imageUrl = buttonDict[@"icon"];
     }
+}
+
+- (void)updataHomeData:(NSDictionary *)dict{
+    
+    [self updataHeaderData];
+    
+    [YnSimpleInterest shareSimpleInterest].searchTopAry = dict[@"suggest"];
     
     NSMutableArray *dataAry1 = dict[@"title"];
     
@@ -462,13 +466,28 @@
 - (void)initDataAry{
     [self.view addSubview:self.tableView];
     _topImagAry = [NSMutableArray array];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createBgview) name:@"llqAppisApprove" object:nil];
 }
 
 - (void)createBgview{
     WS(weakSelf);
+    
+    
+    [_topImagAry removeAllObjects];
+    
     [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
     UIView *bgView = [UIView new];
-    bgView.frame = CGRectMake(0, 0, SCREENWIDTH, 225);
+    
+    
+    
+    CGFloat bgViewH = 0;
+    if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
+        bgViewH = 225;
+    }else{
+        bgViewH = 180;
+    }
+    
+    bgView.frame = CGRectMake(0, 0, SCREENWIDTH, bgViewH);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:bgView.bounds];
     [bgView addSubview:imageView];
     imageView.image = [UIImage imageNamed:@"版头"];
@@ -537,7 +556,7 @@
         make.right.equalTo(weakSelf.view).offset(-15);
         make.height.equalTo(@44);
     }];
-    
+    [lable setNeedsLayout];
     UIImageView *leftImg = [UIImageView new];
     leftImg.image = [UIImage imageNamed:@"搜索"];
     [lable addSubview:leftImg];
@@ -567,55 +586,32 @@
     //监听键盘事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoAction) name:UITextFieldTextDidChangeNotification object:nil];
     
-    FL_Button *clowBtn;
-    
     NSArray *buttonTitleArray = @[@"",@"",@"",@"",@""];
-    
-    
-    
-    
-    
     for (int i=0; i<buttonTitleArray.count; i++) {
-        FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
-        [button setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:11];
-        [button setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
-        button.tag = 100 + i;
+        
+        NSInteger line = i%5;
+        NSInteger clow = i/5;
+        CGFloat cellWidth = SCREENWIDTH/5;
+        
+        CGFloat cellX = cellWidth * line;
+        CGFloat cellY = 15 + (17 + 45)*clow + 145;
+        ImgTitleView *button = [[ImgTitleView alloc] initWithFrame:CGRectMake(cellX, cellY, cellWidth, ClassifyViewHeight) imageView:CGSizeMake(35, 35) gap:4 font:[UIFont systemFontOfSize:11] color:[UIColor whiteColor] tag:i + 100];
         
         
-        button.fl_padding = 2;
-        button.fl_imageWidth = 35;
-        button.fl_imageHeight = 35;
-        
-        button.status = FLAlignmentStatusTop;
-        [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:button];
         [_topImagAry addObject:button];
+        
+        button.imgTitleViewBlock = ^(NSInteger index) {
+            [weakSelf buttonAction:index];
+        };
         
         if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
             button.hidden = NO;
         }else{
             button.hidden = YES;
         }
-        
-        if (clowBtn) {
-            [button mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(clowBtn);
-                make.left.equalTo(clowBtn.mas_right);
-                make.width.equalTo(clowBtn);
-                make.height.equalTo(clowBtn);
-            }];
-        }else{
-            [button mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(lable.mas_bottom);
-                make.left.equalTo(bgView);
-                make.width.equalTo(@(SCREENWIDTH/5));
-                make.bottom.equalTo(bgView);
-            }];
-            
-        }
-        clowBtn = button;
     }
+    [self updataHeaderData];
     
 }
 
@@ -647,11 +643,9 @@
     [self presentViewController:nav  animated:NO completion:nil];
 }
 
-- (void)buttonAction:(UIButton *)btn{
+- (void)buttonAction:(NSInteger)index{
 
     NSArray *linkAry = [_allDataDict[@"banner_top"] valueForKeyPath:@"link"];
-    
-    NSInteger index = btn.tag - 100;
     
     NSString *link = linkAry[index];
     
@@ -801,7 +795,7 @@
 {
     WS(weakSelf);
     if (indexPath.section == 0) {
-        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[0][2]];
+        ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[indexPath.section][2]];
         classifyCell.classifyCellClicKBlock = ^(NSString *link) {
             [weakSelf pushWebViewVc:link];
         };

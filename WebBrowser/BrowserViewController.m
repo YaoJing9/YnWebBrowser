@@ -307,11 +307,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 if (self.fromVCComeInKind == FromVCComeInKindSEARCH) {
-                    [self dismissViewControllerAnimated:YES completion:^{
+                    [self dismissViewControllerAnimated:NO completion:^{
                         
                     }];
                 }else{
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popViewControllerAnimated:NO];
                 }
                 [imageView removeFromSuperview];
             });

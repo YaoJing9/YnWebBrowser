@@ -12,7 +12,7 @@ typedef void(^ClickBlock)(void);
 @interface NewSystemView : UIView
 @property (nonatomic,copy) ClickBlock clickBlock;
 
-+ (void)showInsertionView:(ClickBlock)clickBlock;
++ (void)showInsertionViewtitle:(NSString *)title clickBlock:(ClickBlock)ClickBlock;
 + (void)removeMoreSettingView;
 
 @end
