@@ -191,6 +191,7 @@
 		BF4EFD3C1FC7F73900BCDD84 /* CHMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */; };
 		BF59F55F1FCDA3FA00041D5F /* ClassifyBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF59F55E1FCDA3FA00041D5F /* ClassifyBottomCell.m */; };
 		BFCBB5CC1FCE856E0046F0A6 /* ImgTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCBB5CB1FCE856E0046F0A6 /* ImgTitleView.m */; };
+		BFCBB5D01FCEA0740046F0A6 /* NewSystemView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCBB5CF1FCEA0740046F0A6 /* NewSystemView.m */; };
 		BFFF2F7C1FCE649600C07CE1 /* ScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F7B1FCE649600C07CE1 /* ScrollCell.m */; };
 		BFFF2F961FCE65DE00C07CE1 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F891FCE65DD00C07CE1 /* TAAbstractDotView.m */; };
 		BFFF2F971FCE65DE00C07CE1 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F8B1FCE65DD00C07CE1 /* TAAnimatedDotView.m */; };
@@ -634,6 +635,8 @@
 		BF59F55E1FCDA3FA00041D5F /* ClassifyBottomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassifyBottomCell.m; sourceTree = "<group>"; };
 		BFCBB5CA1FCE856E0046F0A6 /* ImgTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImgTitleView.h; sourceTree = "<group>"; };
 		BFCBB5CB1FCE856E0046F0A6 /* ImgTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImgTitleView.m; sourceTree = "<group>"; };
+		BFCBB5CE1FCEA0740046F0A6 /* NewSystemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSystemView.h; sourceTree = "<group>"; };
+		BFCBB5CF1FCEA0740046F0A6 /* NewSystemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSystemView.m; sourceTree = "<group>"; };
 		BFFF2F7A1FCE649600C07CE1 /* ScrollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollCell.h; sourceTree = "<group>"; };
 		BFFF2F7B1FCE649600C07CE1 /* ScrollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollCell.m; sourceTree = "<group>"; };
 		BFFF2F881FCE65DD00C07CE1 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
@@ -1205,6 +1208,8 @@
 				0E681F361D4AEC3F003534F5 /* LaunchScreen.storyboard */,
 				0E681F391D4AEC3F003534F5 /* Info.plist */,
 				0E681F5F1D4AF2D5003534F5 /* WebBrowser.pch */,
+				BFCBB5CE1FCEA0740046F0A6 /* NewSystemView.h */,
+				BFCBB5CF1FCEA0740046F0A6 /* NewSystemView.m */,
 				0E681F281D4AEC3F003534F5 /* Supporting Files */,
 				18CE6EB01FC6B94E0068091D /* UIAlertController+DXAlertController.h */,
 				18CE6EB11FC6B94E0068091D /* UIAlertController+DXAlertController.m */,
@@ -2179,6 +2184,7 @@
 				E813BA581FB59D8200470ECD /* UIButton+WebCache.m in Sources */,
 				0EC14F541E31B97900A44D05 /* FMResultSet.m in Sources */,
 				BF4EFCBC1FC6A7BD00BCDD84 /* HistoryRecordCell.m in Sources */,
+				BFCBB5D01FCEA0740046F0A6 /* NewSystemView.m in Sources */,
 				0E3C50421F7946B400DD3828 /* UIAlertAction+ZWUtility.m in Sources */,
 				0E32E2FB1E08C69E00CFBBB5 /* CardCollectionViewCell.m in Sources */,
 				E87D728A1FB965A2001AB44E /* AFURLResponseSerialization.m in Sources */,

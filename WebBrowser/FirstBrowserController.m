@@ -227,9 +227,15 @@
         }
     }
     
+    CGFloat heightBanner = 0;
+    if (![YnSimpleInterest shareSimpleInterest].isApprove) {
+        heightBanner = 0;
+    }else{
+        heightBanner = 90;
+    }
     
     self.dataArr = [NSMutableArray arrayWithObjects:@[@1,@(height1),dataAry1],
-                                                    @[@1,@90,dataAryBanner],
+                                                    @[@1,@(heightBanner),dataAryBanner],
                                                     @[@(dataAry2.count),@50,dataAry2],
                                                     @[@1,@(height3),dataAry3], nil];
 }
@@ -579,6 +585,13 @@
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:button];
         [_topImagAry addObject:button];
+        
+        if (![YnSimpleInterest shareSimpleInterest].isApprove) {
+            button.hidden = YES;
+        }else{
+            button.hidden = NO;
+        }
+        
         if (clowBtn) {
             [button mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(clowBtn);
@@ -755,21 +768,22 @@
             [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyHistoryModeStatus] forKey:KeyHistoryModeStatus];
             break;
         case 4:
-            
-            break;
-        case 5:
-            
             historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
             historyAndBookmarkVc.fromVCComeInKind = FromVCComeInKindROOTVC;
             [self.navigationController pushViewController: historyAndBookmarkVc animated:YES];
             break;
-        case 6:
+        case 5:
+            
             [self addBookmark];
+
+            break;
+        case 6:
+            [self.navigationController pushViewController: settingVc animated:YES];
+
             break;
         case 7:
             break;
         case 8:
-            [self.navigationController pushViewController: settingVc animated:YES];
             break;
             
         default:

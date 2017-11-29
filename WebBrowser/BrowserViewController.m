@@ -36,7 +36,6 @@ static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签
 
 @interface BrowserViewController () <BrowserBottomToolBarButtonClickedDelegate,  UIViewControllerRestoration, KeyboardHelperDelegate>
 
-
 @property (nonatomic, strong) BrowserBottomToolBar *bottomToolBar;
 @property (nonatomic, strong) BrowserTopToolBar *browserTopToolBar;
 @property (nonatomic, assign) CGFloat lastContentOffset;
@@ -274,7 +273,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 //                if (![self.browserContainerView.webView canGoBack]) {
 //                    [self.navigationController popViewControllerAnimated:YES];
 //                }
-//
 //            }
 //            }
 //

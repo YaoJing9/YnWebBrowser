@@ -1,17 +1,17 @@
 //
-//  MoreSettingView.m
+//  NewSystemView.m
 //  WebBrowser
 //
-//  Created by yaojing on 2017/11/22.
+//  Created by yaojing on 2017/11/29.
 //  Copyright © 2017年 钟武. All rights reserved.
 //
 
-#import "MoreSettingView.h"
+#import "NewSystemView.h"
 
-static MoreSettingView *_insertionGgView;
+static NewSystemView *_insertionGgView;
 static UIView *_bgView;
 
-@implementation MoreSettingView
+@implementation NewSystemView
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (_insertionGgView) {
@@ -25,20 +25,17 @@ static UIView *_bgView;
     return self;
 }
 
-+ (void)showInsertionViewSuccessBlock:(InsertionSuccessBlock)successBlock clickBlock:(ClickBlock)clickBlock removeBlock:(RemoveBlock)removeBlock btnClickBlock:(BtnClickBlock)btnClickBlock
++ (void)showInsertionView:(ClickBlock)clickBlock
 {
     
     UIWindow *keyW = [UIApplication sharedApplication].keyWindow;
-    MoreSettingView *bgBigView = [[MoreSettingView alloc] initWithFrame:keyW.bounds];
+    NewSystemView *bgBigView = [[NewSystemView alloc] initWithFrame:keyW.bounds];
     
     if (bgBigView) {
         bgBigView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
         [keyW addSubview:bgBigView];
         
         bgBigView.clickBlock = clickBlock;
-        bgBigView.removeBlock = removeBlock;
-        bgBigView.successBlock = successBlock;
-        bgBigView.btnClickBlock = btnClickBlock;
         
         UIView *bgView = [UIView new];
         bgView.backgroundColor = [UIColor whiteColor];
@@ -46,7 +43,7 @@ static UIView *_bgView;
         bgView.layer.cornerRadius = 15;
         [bgBigView addSubview:bgView];
         bgView.frame = CGRectMake(10, SCREENHEIGHT, SCREENWIDTH - 20, 253);
-
+        
         _bgView = bgView;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:bgBigView action:@selector(clickBannerView:)];
         [bgBigView addGestureRecognizer:tapGesture];
@@ -64,22 +61,22 @@ static UIView *_bgView;
             if (i == 0) {
                 [flbutton setImage:[UIImage imageNamed:@"全屏模式选中"] forState:UIControlStateSelected];
                 flbutton.selected = [PreferenceHelper boolForKey:KeyFullScreenModeStatus];
-
+                
             }
             if (i == 1) {
                 [flbutton setImage:[UIImage imageNamed:@"夜间模式选中"] forState:UIControlStateSelected];
                 flbutton.selected = [PreferenceHelper boolForKey:KeyEyeProtectiveStatus];
-
+                
             }
             if (i == 2) {
                 [flbutton setImage:[UIImage imageNamed:@"无图模式选中"] forState:UIControlStateSelected];
                 flbutton.selected = [PreferenceHelper boolForKey:KeyNoImageModeStatus];
-
+                
             }
             if (i == 3) {
                 [flbutton setImage:[UIImage imageNamed:@"无痕模式选中"] forState:UIControlStateSelected];
                 flbutton.selected = [PreferenceHelper boolForKey:KeyHistoryModeStatus];
-
+                
             }
             
             flbutton.tag = 100 + i;
@@ -88,7 +85,7 @@ static UIView *_bgView;
             flbutton.status = FLAlignmentStatusTop;
             flbutton.fl_padding = 0;
             [flbutton addTarget:bgBigView action:@selector(flbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
-            [bgView addSubview:flbutton];            
+            [bgView addSubview:flbutton];
             
             
             if (clowBtn) {
@@ -163,52 +160,43 @@ static UIView *_bgView;
             break;
     }
     
-    
-    if (_insertionGgView.btnClickBlock) {
-        _insertionGgView.btnClickBlock(index);
-    }
 }
 
 - (void)clickBannerView:(UITapGestureRecognizer *)tap{
-    [self removeBtnClick];
+//    [self removeBtnClick];
 }
 
-- (void)removeBtnClick{
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        _bgView.mj_y = SCREENHEIGHT;
-        
-    } completion:^(BOOL finished) {
-        [_insertionGgView removeFromSuperview];
-        if (_insertionGgView.removeBlock) {
-            _insertionGgView.removeBlock();
-        }
-        _insertionGgView = nil;
-    }];
-    
-
-}
+//- (void)removeBtnClick{
+//
+//    [UIView animateWithDuration:0.3 animations:^{
+//
+//        _bgView.mj_y = SCREENHEIGHT;
+//
+//    } completion:^(BOOL finished) {
+//        [_insertionGgView removeFromSuperview];
+//        if (_insertionGgView.removeBlock) {
+//            _insertionGgView.removeBlock();
+//        }
+//        _insertionGgView = nil;
+//    }];
+//
+//
+//}
 
 + (void)removeMoreSettingView{
     [_insertionGgView removeFromSuperview];
-    if (_insertionGgView.removeBlock) {
-        _insertionGgView.removeBlock();
-    }
     _insertionGgView = nil;
 }
 
 - (void)showMoreSettingView
 {
     [UIView animateWithDuration:0.3 animations:^{
-
+        
         _bgView.mj_y = SCREENHEIGHT - 263;
         
     } completion:^(BOOL finished) {
-
+        
     }];
 }
 
 @end
-
-

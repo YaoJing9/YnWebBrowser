@@ -66,12 +66,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
-    FirstBrowserController *browserViewController = [FirstBrowserController new];
-    
-    BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
-    
+
+
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = navigationController;
+    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     if ([PreferenceHelper boolForKey:KeyEyeProtectiveStatus]) {
@@ -99,12 +97,17 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
         [self applicationStartPrepare];
     });
     
+    
     [self locationQuester];
     
     //激活接口
     [self requestActivation];
     //系统配置
     [self requestSystem];
+    
+    UIViewController *browserViewController = [UIViewController new];
+    browserViewController.view.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = browserViewController;
     
 //    [self getFontNames];
     
@@ -165,13 +168,11 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+        [YnSimpleInterest shareSimpleInterest].isApprove = [[YJHelp codeWithError:error][@"isApprove"] boolValue];
         NSLog(@"%@", [YJHelp codeWithError:error]);
-        
-        if (<#condition#>) {
-            <#statements#>
-        }
-        
-        
+        FirstBrowserController *browserViewController = [FirstBrowserController new];
+        BaseNavigationViewController *navigationController = [[BaseNavigationViewController alloc] initWithRootViewController:browserViewController];
+        self.window.rootViewController = navigationController;
     }];
 }
 
