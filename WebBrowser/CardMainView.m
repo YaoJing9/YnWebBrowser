@@ -218,14 +218,7 @@
                         
                     }else{
                         self__.block(webModel);
-//                        if (self__.fromVCComeInKind == FromVCComeInKindSEARCH) {
-//                            [BrowserVC dismissViewControllerAnimated:NO completion:^{
-//
-//                            }];
-//                        }else{
-//                            [[self__ obtainTopViewController].navigationController popViewControllerAnimated:NO];
-//
-//                        }
+                        
                     }
                     
                 }else{
