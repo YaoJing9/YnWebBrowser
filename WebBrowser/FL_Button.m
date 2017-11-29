@@ -17,8 +17,8 @@
 #define fl_labelWidth self.titleLabel.bounds.size.width
 #define fl_labelHeight self.titleLabel.bounds.size.height
 //    获得按钮中image图标的大小
-#define _fl_imageWidth self.imageView.bounds.size.width
-#define _fl_imageHeight self.imageView.bounds.size.height
+//#define _fl_imageWidth self.imageView.bounds.size.width
+//#define _fl_imageHeight self.imageView.bounds.size.height
 
 @implementation FL_Button
 
@@ -32,13 +32,13 @@
     return fl_button;
 }
 
-//- (void)setFl_imageWidth:(CGFloat)fl_imageWidth{
-//    _fl_imageWidth = fl_imageWidth;
-//}
-//
-//- (void)setFl_imageHeight:(CGFloat)fl_imageHeight{
-//    _fl_imageHeight = fl_imageHeight;
-//}
+- (void)setFl_imageWidth:(CGFloat)fl_imageWidth{
+    _fl_imageWidth = fl_imageWidth;
+}
+
+- (void)setFl_imageHeight:(CGFloat)fl_imageHeight{
+    _fl_imageHeight = fl_imageHeight;
+}
 
 - (void)setStatus:(FLAlignmentStatus)status{
     _status = status;
