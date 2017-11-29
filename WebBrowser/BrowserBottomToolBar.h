@@ -18,4 +18,7 @@ typedef void(^CoverBtnBlock)(void);
 @property (nonatomic, copy) CoverBtnBlock coverBtnBlock;
 //0 首页 1 web
 @property (nonatomic,assign)NSInteger fromVCComeInKind;
+
+@property (nonatomic, strong)UILabel *multiWindowItemLabel;
+@property (nonatomic, strong)NSString *multiWindowItemStr;
 @end

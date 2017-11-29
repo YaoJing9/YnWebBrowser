@@ -60,9 +60,22 @@
     [self addSubview:flexibleItem];
     self.flexibleItem = flexibleItem;
     
+    
     UIButton *multiWindowItem = [self createBottomToolBarButtonWithImage:@"框架" tag:BottomToolBarMultiWindowButtonTag];
     multiWindowItem.frame = CGRectMake(self.width/5.0 * 4, 0, self.width/5.0, self.height);
     [self addSubview:multiWindowItem];
+    
+    _multiWindowItemLabel = [UILabel new];
+    _multiWindowItemLabel.frame = CGRectMake(self.width/5.0 * 4, 0, self.width/5.0, self.height);
+    _multiWindowItemLabel.font = [UIFont systemFontOfSize:10];
+//    _multiWindowItemLabel.layer.cornerRadius = 3;
+//    //    coverItem.layer.maskedCorners = YES;
+//    _multiWindowItemLabel.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
+//    _multiWindowItemLabel.layer.borderWidth = 0.3;
+    _multiWindowItemLabel.textColor = [UIColor blackColor];
+    _multiWindowItemLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_multiWindowItemLabel];
+    
     
     UIButton *coverItem = [UIButton new];
     coverItem.frame = CGRectMake(0, 0, self.width/5, self.height);
@@ -74,7 +87,9 @@
     [self.coverItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_STRING] forState:UIControlStateNormal];
 
 }
-
+-(void)setMultiWindowItemStr:(NSString *)multiWindowItemStr{
+    _multiWindowItemLabel.text = multiWindowItemStr;
+}
 - (void)coverBtnClick{
     if (self.coverBtnBlock) {
         self.coverBtnBlock();

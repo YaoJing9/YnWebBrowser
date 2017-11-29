@@ -31,7 +31,7 @@
 #import "MoreSettingView.h"
 #import "HistoryAndBookmarkListViewController.h"
 #import "ExtendedFunctionViewController.h"
-
+#import "SaveImageTool.h"
 static NSString *const kBrowserViewControllerAddBookmarkSuccess = @"添加书签成功";
 static NSString *const kBrowserViewControllerAddBookmarkFailure = @"添加书签失败";
 
@@ -73,10 +73,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    
     [MoreSettingView removeMoreSettingView];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+//    _bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",[[TabManager sharedInstance] numberOfTabs]];
     if (self.browserContainerView == nil) {
         self.browserContainerView = ({
             BrowserContainerView *browserContainerView = [[BrowserContainerView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
@@ -297,8 +299,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
         cardMainView.fromVCComeInKind = _fromVCComeInKind;
         
         cardMainView.block = ^(WebModel *model) {
-            [self.navigationController popViewControllerAnimated:YES];
-            NSLog(@"%@ ------  %@",BrowserVC,self);
+            
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[[SaveImageTool sharedInstance]GetImageFromLocal:@"firstImage"]];
+            imageView.frame = self.view.bounds;
+            [self.view addSubview:imageView];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                if (self.fromVCComeInKind == FromVCComeInKindSEARCH) {
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
+                }else{
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                [imageView removeFromSuperview];
+            });
         };
         
         [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
