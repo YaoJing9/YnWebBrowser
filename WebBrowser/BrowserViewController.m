@@ -66,6 +66,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -333,25 +335,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             [PreferenceHelper setBool:![PreferenceHelper boolForKey:KeyHistoryModeStatus] forKey:KeyHistoryModeStatus];
             break;
         case 4:
-            
+            historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
+            historyAndBookmarkVc.fromVCComeInKind = FromVCComeInKindWEBVIEW;
+            [self.navigationController pushViewController: historyAndBookmarkVc animated:YES];
             break;
         case 5:
             
-            historyAndBookmarkVc.listDataOperationKind = ListDataOperationKindBookmark;
-            historyAndBookmarkVc.fromVCComeInKind = FromVCComeInKindWEBVIEW;
-            [self.navigationController pushViewController: historyAndBookmarkVc animated:NO];
+            [self addBookmark];
+            
             break;
         case 6:
-            [self addBookmark];
+            [self.navigationController pushViewController: settingVc animated:YES];
+            
             break;
         case 7:
-            
-            break;
-        case 8:
-            [self.navigationController pushViewController: settingVc animated:NO];
-            break;
-            
-        default:
         {
             NSURL *url = self.browserContainerView.webView.request.URL;
             if ([url isErrorPageURL]) {
@@ -369,6 +366,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             [MoreSettingView removeMoreSettingView];
             break;
         }
+        default:
+        
             break;
     }
 }

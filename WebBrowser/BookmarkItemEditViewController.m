@@ -104,10 +104,15 @@ typedef NS_ENUM(NSUInteger, BookmarkItemTextField) {
         }];
     }
     else{
-        [self.dataManager addBookmarkWithURL:self.itemModel.url title:self.itemModel.title sectionIndex:self.finalIndexPath.section completion:^(BOOL success){
-            completion(success);
-            [self_.navigationController popViewControllerAnimated:NO];
-        }];
+            
+            
+            [self.dataManager addBookmarkWithURL:self.itemModel.url title:self.itemModel.title sectionIndex:self.finalIndexPath.section completion:^(BOOL success){
+                completion(success);
+                [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
+                [self_.navigationController popViewControllerAnimated:NO];
+            }];
+        
+        
         
     }
 }

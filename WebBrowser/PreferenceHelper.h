@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const KeyHaveBookMarkModeStatus;
 extern NSString * const KeyFullScreenModeStatus;
 extern NSString * const KeyNoImageModeStatus;
 extern NSString * const KeyBlockBaiduADStatus;

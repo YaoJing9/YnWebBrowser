@@ -19,7 +19,7 @@
 #import "PreferenceHelper.h"
 #import "URLConnectionDelegateProxy.h"
 #import "UIAlertAction+ZWUtility.h"
-
+#import "BookmarkDataManager.h"
 #import <CommonCrypto/CommonDigest.h>
 
 typedef void(^JSBlock)(BrowserWebView *);
@@ -604,6 +604,25 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
 }
 
 - (void)webViewDidFinishLoad:(BrowserWebView *)webView{
+    [[BookmarkDataManager alloc] initWithCompletion:^(NSArray<BookmarkSectionModel *> *array) {
+        
+        if (array.count != 0) {
+        
+            for (BookmarkItemModel *model in array.firstObject.itemsArray) {
+                if ([model.url isEqualToString: webView.webModel.url]) {
+                    [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
+                    break ;
+                }else{
+                    [PreferenceHelper setBool:NO forKey:KeyHaveBookMarkModeStatus];
+                }
+            }
+            
+        }
+        NSLog(@"-----------%d",[PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus]);
+    }];
+    
+    
+    
     [ExtentionsManager loadExtentionsIfNeededWhenWebViewDidFinishLoad:webView];
 }
 
