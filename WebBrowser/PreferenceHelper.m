@@ -14,6 +14,7 @@ NSString * const KeyHistoryModeStatus = @"KeyNoHistoryModeStatus";
 NSString * const KeyNoImageModeStatus = @"KeyNoImageModeStatus";
 NSString * const KeyBlockBaiduADStatus = @"KeyBlockBaiduADStatus";
 NSString * const KeyEyeProtectiveStatus = @"KeyEyeProtectiveStatus";
+NSString * const KeyApproveStatus = @"KeyApproveStatus";
 NSString * const KeyEyeProtectiveColorKind = @"KeyEyeProtectiveColorKind";
 NSString * const KeyPasteboardURL = @"KeyPasteboardURL";
 
