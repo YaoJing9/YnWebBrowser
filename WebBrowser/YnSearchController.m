@@ -244,7 +244,10 @@
 
     
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
-        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+        
+        NSString *url = [self rootSearchStrWebViewWithSug:text];
+        
+        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[url] key:DelegateManagerBrowserContainerLoadURL];
         
         NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
         WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
@@ -259,7 +262,7 @@
             
             BrowserViewController *vc = [BrowserViewController new];
             
-            vc.url = DEFAULT_CARD_CELL_URL;
+            vc.url = url;
             vc.fromVCComeInKind = FromVCComeInKindSEARCH;
             [self.navigationController pushViewController:vc animated:NO];
             

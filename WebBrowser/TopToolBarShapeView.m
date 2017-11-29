@@ -64,8 +64,9 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     [[TabManager sharedInstance] stopLoadingCurrentWebView];
+    WebModel *model = [[TabManager sharedInstance] getCurrentWebModel];
     YnSearchController *searchVC = [YnSearchController new];
-    searchVC.origTextFieldString = textField.text;
+    searchVC.origTextFieldString = model.url;
     searchVC.fromVCComeInKind = FromVCComeInKindWEBVIEW;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchVC];
     [[BrowserVC navigationController] presentViewController:nav  animated:NO completion:nil];
