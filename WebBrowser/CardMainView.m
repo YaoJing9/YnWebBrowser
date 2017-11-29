@@ -68,7 +68,7 @@
     
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:self.flatLayout];
 
-        collectionView.backgroundColor = [UIColor lightGrayColor];
+        collectionView.backgroundColor = [UIColor blackColor];
         collectionView.showsVerticalScrollIndicator = NO;
         collectionView.alwaysBounceVertical = NO;
         collectionView.delegate = self;
@@ -178,7 +178,8 @@
 
 - (CardCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CardCollectionViewCell *cell = (CardCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CardCellIdentifier forIndexPath:indexPath];
-    
+    cell.layer.cornerRadius = 10;
+    cell.layer.masksToBounds = YES;
     cell.collectionView = collectionView;
     
     WEAK_REF(self)
@@ -257,13 +258,27 @@
         webModel.isNewWebView = YES;
         [self.cardArr addObject:webModel];
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:num inSection:0]]];
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:num inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:num inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
         [[TabManager sharedInstance] updateWebModelArray:self.cardArr];
     });
 }
 
 - (void)closseAllCollectionViewCell{
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSInteger i = 0; i < self.cardArr.count; i++) {
+        [array addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+    }
+    [self.cardArr removeAllObjects];
     
+    [[TabManager sharedInstance] updateWebModelArray:self.cardArr completion:^{
+        [self.collectionView performBatchUpdates:^{
+            
+            [self.collectionView deleteItemsAtIndexPaths:array];
+            
+            
+        }completion:nil];
+    }];
+  
 }
 
 #pragma mark - PanGesture Method
