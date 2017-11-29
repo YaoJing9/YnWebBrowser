@@ -185,14 +185,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 }
 
 - (void)requestActivation{
-
     NSString *tempURLStr = [NSString stringWithFormat:@"%@ddz/activation", YNBaseURL];
-    
     NSMutableDictionary *parameters = [CMNetworkingTool getPostDict];
-    
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
-        NSLog(@"%@", [YJHelp codeWithError:error]);
     }];
 }
 - (void)requestSystem{

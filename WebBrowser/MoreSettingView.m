@@ -79,7 +79,14 @@ static UIView *_bgView;
             if (i == 3) {
                 [flbutton setImage:[UIImage imageNamed:@"无痕模式选中"] forState:UIControlStateSelected];
                 flbutton.selected = [PreferenceHelper boolForKey:KeyHistoryModeStatus];
-
+            }
+            
+            if (i == 4) {
+                [flbutton setImage:[UIImage imageNamed:@"添加书签选中"] forState:UIControlStateSelected];
+                flbutton.selected = [PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus];
+                if (flbutton.selected) {
+                    flbutton.enabled = NO;
+                }
             }
             
             flbutton.tag = 100 + i;

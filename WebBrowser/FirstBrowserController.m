@@ -468,6 +468,7 @@
 
 - (void)createBgview{
     WS(weakSelf);
+    [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
     UIView *bgView = [UIView new];
     bgView.frame = CGRectMake(0, 0, SCREENWIDTH, 225);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:bgView.bounds];

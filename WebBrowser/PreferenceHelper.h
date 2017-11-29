@@ -16,6 +16,7 @@ extern NSString * const KeyEyeProtectiveStatus;
 extern NSString * const KeyEyeProtectiveColorKind;
 extern NSString * const KeyPasteboardURL;
 extern NSString * const KeyHistoryModeStatus;
+extern NSString * const KeyApproveStatus;//是否是审核状态
 @interface PreferenceHelper : NSObject
 
 + (void)setBool:(BOOL)value forKey:(NSString *)defaultName;
