@@ -147,9 +147,8 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     NSMutableDictionary *parameters = [CMNetworkingTool getPostDict];
     
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
-        
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
-        
+        NSLog(@"%@", [YJHelp codeWithError:error]);
     }];
 }
 - (void)requestSystem{
@@ -158,16 +157,20 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
-    NSString *version = [UIDevice currentDevice].systemVersion;
-    NSString *package = nil;
+    NSString *version = [CMNetworkingTool appVersion];
+    NSString *package = [CMNetworkingTool appBundleId];
 
     [parameters setObject:version forKey:@"version"];
-    
-//    NSMutableDictionary *parameters = [CMNetworkingTool getPostDict];
-    
+    [parameters setObject:package forKey:@"package"];
+
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
-        
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+        NSLog(@"%@", [YJHelp codeWithError:error]);
+        
+        if (<#condition#>) {
+            <#statements#>
+        }
+        
         
     }];
 }

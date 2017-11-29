@@ -52,7 +52,8 @@
         
         NSInteger line = i%5;
         NSInteger clow = i/5;
-        CGFloat cellWidth = SCREENWIDTH/5;
+        CGFloat cellWidth = SCREENWIDTH/5;        
+
         
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(weakSelf.contentView).offset(ClassifyBottomCellGap + (ClassifyBottomCellGap + ClassifyBottomViewHeight)*clow);

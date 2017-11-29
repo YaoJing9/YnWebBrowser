@@ -42,7 +42,6 @@
 
 @interface FirstBrowserController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,BrowserBottomToolBarButtonClickedDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) BrowserBottomToolBar *bottomToolBar;
-@property (nonatomic, assign) CGFloat lastContentOffset;
 @property (nonatomic, assign) BOOL isWebViewDecelerate;
 @property (nonatomic, weak) id<BrowserBottomToolBarButtonClickedDelegate> browserButtonDelegate;
 @property (nonatomic, strong) FindInPageBar *findInPageBar;
@@ -121,26 +120,13 @@
     [super viewDidLoad];
     
     [self initDataAry];
-
-    
-    [self requestLocation];
-    
-    
-    [self.view addSubview:self.tableView];
-    
-    [self requestData];
-    
-    [self requestAllData];
-    
-    [self requestHomeData];
-    
-    
-    
-    [self createBgview];
-    
     [self initializeView];
-    
-    self.lastContentOffset = - TOP_TOOL_BAR_HEIGHT;
+
+    [self requestLocation];
+    [self createBgview];
+    [self requestAllData];
+    [self requestData];
+    [self requestHomeData];
     
     [[DelegateManager sharedInstance] registerDelegate:self forKeys:@[DelegateManagerWebView, DelegateManagerFindInPageBarDelegate]];
     
@@ -159,16 +145,16 @@
     [parameters setObject:package forKey:@"package"];
     
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        [weakSelf endRefresh];
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         weakSelf.allDataDict = [YJHelp codeWithError:error][@"data"][@"data"];
         [weakSelf updataHomeData:[YJHelp codeWithError:error][@"data"][@"data"]];
         [weakSelf.tableView reloadData];
-        
         dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0/*延迟执行时间*/ * NSEC_PER_SEC));
         dispatch_after(delayTime, dispatch_get_main_queue(), ^{
             [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
         });
-        
+        [weakSelf endRefresh];
     }];
 }
 
@@ -210,9 +196,6 @@
         }
     }
     
-    
-    
-    
     NSArray *ary = [dataDict allKeys];
     NSMutableArray *dataAry2 = [NSMutableArray array];
     for (NSInteger i = 0; i < ary.count; i++) {
@@ -246,7 +229,7 @@
     
     
     self.dataArr = [NSMutableArray arrayWithObjects:@[@1,@(height1),dataAry1],
-                                                    @[@1,@95,dataAryBanner],
+                                                    @[@1,@90,dataAryBanner],
                                                     @[@(dataAry2.count),@50,dataAry2],
                                                     @[@1,@(height3),dataAry3], nil];
 }
@@ -424,6 +407,7 @@
     WS(weakSelf);
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf requestData];
+        [weakSelf requestHomeData];
     }];
 }
 
@@ -435,9 +419,6 @@
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:strUrl parameters:nil success:^(NSURLSessionDataTask *dataTask, id responseObject) {
         
         [weakSelf requestLocationData:responseObject[@"city"]];
-        
-        [weakSelf endRefresh];
-        
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         [weakSelf endRefresh];
     }];
@@ -468,37 +449,33 @@
 }
 
 - (void)initDataAry{
+    [self.view addSubview:self.tableView];
     _topImagAry = [NSMutableArray array];
 }
 
 - (void)createBgview{
     WS(weakSelf);
     UIView *bgView = [UIView new];
-    bgView.frame = CGRectMake(0, 0, SCREENWIDTH, 215);
+    bgView.frame = CGRectMake(0, 0, SCREENWIDTH, 225);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:bgView.bounds];
     [bgView addSubview:imageView];
     imageView.image = [UIImage imageNamed:@"版头"];
     _tableView.tableHeaderView = bgView;
-    
     UIView *weatherView = [UIView new];
     [bgView addSubview:weatherView];
     [weatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(bgView).offset(20);
+        make.top.equalTo(bgView).offset(30);
         make.left.equalTo(bgView).offset(0);
         make.right.equalTo(bgView);
         make.height.equalTo(@70);
     }];
     
-    
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(weatherViewClick:)];
     [weatherView addGestureRecognizer:tap];
-    
     _temperatureLabel = [UILabel new];
     _temperatureLabel.text = @"15";
     _temperatureLabel.textColor = [UIColor whiteColor];
     _temperatureLabel.font = PFSCUltralightFont(45);
-    
     
     [weatherView addSubview:_temperatureLabel];
     [_temperatureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -543,7 +520,7 @@
     lable.userInteractionEnabled = YES;
     [bgView addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(bgView).offset(90);
+        make.top.equalTo(weatherView.mas_bottom);
         make.left.equalTo(bgView).offset(15);
         make.right.equalTo(weakSelf.view).offset(-15);
         make.height.equalTo(@44);

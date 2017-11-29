@@ -190,6 +190,7 @@
 		BF4EFD391FC7E1A600BCDD84 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFD171FC7E1A600BCDD84 /* README.md */; };
 		BF4EFD3C1FC7F73900BCDD84 /* CHMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */; };
 		BF59F55F1FCDA3FA00041D5F /* ClassifyBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF59F55E1FCDA3FA00041D5F /* ClassifyBottomCell.m */; };
+		BFCBB5CC1FCE856E0046F0A6 /* ImgTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCBB5CB1FCE856E0046F0A6 /* ImgTitleView.m */; };
 		BFFF2F7C1FCE649600C07CE1 /* ScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F7B1FCE649600C07CE1 /* ScrollCell.m */; };
 		BFFF2F961FCE65DE00C07CE1 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F891FCE65DD00C07CE1 /* TAAbstractDotView.m */; };
 		BFFF2F971FCE65DE00C07CE1 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F8B1FCE65DD00C07CE1 /* TAAnimatedDotView.m */; };
@@ -631,6 +632,8 @@
 		BF4EFD3B1FC7F73900BCDD84 /* CHMLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMLocationManager.m; sourceTree = "<group>"; };
 		BF59F55D1FCDA3FA00041D5F /* ClassifyBottomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassifyBottomCell.h; sourceTree = "<group>"; };
 		BF59F55E1FCDA3FA00041D5F /* ClassifyBottomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassifyBottomCell.m; sourceTree = "<group>"; };
+		BFCBB5CA1FCE856E0046F0A6 /* ImgTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImgTitleView.h; sourceTree = "<group>"; };
+		BFCBB5CB1FCE856E0046F0A6 /* ImgTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImgTitleView.m; sourceTree = "<group>"; };
 		BFFF2F7A1FCE649600C07CE1 /* ScrollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollCell.h; sourceTree = "<group>"; };
 		BFFF2F7B1FCE649600C07CE1 /* ScrollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollCell.m; sourceTree = "<group>"; };
 		BFFF2F881FCE65DD00C07CE1 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
@@ -1030,6 +1033,8 @@
 				BF4EFCA51FC4206100BCDD84 /* TraderCell.m */,
 				BF4EFCA81FC42F5600BCDD84 /* FL_Button.h */,
 				BF4EFCA91FC42F5600BCDD84 /* FL_Button.m */,
+				BFCBB5CA1FCE856E0046F0A6 /* ImgTitleView.h */,
+				BFCBB5CB1FCE856E0046F0A6 /* ImgTitleView.m */,
 				BF4EFCAB1FC4381600BCDD84 /* ClassifyCell.h */,
 				BF4EFCAC1FC4381600BCDD84 /* ClassifyCell.m */,
 				BFFF2F7A1FCE649600C07CE1 /* ScrollCell.h */,
@@ -2153,6 +2158,7 @@
 				BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */,
 				E813BA4B1FB59D8200470ECD /* SDImageCacheConfig.m in Sources */,
 				18CE6EA31FC595620068091D /* HistoryAndBookmarkTableViewCell.m in Sources */,
+				BFCBB5CC1FCE856E0046F0A6 /* ImgTitleView.m in Sources */,
 				0EF025671DD951EB0011019F /* HTTPURLConfiguration.m in Sources */,
 				E813BA491FB59D8200470ECD /* NSImage+WebCache.m in Sources */,
 				BFFF2F991FCE65DE00C07CE1 /* TAPageControl.m in Sources */,

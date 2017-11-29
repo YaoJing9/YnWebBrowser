@@ -9,6 +9,11 @@
 #import <AdSupport/AdSupport.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #include <sys/sysctl.h>
+#include <sys/param.h>
+#include <sys/mount.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
+
 // 申明一个协议方法
 @protocol CMNetworkingTollProxy <NSObject>
 
@@ -282,8 +287,50 @@
     return [UIDevice currentDevice].name;
 }
 
+
+//是否在充电
++ (BOOL)isCharging
+{
+    NSLog(@"charging:%ld",(long)[UIDevice currentDevice].batteryState);
+    if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateCharging) {
+        return YES;
+    }
+    return NO;
+}
+
+//是否安装SIM卡
++ (BOOL)isSIMInstalled
+{
+    CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
+    CTCarrier *carrier = [networkInfo subscriberCellularProvider];
+    
+    if (!carrier.isoCountryCode) {
+        NSLog(@"No sim present Or No cellular coverage or phone is on airplane mode.");
+        return NO;
+    }
+    return YES;
+}
+
+//是否允许访问idfa
++ (NSNumber *)adTrackingEnabled
+{
+    // 1允许 0 不允许
+    if ([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
+        return [NSNumber numberWithInteger:1];
+    }else
+    {
+        return [NSNumber numberWithInteger:0];
+    }
+}
+
 + (NSMutableDictionary *)getPostDict{
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    
+    [dict setValue:[NSNumber numberWithBool:[self isCharging]] forKey:@"ischarging"];
+    [dict setValue:[self adTrackingEnabled] forKey:@"adtrackingenabled"];
+    [dict setValue:[NSNumber numberWithBool:[self isSIMInstalled]] forKey:@"issiminstalled"];
+
     
     
     [dict setValue:[self deviceIdfa] forKey:@"idfa"];
@@ -293,7 +340,7 @@
     [dict setValue:[self appVersion] forKey:@"appversion"];
     [dict setValue:[self appName] forKey:@"appname"];
     [dict setValue:[self wifiName] forKey:@"wifiname"];
-    [dict setValue:[self deviceName] forKey:@"devicename"];
+    [dict setValue:[self deviceName] forKey:@"device_name"];
     return dict;
     
 }
