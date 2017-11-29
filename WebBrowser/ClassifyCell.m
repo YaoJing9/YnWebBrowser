@@ -8,7 +8,7 @@
 
 #import "ClassifyCell.h"
 @implementation ClassifyCell
-#define BTNWH 40
+#define BTNWH 28
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier imageAry:(NSArray *)imageAry
 {
@@ -47,7 +47,7 @@
         button.fl_padding = 7;
         button.status = FLAlignmentStatusTop;
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:button];
+        [self.contentView addSubview:button];
         
         NSInteger line = i%5;
         NSInteger clow = i/5;

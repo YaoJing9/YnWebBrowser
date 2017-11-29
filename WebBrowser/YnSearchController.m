@@ -125,7 +125,25 @@
 
 - (void)createHeaderView{
     WS(weakSelf);
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENHEIGHT, 235)];
+    
+    
+    CGFloat height1 = 0;
+    if ([YnSimpleInterest shareSimpleInterest].searchTopAry.count%5 == 0) {
+        
+        if ([YnSimpleInterest shareSimpleInterest].searchTopAry.count == 5) {
+            height1 = ([YnSimpleInterest shareSimpleInterest].searchTopAry.count/5)*45 + 2*17;
+        }else{
+            height1 = ([YnSimpleInterest shareSimpleInterest].searchTopAry.count/5)*45 + 3*17;
+        }
+    }else{
+        if ([YnSimpleInterest shareSimpleInterest].searchTopAry.count < 5) {
+            height1 = ([YnSimpleInterest shareSimpleInterest].searchTopAry.count/5 + 1)*45 + 2*17;
+        }else{
+            height1 = ([YnSimpleInterest shareSimpleInterest].searchTopAry.count/5 + 1)*45 + 3*17;
+        }
+    }
+    
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENHEIGHT, 40 + height1)];
 
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, SCREENWIDTH-20, 30)];
     titleLabel.text = @"推荐网址";
@@ -134,64 +152,37 @@
     [titleLabel sizeToFit];
     [self.headerView addSubview:titleLabel];
     
-    CGFloat height1 = 0;
-    if ([YnSimpleInterest shareSimpleInterest].searchTopAry.count%5 == 0) {
-        height1 = ([YnSimpleInterest shareSimpleInterest].searchTopAry.count/5)*75;
-    }else{
-        height1 = ([YnSimpleInterest shareSimpleInterest].searchTopAry.count/5 + 1)*75;
-    }
     
     self.tagsView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, SCREENWIDTH, height1)];
     [self.headerView addSubview:self.tagsView];
     self.tableView.tableHeaderView = self.headerView;    
     
-    FL_Button *clowBtn;
     
     NSInteger btnW = (SCREENWIDTH)/5.0;
-    for (int i=0; i<[YnSimpleInterest shareSimpleInterest].searchTopAry.count; i++) {
-        FL_Button *flbutton = [FL_Button new];
-        [flbutton setTitle:[YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"name"] forState:UIControlStateNormal];
-        flbutton.titleLabel.font = [UIFont systemFontOfSize:13];
-        [flbutton sd_setImageWithURL:[NSURL URLWithString:[YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"icon"]] forState:UIControlStateNormal];
-        [flbutton setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
-        flbutton.tag = 100 + i;
-        flbutton.status = FLAlignmentStatusTop;
-        flbutton.fl_padding = 10;
-        [flbutton addTarget:self action:@selector(flbuttonAction) forControlEvents:UIControlEventTouchUpInside];
-        [self.tagsView addSubview:flbutton];
-        if (clowBtn) {
-            if (i < 5) {
-                [flbutton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(clowBtn);
-                    make.left.equalTo(clowBtn.mas_right);
-                    make.width.equalTo(clowBtn);
-                    make.height.equalTo(clowBtn);
-                }];
-            }else if (i == 5){
-                [flbutton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(@(195/2.0));
-                    make.left.equalTo(weakSelf.tagsView);
-                    make.width.equalTo(clowBtn);
-                    make.height.equalTo(clowBtn);
-                }];
-            }else{
-                [flbutton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(clowBtn);
-                    make.left.equalTo(clowBtn.mas_right);
-                    make.width.equalTo(clowBtn);
-                    make.height.equalTo(clowBtn);
-                }];
-            }
-        }else{
-            [flbutton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(weakSelf.tagsView);
-                make.left.equalTo(weakSelf.tagsView);
-                make.width.equalTo(@(btnW));
-                make.height.equalTo(@(195/2.0));
+        for (int i=0; i<[YnSimpleInterest shareSimpleInterest].searchTopAry.count; i++) {
+            FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
+            [button setTitle:[YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"name"] forState:UIControlStateNormal];
+            button.titleLabel.font = PFSCMediumFont(11);
+            [button sd_setImageWithURL:[NSURL URLWithString:[YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"icon"]] forState:normal placeholderImage:nil];
+            [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+            button.tag = 100 + i;
+            button.fl_imageWidth = 28;
+            button.fl_imageHeight = 28;
+            button.fl_padding = 7;
+            button.status = FLAlignmentStatusTop;
+            [button addTarget:self action:@selector(flbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [self.tagsView addSubview:button];
+            NSInteger line = i%5;
+            NSInteger clow = i/5;
+            CGFloat cellWidth = SCREENWIDTH/5;
+            
+            [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(weakSelf.tagsView).offset(17 + (17 + 45)*clow);
+                make.left.equalTo(weakSelf.tagsView).offset(btnW * line);
+                make.width.equalTo(@(cellWidth));
+                make.height.equalTo(@(45));
             }];
         }
-        clowBtn = flbutton;
-    }
     
 //    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 30)];
 //    UILabel *footLabel = [[UILabel alloc] initWithFrame:footView.frame];
@@ -294,7 +285,7 @@
 }
 
 #pragma mark - 分割线
--(void)flbuttonAction{
+-(void)flbuttonAction:(FL_Button *)btn{
     
     
     

@@ -284,6 +284,8 @@
 
 + (NSMutableDictionary *)getPostDict{
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    
     [dict setValue:[self deviceIdfa] forKey:@"idfa"];
     [dict setValue:[self systemName] forKey:@"sysname"];
     [dict setValue:[self deviceType] forKey:@"devtype"];

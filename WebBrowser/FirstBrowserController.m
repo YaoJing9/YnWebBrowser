@@ -588,8 +588,13 @@
         button.titleLabel.font = [UIFont systemFontOfSize:11];
         [button setImage:[UIImage imageNamed:buttonTitleArray[i]] forState:UIControlStateNormal];
         button.tag = 100 + i;
-        button.status = FLAlignmentStatusTop;
+        
+        
         button.fl_padding = 2;
+        button.fl_imageWidth = 35;
+        button.fl_imageHeight = 35;
+        
+        button.status = FLAlignmentStatusTop;
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:button];
         [_topImagAry addObject:button];

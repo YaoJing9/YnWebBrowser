@@ -83,6 +83,8 @@ static UIView *_bgView;
             }
             
             flbutton.tag = 100 + i;
+            flbutton.fl_imageWidth = 45;
+            flbutton.fl_imageHeight = 45;
             flbutton.status = FLAlignmentStatusTop;
             flbutton.fl_padding = 0;
             [flbutton addTarget:bgBigView action:@selector(flbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
