@@ -61,8 +61,11 @@ static UIView *_bgView;
         
         UILabel *titleLable= [UILabel new];
         titleLable.frame = CGRectMake(0, MaxY(imgView), viewWidth(_bgView), viewHeight(_bgView) - MaxY(imgView));
-        titleLable.text = title;
-        titleLable.text = @"浏览器更新";
+        if ([YJHelp replaceNullValue:title].length != 0) {
+            titleLable.text = title;
+        }else{
+            titleLable.text = @"浏览器更新";
+        }
         titleLable.textColor = [UIColor colorWithHexString:@"#333333"];
         titleLable.textAlignment = NSTextAlignmentCenter;
         titleLable.font = [UIFont systemFontOfSize:16];

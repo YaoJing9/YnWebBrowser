@@ -76,6 +76,17 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 //                                                         diskCapacity:32 * 1024 * 1024
 //                                                             diskPath:nil];
 //    [NSURLCache setSharedURLCache:URLCache];
+    
+    
+//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+//    
+//    NSURLCache * cache = [NSURLCache sharedURLCache];
+//    
+//    [cache removeAllCachedResponses];
+//    
+//    [cache setDiskCapacity:0];
+//    
+//    [cache setMemoryCapacity:0];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
