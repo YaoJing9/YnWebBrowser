@@ -708,7 +708,6 @@
         btn.status = FLAlignmentStatusImageLeft;
         btn.fl_padding = 7;
         [bottomView addSubview:btn];
-        [btn addTarget:self action:@selector(moreSettingBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(bottomView);
             make.left.equalTo(bottomView).offset(15);
@@ -728,18 +727,6 @@
     
 }
 
-- (void)moreSettingBtnClick{
-    WS(weakSelf);
-    [MoreSettingView showInsertionViewSuccessBlock:^{
-        
-    } clickBlock:^{
-        
-    } removeBlock:^{
-        
-    } btnClickBlock:^(NSInteger index) {
-        [weakSelf moreSettingClick:index];
-    }];
-}
 
 - (void)moreSettingClick:(NSInteger)index{
     
