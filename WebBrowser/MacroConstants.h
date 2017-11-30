@@ -11,7 +11,6 @@
 
 #define STATUS_BAR_HEIGHT [UIApplication sharedApplication].statusBarFrame.size.height
 
-#define BOTTOM_TOOL_BAR_HEIGHT 44
 #define TOP_TOOL_BAR_HEIGHT 70
 #define TOP_TOOL_BAR_THRESHOLD 45
 
