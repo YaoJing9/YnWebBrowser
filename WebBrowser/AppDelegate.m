@@ -118,12 +118,12 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     [self requestActivation];
     
     if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
-        [self baidugg];
+//        [self baidugg];
     }else{
         
     }
     
-    [self registJpush:launchOptions];
+//    [self registJpush:launchOptions];
     
     return YES;
 }

@@ -215,7 +215,7 @@
 		BFDBAFD81FCFB61300134A55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDBAFD71FCFB60900134A55 /* UIKit.framework */; };
 		BFDBAFDA1FCFB62300134A55 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDBAFD91FCFB61D00134A55 /* Security.framework */; };
 		BFDBAFDC1FCFB63C00134A55 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDBAFDB1FCFB63C00134A55 /* libz.tbd */; };
-		BFDBAFDE1FCFB68E00134A55 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDBAFDD1FCFB68800134A55 /* UserNotifications.framework */; };
+		BFDBAFDE1FCFB68E00134A55 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDBAFDD1FCFB68800134A55 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		BFDBAFE01FCFB6C700134A55 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDBAFDF1FCFB6C700134A55 /* libresolv.tbd */; };
 		BFFF2F7C1FCE649600C07CE1 /* ScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F7B1FCE649600C07CE1 /* ScrollCell.m */; };
 		BFFF2F961FCE65DE00C07CE1 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF2F891FCE65DD00C07CE1 /* TAAbstractDotView.m */; };
@@ -2183,7 +2183,7 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -2620,7 +2620,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "WebBrowser/浏览器.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -2655,7 +2654,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "WebBrowser/浏览器.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
