@@ -308,12 +308,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
                 
                 if (self.fromVCComeInKind == FromVCComeInKindSEARCH) {
                     [self dismissViewControllerAnimated:NO completion:^{
-                        
+                        [imageView removeFromSuperview];
                     }];
                 }else{
                     [self.navigationController popViewControllerAnimated:NO];
+                    [imageView removeFromSuperview];
                 }
-                [imageView removeFromSuperview];
+                
             });
         };
         

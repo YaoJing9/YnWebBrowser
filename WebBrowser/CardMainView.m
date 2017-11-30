@@ -185,6 +185,8 @@
                 [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:0] - 1 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
             }
 
+            
+            
             [self removeSelfFromSuperViewWith:nil];
             break;
         }
@@ -207,6 +209,10 @@
         [Notifier postNotification:notify];
     } animation:NO];
     
+    if (webModel == nil) {
+        
+    }
+    
     WEAK_REF(self)
     [self.collectionView setCollectionViewLayout:self.flatLayout animated:YES completion:^(BOOL finished){
         STRONG_REF(self_)
@@ -224,16 +230,20 @@
                 }else{
                     
                     if (_isFirstVC == YES) {
-                        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+                        
+                        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[webModel.url] key:DelegateManagerBrowserContainerLoadURL];
                         
                         BrowserViewController *vc = [BrowserViewController new];
                         
-                        vc.url = DEFAULT_CARD_CELL_URL;
+                        vc.url = webModel.url;
                         vc.fromVCComeInKind = FromVCComeInKindROOTVC;
                         [[self__ obtainTopViewController].navigationController pushViewController:vc animated:NO];
                     }
                     
                 }
+            }else{
+                
+//                self__.block(webModel);
             }
             
             [self__ removeFromSuperview];

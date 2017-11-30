@@ -129,6 +129,8 @@
 		18CE6EAF1FC68E510068091D /* ExtendedFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EAC1FC68E500068091D /* ExtendedFunctionViewController.m */; };
 		18CE6EB21FC6B94E0068091D /* UIAlertController+DXAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EB11FC6B94E0068091D /* UIAlertController+DXAlertController.m */; };
 		18CE6EB51FC6B9E30068091D /* NSObject+DXObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */; };
+		63E74D1B1FCF9F3200501DDD /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E74D191FCF9F3200501DDD /* FeedbackViewController.m */; };
+		63E74D1C1FCF9F3200501DDD /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */; };
 		BF4EFC781FC401C200BCDD84 /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC761FC401C200BCDD84 /* WLScrollView.m */; };
 		BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC7A1FC401D800BCDD84 /* WLSubView.m */; };
 		BF4EFC971FC4115000BCDD84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFC7D1FC4115000BCDD84 /* Info.plist */; };
@@ -522,6 +524,9 @@
 		18CE6EB11FC6B94E0068091D /* UIAlertController+DXAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+DXAlertController.m"; sourceTree = "<group>"; };
 		18CE6EB31FC6B9E30068091D /* NSObject+DXObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DXObject.h"; sourceTree = "<group>"; };
 		18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DXObject.m"; sourceTree = "<group>"; };
+		63E74D181FCF9F3200501DDD /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		63E74D191FCF9F3200501DDD /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
 		BF4EFC761FC401C200BCDD84 /* WLScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLScrollView.m; sourceTree = "<group>"; };
 		BF4EFC771FC401C200BCDD84 /* WLScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLScrollView.h; sourceTree = "<group>"; };
 		BF4EFC791FC401D700BCDD84 /* WLSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSubView.h; sourceTree = "<group>"; };
@@ -1031,6 +1036,9 @@
 				0E8EE8301E11123600B6DADF /* SettingsViewController.m */,
 				0E3D2B721E248D5E00364B69 /* SettingsTableViewController.h */,
 				0E3D2B731E248D5E00364B69 /* SettingsTableViewController.m */,
+				63E74D181FCF9F3200501DDD /* FeedbackViewController.h */,
+				63E74D191FCF9F3200501DDD /* FeedbackViewController.m */,
+				63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2170,6 +2178,7 @@
 				0EF59F9A1ECB0B5000D6BDF9 /* FindInPage.js in Resources */,
 				0E9836B61E82CC9B0044BEA9 /* ContextMenu.js in Resources */,
 				0E9361DD1EB0FAEE004F6AE7 /* BookmarkTableViewCell.xib in Resources */,
+				63E74D1C1FCF9F3200501DDD /* FeedbackViewController.xib in Resources */,
 				0E855AA91FA0E28100F0A946 /* BaiduADBlock.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2393,6 +2402,7 @@
 				E813BA5F1FB59D8200470ECD /* UIView+WebCache.m in Sources */,
 				BF4EFCB61FC670A700BCDD84 /* YnSearchController.m in Sources */,
 				0E681F2A1D4AEC3F003534F5 /* main.m in Sources */,
+				63E74D1B1FCF9F3200501DDD /* FeedbackViewController.m in Sources */,
 				0E831AC71F1726EB00E8D9C1 /* BaseNavigationViewController.m in Sources */,
 				BF4EFD321FC7E1A600BCDD84 /* MJPropertyKey.m in Sources */,
 				E87D72AD1FB965FC001AB44E /* GCDWebServerConnection.m in Sources */,

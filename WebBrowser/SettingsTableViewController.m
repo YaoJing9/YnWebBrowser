@@ -13,6 +13,7 @@
 #import "UIAlertController+DXAlertController.h"
 #import "SettingSwitchTableViewCell.h"
 #import "ExtendedFunctionViewController.h"
+#import "FeedbackViewController.h"
 typedef enum : NSUInteger {
     CellKindForCache,
 } CellKind;
@@ -22,7 +23,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 
 @interface SettingsTableViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, copy) NSArray *dataArray;
+@property (nonatomic, copy) NSMutableArray *dataArray;
 @property (nonatomic,strong)UITableView *tableView;
 @end
 
@@ -33,7 +34,11 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
     
     [self showNavWithTitle:@"设置" backBtnHiden:NO];
     
-    self.dataArray = @[@"意见反馈",@"清除缓存",@"清除历史记录",@"分享给朋友",@"广告过滤"];
+    self.dataArray = [NSMutableArray arrayWithObjects:@"意见反馈",@"清除缓存",@"清除历史记录",@"广告过滤", nil];
+    
+    if (![PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus]) {
+        [self.dataArray removeLastObject];
+    }
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64) style:UITableViewStyleGrouped];
     
@@ -52,7 +57,11 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 }
 
 - (void)handleTableViewSelectAt:(NSInteger)index{
-    if (index == 1) {
+    if (index == 0) {
+        FeedbackViewController *vc = [[FeedbackViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }else if (index == 1) {
         
         [UIAlertController wl_showAlertViewWithActionsName:@[@"确定"] title:@"您确定清除缓存?" message:nil callBack:^(NSString * _Nonnull btnTitle, NSInteger btnIndex) {
             
@@ -70,14 +79,10 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
                 [[[HistorySQLiteManager alloc] init] deleteAllHistoryRecords];
             }
         }];
-    }else if (index == 4){
+    }else if (index == 3){
         ExtendedFunctionViewController *vc = [[ExtendedFunctionViewController alloc] init];
         vc.extendedOperationKind = ExtendedOperationKindGUANGGAOGUOLV;
-        [self.navigationController pushViewController:vc animated:NO];
-    }else if (index == 5){
-        ExtendedFunctionViewController *vc = [[ExtendedFunctionViewController alloc] init];
-        vc.extendedOperationKind = ExtendedOperationKindGUANGGAOGUOLV;
-        [self.navigationController pushViewController:vc animated:NO];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
