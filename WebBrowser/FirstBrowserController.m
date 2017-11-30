@@ -100,6 +100,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
     if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
         [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
     }else{
