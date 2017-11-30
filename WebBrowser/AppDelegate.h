@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+static NSString *appKey = @"a7ae7911299c440e9d8dec89";
+static NSString *channel = @"App Store";
+static BOOL isProduction = FALSE;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -23,9 +23,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import "BaiduMobAdSDK/BaiduMobAdSplash.h"
 #import "BaiduMobAdSDK/BaiduMobAdSetting.h"
+
+#import "JPUSHService.h"
+#import <AdSupport/AdSupport.h>
+#import <UserNotifications/UserNotifications.h>
+
+
 static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A300 Safari/602.1";
 
-@interface AppDelegate ()<BaiduMobAdSplashDelegate>
+@interface AppDelegate ()<BaiduMobAdSplashDelegate, JPUSHRegisterDelegate>
 
 @property (nonatomic, assign) NSInteger pasteboardChangeCount;
 @property (nonatomic, strong) BaiduMobAdSplash *splash;
@@ -110,10 +116,12 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     [self requestActivation];
     
     if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
-        [self baidugg];
+//        [self baidugg];
     }else{
         
     }
+    
+//    [self registJpush:launchOptions];
     
     return YES;
 }
@@ -144,7 +152,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     UIView * baiduSplashContainer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight - 40)];
     [self.customSplashView addSubview:baiduSplashContainer];
 
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, screenHeight - 40, screenWidth, 20)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, screenHeight - 40, screenWidth, 40)];
     label.text = @"浏览器";
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor colorWithHexString:@"#777777"];
@@ -241,6 +249,37 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
         [self.customSplashView removeFromSuperview];
     }
 }
+
+
+
+- (void)registJpush:(NSDictionary *)launchOptions{
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        
+    }
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    
+    [JPUSHService setupWithOption:launchOptions appKey:appKey
+                          channel:channel
+                 apsForProduction:isProduction
+            advertisingIdentifier:nil];
+    
+    //2.1.9版本新增获取registration id block接口。
+    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+        if(resCode == 0){
+            NSLog(@"registrationID获取成功：%@",registrationID);
+        }
+    }];
+}
+
+
+//极光推送
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [JPUSHService registerDeviceToken:deviceToken];
+}
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
