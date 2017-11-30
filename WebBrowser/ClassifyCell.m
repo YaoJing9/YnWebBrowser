@@ -36,36 +36,39 @@
     _dataAry = buttonTitleArray;
     
     for (int i=0; i<buttonTitleArray.count; i++) {
-        FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
-        [button setTitle:buttonTitleArray[i][@"name"] forState:UIControlStateNormal];
-        button.titleLabel.font = PFSCMediumFont(11);
-        [button sd_setImageWithURL:[NSURL URLWithString:buttonTitleArray[i][@"icon"]] forState:normal placeholderImage:nil];
-        [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
-        button.tag = 100 + i;
-        button.fl_imageWidth = BTNWH;
-        button.fl_imageHeight = BTNWH;
-        button.fl_padding = 7;
-        button.status = FLAlignmentStatusTop;
-        [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:button];
         
         NSInteger line = i%5;
         NSInteger clow = i/5;
         CGFloat cellWidth = SCREENWIDTH/5;
         
-        [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.contentView).offset(ClassifyCellGap + (ClassifyCellGap + ClassifyViewHeight)*clow);
-            make.left.equalTo(weakSelf.contentView).offset(cellWidth * line);
-            make.width.equalTo(@(cellWidth));
-            make.height.equalTo(@(ClassifyViewHeight));
-        }];
+        CGFloat cellX = cellWidth * line;
+        CGFloat cellY = ClassifyCellGap + (ClassifyCellGap + ClassifyViewHeight)*clow;
+        ImgTitleView *button = [[ImgTitleView alloc] initWithFrame:CGRectMake(cellX, cellY, cellWidth, ClassifyViewHeight) imageView:CGSizeMake(BTNWH, BTNWH) gap:7 font:PFSCMediumFont(11) color:[UIColor colorWithHexString:@"#333333"] tag:i + 100];
+        button.title = buttonTitleArray[i][@"name"];
+        button.placeholderImage = @"topzw";
+        button.imageUrl = buttonTitleArray[i][@"icon"];
+//        [button setTitle:buttonTitleArray[i][@"name"] forState:UIControlStateNormal];
+//        button.titleLabel.font = PFSCMediumFont(11);
+//        [button sd_setImageWithURL:[NSURL URLWithString:buttonTitleArray[i][@"icon"]] forState:normal placeholderImage:nil];
+//        [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+//        button.tag = 100 + i;
+//        button.fl_imageWidth = BTNWH;
+//        button.fl_imageHeight = BTNWH;
+//        button.fl_padding = 7;
+//        button.status = FLAlignmentStatusTop;
+//        [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:button];
+        
+        
+        button.imgTitleViewBlock = ^(NSInteger index) {
+            [weakSelf buttonAction:index];
+        };
+    
     }
     
 }
 
-- (void)buttonAction:(FL_Button *)btn{
-
-    NSInteger index = btn.tag - 100;
+- (void)buttonAction:(NSInteger)index{
 
     NSString *link = _dataAry[index][@"link"];
 

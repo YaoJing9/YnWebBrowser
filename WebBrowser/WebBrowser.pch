@@ -30,6 +30,7 @@
 #import "YnSimpleInterest.h"
 #import "PreferenceHelper.h"
 #import "NewSystemView.h"
+#import "ImgTitleView.h"
 #if DEBUG
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else

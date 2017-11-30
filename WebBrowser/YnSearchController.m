@@ -160,28 +160,22 @@
     
     NSInteger btnW = (SCREENWIDTH)/5.0;
         for (int i=0; i<[YnSimpleInterest shareSimpleInterest].searchTopAry.count; i++) {
-            FL_Button *button = [FL_Button buttonWithType:UIButtonTypeCustom];
-            [button setTitle:[YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"name"] forState:UIControlStateNormal];
-            button.titleLabel.font = PFSCMediumFont(11);
-            [button sd_setImageWithURL:[NSURL URLWithString:[YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"icon"]] forState:normal placeholderImage:nil];
-            [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
-            button.tag = 100 + i;
-            button.fl_imageWidth = 28;
-            button.fl_imageHeight = 28;
-            button.fl_padding = 7;
-            button.status = FLAlignmentStatusTop;
-            [button addTarget:self action:@selector(flbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
-            [self.tagsView addSubview:button];
+            
+            
             NSInteger line = i%5;
             NSInteger clow = i/5;
             CGFloat cellWidth = SCREENWIDTH/5;
             
-            [button mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(weakSelf.tagsView).offset(17 + (17 + 45)*clow);
-                make.left.equalTo(weakSelf.tagsView).offset(btnW * line);
-                make.width.equalTo(@(cellWidth));
-                make.height.equalTo(@(45));
-            }];
+            CGFloat cellX = cellWidth * line;
+            CGFloat cellY = 17 + (17 + 45)*clow;
+            ImgTitleView *button = [[ImgTitleView alloc] initWithFrame:CGRectMake(cellX, cellY, cellWidth, 45) imageView:CGSizeMake(28, 28) gap:7 font:PFSCMediumFont(11) color:[UIColor colorWithHexString:@"#333333"] tag:i + 100];
+            button.title = [YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"name"];
+            button.placeholderImage = @"topzw";
+            button.imageUrl = [YnSimpleInterest shareSimpleInterest].searchTopAry[i][@"icon"];
+            [self.tagsView addSubview:button];
+            button.imgTitleViewBlock = ^(NSInteger index) {
+                [weakSelf flbuttonAction:index];
+            };
         }
     
 //    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 30)];
@@ -288,11 +282,9 @@
 }
 
 #pragma mark - 分割线
--(void)flbuttonAction:(FL_Button *)btn{
+-(void)flbuttonAction:(NSInteger)index{
     
     NSArray *linkAry = [[YnSimpleInterest shareSimpleInterest].searchTopAry valueForKeyPath:@"link"];
-    
-    NSInteger index = btn.tag - 100;
     
     NSString *link = linkAry[index];
     

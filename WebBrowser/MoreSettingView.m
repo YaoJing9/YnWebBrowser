@@ -81,7 +81,7 @@ static UIView *_bgView;
                 flbutton.selected = [PreferenceHelper boolForKey:KeyHistoryModeStatus];
             }
             
-            if (i == 4) {
+            if (i == 5) {
                 [flbutton setImage:[UIImage imageNamed:@"添加书签选中"] forState:UIControlStateSelected];
                 flbutton.selected = [PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus];
                 if (flbutton.selected) {
