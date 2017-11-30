@@ -62,7 +62,9 @@
 //        button.status = FLAlignmentStatusTop;
 //        [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:button];
-        
+        button.imgTitleViewBlock = ^(NSInteger index) {
+            [weakSelf buttonAction:index];
+        };
 //
 //        [button mas_makeConstraints:^(MASConstraintMaker *make) {
 //            make.top.equalTo(weakSelf.contentView).offset(ClassifyBottomCellGap + (ClassifyBottomCellGap + ClassifyBottomViewHeight)*clow);
@@ -74,10 +76,8 @@
     
 }
 
-- (void)buttonAction:(FL_Button *)btn{
-    
-    NSInteger index = btn.tag - 100;
-    
+- (void)buttonAction:(NSInteger)index{
+        
     NSString *link = _dataAry[index][@"link"];
     
     if (self.classifyCellClicKBlock) {
