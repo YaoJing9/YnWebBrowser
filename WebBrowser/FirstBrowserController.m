@@ -100,9 +100,6 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-<<<<<<< HEAD
-=======
->>>>>>> ec3a4d112f1fc4905c47416b803e95558d015632
     
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
