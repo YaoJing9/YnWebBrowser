@@ -131,7 +131,7 @@
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
     
-    [[TabManager sharedInstance] updateWebModelArray:nil];
+//    [[TabManager sharedInstance] updateWebModelArray:nil];
 }
 
 - (void)requestHomeData{

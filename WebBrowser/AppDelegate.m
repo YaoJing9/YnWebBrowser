@@ -101,8 +101,6 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
     [self applicationStartPrepare];
 
-  
-    
     //系统配置
     [self requestSystem];
     

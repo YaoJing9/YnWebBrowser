@@ -606,16 +606,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
     [[BookmarkDataManager alloc] initWithCompletion:^(NSArray<BookmarkSectionModel *> *array) {
         
         if (array.count != 0) {
-        
-            for (BookmarkItemModel *model in array.firstObject.itemsArray) {
-                if ([model.url isEqualToString: webView.webModel.url]) {
-                    [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
-                    break ;
-                }else{
-                    [PreferenceHelper setBool:NO forKey:KeyHaveBookMarkModeStatus];
+            NSArray *itemArray = array[0].itemsArray;
+            if (itemArray.count != 0) {
+                for (BookmarkItemModel *itemModel in itemArray) {
+                    if ([itemModel.url isEqualToString: webView.webModel.url]) {
+                        [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
+                        break ;
+                    }else{
+                        [PreferenceHelper setBool:NO forKey:KeyHaveBookMarkModeStatus];
+                    }
                 }
+            }else{
+                [PreferenceHelper setBool:NO forKey:KeyHaveBookMarkModeStatus];
             }
             
+            
+        }else{
+             [PreferenceHelper setBool:NO forKey:KeyHaveBookMarkModeStatus];
         }
         NSLog(@"-----------%d",[PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus]);
     }];
