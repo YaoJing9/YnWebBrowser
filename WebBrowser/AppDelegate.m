@@ -29,7 +29,8 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
 @property (nonatomic, assign) NSInteger pasteboardChangeCount;
 @property (nonatomic, strong) BaiduMobAdSplash *splash;
-@property (nonatomic, retain) UIView *customSplashView;
+@property (nonatomic, strong) UIView *customSplashView;
+@property (nonatomic, strong) UILabel *label;
 @end
 
 @implementation AppDelegate
@@ -116,7 +117,6 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
         
     }
     
-    
     return YES;
 }
 
@@ -149,7 +149,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, screenHeight - 40, screenWidth, 20)];
     label.text = @"浏览器";
     label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor colorWithHexString:@"#777777"];
+    label.hidden = YES;
     [self.customSplashView addSubview:label];
+    self.label = label;
     //
     //在的baiduSplashContainer里展现百度广告
     [splash loadAndDisplayUsingContainerView:baiduSplashContainer];
@@ -192,13 +195,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
         
-        
         if ([[YJHelp codeWithError:error][@"isApprove"] boolValue] && ![PreferenceHelper boolForKey:KeyApproveStatus]) {
             [PreferenceHelper setBool:[[YJHelp codeWithError:error][@"isApprove"] boolValue] forKey:KeyApproveStatus];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"llqAppisApprove" object:nil];
         }
-
-        
         NSLog(@"%@", [YJHelp codeWithError:error]);
 
         if ([[YJHelp codeWithError:error][@"bUpdate"] boolValue]) {
@@ -224,6 +224,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 }
 
 - (void)splashSuccessPresentScreen:(BaiduMobAdSplash *)splash {
+    self.label.hidden = NO;
     NSLog(@"splashSuccessPresentScreen");
 }
 
