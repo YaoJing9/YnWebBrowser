@@ -14,6 +14,7 @@
 #import "HttpHelper.h"
 #import "HistorySQLiteManager.h"
 #import "SaveImageTool.h"
+#import "HistoryDataManager.h"
 #define PYSEARCH_SEARCH_HISTORY_CACHE_PATH [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MLSearchhistories.plist"] // 搜索历史存储路径
 
 @interface YnSearchController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -22,9 +23,8 @@
 @property (nonatomic, strong) UIView *tagsView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UITextField *searchBar;
+@property (nonatomic, strong) HistoryDataManager *historyDataManager;
 
-/** 搜索历史 */
-@property (nonatomic, strong) NSMutableArray *searchHistories;
 /** 搜索历史缓存保存路径, 默认为PYSEARCH_SEARCH_HISTORY_CACHE_PATH(PYSearchConst.h文件中的宏定义) */
 @property (nonatomic, copy) NSString *searchHistoriesCachePath;
 /** 搜索历史记录缓存数量，默认为20 */
@@ -38,6 +38,21 @@
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
+}
+#pragma mark - getData
+- (void)getHistoryData{
+    WEAK_REF(self)
+    
+    _historyDataManager = [[HistoryDataManager alloc] initWithCompletion:^(BOOL isNoMoreData){
+        STRONG_REF(self_)
+        if (self__) {
+            [self__.tableView reloadData];
+        }
+    }];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getHistoryData];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -231,7 +246,6 @@
 -(void)searchUrlForWebView:(NSString *)text{
     
     if (text.length != 0) {
-        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[text] key:DelegateManagerBrowserContainerLoadURL];
         // 缓存数据并且刷新界面
         [self saveSearchCacheAndRefreshView:text];
     }else{
@@ -252,19 +266,8 @@
     UITextField *searchBar = self.searchBar;
     // 回收键盘
     [searchBar resignFirstResponder];
-    // 先移除再刷新
-    [self.searchHistories removeObject:searchBar.text];
-    [self.searchHistories insertObject:searchBar.text atIndex:0];
-    
-    // 移除多余的缓存
-    if (self.searchHistories.count > self.searchHistoriesCount) {
-        // 移除最后一条缓存
-        [self.searchHistories removeLastObject];
-    }
-    // 保存搜索信息
-    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:self.searchHistoriesCachePath];
 
-    if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
+    
         
         NSString *url = [self rootSearchStrWebViewWithSug:text];
         
@@ -279,24 +282,24 @@
                 [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:webModel];
                 
                 [[TabManager sharedInstance] updateWebModelArray:dataArray completion:^{
-                    BrowserViewController *vc = [BrowserViewController new];
-                    
-                    vc.url = url;
-                    vc.fromVCComeInKind = FromVCComeInKindSEARCH;
-                    [self.navigationController pushViewController:vc animated:NO];
-                    
-                    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[url] key:DelegateManagerBrowserContainerLoadURL];
-                    
+                     BrowserViewController *vc = [BrowserViewController new];
+                    if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
+                        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[url] key:DelegateManagerBrowserContainerLoadURL];
+                    }else{
+                        vc.url = url;
+                    }
+                    if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
+                        vc.fromVCComeInKind = FromVCComeInKindSEARCH;
+                        [self.navigationController pushViewController:vc animated:NO];
+                    }else{
+                        [self dismissViewControllerAnimated:NO completion:nil];
+                    }
+
                 }];
             }
             
-            
-            
-           
         }];
-    }else{
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
+
     
 }
 //解决冲首页第一次搜索不显示的问题
@@ -384,20 +387,25 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    self.tableView.tableFooterView.hidden = self.searchHistories.count == 0;
-    return self.searchHistories.count;
+    self.tableView.tableFooterView.hidden = [_historyDataManager numberOfRowsInSection:section] == 0;
+    return [_historyDataManager numberOfRowsInSection:section];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HistoryRecordCell *historyRecordCell = [HistoryRecordCell cellWithTableView:tableView reuseIdentifier:@"HistoryRecordCell"];
-    historyRecordCell.title = self.searchHistories[indexPath.row];
+//    historyRecordCell.title = self.searchHistories[indexPath.row];
+    
+    HistoryItemModel *itemModel = [self.historyDataManager historyModelForRowAtIndexPath:indexPath];
+    historyRecordCell.title = itemModel.title;
+    historyRecordCell.url = itemModel.url;
+    
     return historyRecordCell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (self.searchHistories.count != 0) {
+    if ([_historyDataManager numberOfRowsInSection:section] != 0) {
         
         return @"搜索历史";
     }
@@ -420,9 +428,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *url = self.searchHistories[indexPath.row];
+    HistoryItemModel *itemModel = [self.historyDataManager historyModelForRowAtIndexPath:indexPath];
     // 缓存数据并且刷新界面
-    [self searchUrlForWebView:url];
+    [self searchUrlForWebView:itemModel.url];
 
 }
 
@@ -440,57 +448,23 @@
     [self.searchBar resignFirstResponder];
 }
 
-- (NSMutableArray *)searchHistories
-{
-    
-    if (!_searchHistories) {
-        self.searchHistoriesCachePath = PYSEARCH_SEARCH_HISTORY_CACHE_PATH;
-        NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:self.searchHistoriesCachePath]];
-        _searchHistories = [NSMutableArray array];
-        for (NSString *str in array) {
-            if (_searchHistories.count == 5) {
-                break;
-            }
-            [_searchHistories addObject:str];
-            
-        }
-    }
-    return _searchHistories;
-}
+
 
 - (void)setSearchHistoriesCachePath:(NSString *)searchHistoriesCachePath
 {
     _searchHistoriesCachePath = [searchHistoriesCachePath copy];
-    // 刷新
-    self.searchHistories = nil;
+
     
     [self.tableView reloadData];
 }
 
-
-
-- (void)closeDidClick:(UIButton *)sender
-{
-    // 获取当前cell
-    UITableViewCell *cell = (UITableViewCell *)sender.superview;
-    // 移除搜索信息
-    [self.searchHistories removeObject:cell.textLabel.text];
-    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:self.searchHistoriesCachePath];
-
-    if (self.searchHistories.count == 0) {
-        self.tableView.tableFooterView.hidden = YES;
-    }
-    // 刷新
-    [self.tableView reloadData];
-}
 
 /** 点击清空历史按钮 */
 - (void)emptySearchHistoryDidClick
 {
     
     self.tableView.tableFooterView.hidden = YES;
-    // 移除所有历史搜索
-    [self.searchHistories removeAllObjects];
+    
     // 移除数据缓存
     [[HistorySQLiteManager alloc] deleteAllHistoryRecords];
     

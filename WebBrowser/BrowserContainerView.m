@@ -82,7 +82,7 @@ static NSString *const BaiduSearchPath = @"https://m.baidu.com/s?ie=utf-8&word="
 - (void)startLoadWithWebView:(BrowserWebView *)webView url:(NSURL *)url{
     [self removeHomePageIfNeededWithWebView:webView url:url needsEqual:NO];
     
-    if (_url != nil) {
+    if (_url != nil ) {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_url]];
         [webView loadRequest:request];
         _url = nil;

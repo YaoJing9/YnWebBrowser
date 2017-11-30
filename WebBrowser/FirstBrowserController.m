@@ -119,15 +119,11 @@
         self.bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",dataArray.count];
         [[TabManager sharedInstance] updateWebModelArray:dataArray completion:^{
             
-            
-//            if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
+            if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
                 [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
-//            }
-            
-            
+            }
+           
         }];
-        
-        
         
     }];
 }
@@ -838,12 +834,16 @@
         [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:model];
         
         [[TabManager sharedInstance] updateWebModelArray:dataArray completion:^{
+            
             BrowserViewController *vc = [BrowserViewController new];
             
-            vc.url = link;
+            if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
+                [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[link] key:DelegateManagerBrowserContainerLoadURL];
+            }else{
+                vc.url = link;
+            }
             vc.fromVCComeInKind = FromVCComeInKindROOTVC;
             [self.navigationController pushViewController:vc animated:NO];
-            [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[link] key:DelegateManagerBrowserContainerLoadURL];
             
         }];
         
