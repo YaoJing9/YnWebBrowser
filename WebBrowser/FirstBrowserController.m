@@ -100,10 +100,10 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
-    webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
-    webModel.isNewWebView = YES;
+
+    [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
+
+
     
     [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
         NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
@@ -113,8 +113,9 @@
             [dataArray addObject:[self getDefaultWebModel]];
         }else{
             WebModel *model = dataArray.lastObject;
-            webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
-            webModel.isNewWebView = YES;
+            model.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
+            model.isNewWebView = YES;
+            model.webView.delegate = nil;
             [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:model];
         }
         self.bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",dataArray.count];

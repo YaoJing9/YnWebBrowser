@@ -106,7 +106,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
         dispatch_queue_set_specific(_synchQueue, kDispatchQueueSpecificKey, (__bridge void *)self, NULL);
         
         _webModelArray = [NSMutableArray arrayWithCapacity:4];
-//        [self loadWebModelArray];
+        [self loadWebModelArray];
         
         [self registerObserver];
     }
@@ -167,6 +167,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
     dispatch_async(_synchQueue, ^{
         
         [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
+        [self setDefaultWebArray];
         return ;
         
         if ([[NSFileManager defaultManager] fileExistsAtPath:_filePath]) {
@@ -617,7 +618,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
 }
 
 - (void)webViewForMainFrameDidFinishLoad:(BrowserWebView *)webView{
-    [self saveWebModelData];
+//    [self saveWebModelData];
 }
 
 - (void)webViewDidFinishLoad:(BrowserWebView *)webView{
