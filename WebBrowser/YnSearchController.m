@@ -264,7 +264,6 @@
     // 保存搜索信息
     [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:self.searchHistoriesCachePath];
 
-    
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {
         
         NSString *url = [self rootSearchStrWebViewWithSug:text];
