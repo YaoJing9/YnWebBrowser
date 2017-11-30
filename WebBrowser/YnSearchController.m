@@ -13,6 +13,7 @@
 #import "BrowserViewController.h"
 #import "HttpHelper.h"
 #import "HistorySQLiteManager.h"
+#import "SaveImageTool.h"
 #define PYSEARCH_SEARCH_HISTORY_CACHE_PATH [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MLSearchhistories.plist"] // 搜索历史存储路径
 
 @interface YnSearchController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -237,6 +238,14 @@
         
     }
 }
+- (WebModel *)getDefaultWebModel{
+    WebModel *webModel = [WebModel new];
+    webModel.title = DEFAULT_CARD_CELL_TITLE;
+    webModel.url = DEFAULT_CARD_CELL_URL;
+    webModel.isNewWebView = YES;
+    webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
+    return webModel;
+}
 /** 进入搜索状态调用此方法 */
 - (void)saveSearchCacheAndRefreshView:(NSString *)text
 {
@@ -260,25 +269,31 @@
         
         NSString *url = [self rootSearchStrWebViewWithSug:text];
         
-        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[url] key:DelegateManagerBrowserContainerLoadURL];
-        
-        NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
-        WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
-        webModel.isNewWebView = NO;
-        
         [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
             NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
+            if (array.count == 0) {
+                
+                [dataArray addObject:[self getDefaultWebModel]];
+            }else{
+                WebModel *webModel = dataArray.lastObject;
+                webModel.isNewWebView = NO;
+                [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:webModel];
+                
+                [[TabManager sharedInstance] updateWebModelArray:dataArray completion:^{
+                    BrowserViewController *vc = [BrowserViewController new];
+                    
+                    vc.url = url;
+                    vc.fromVCComeInKind = FromVCComeInKindSEARCH;
+                    [self.navigationController pushViewController:vc animated:NO];
+                    
+                    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[url] key:DelegateManagerBrowserContainerLoadURL];
+                    
+                }];
+            }
             
-            [dataArray replaceObjectAtIndex:temp - 1 withObject:webModel];
             
-            [[TabManager sharedInstance] updateWebModelArray:dataArray];
             
-            BrowserViewController *vc = [BrowserViewController new];
-            
-            vc.url = url;
-            vc.fromVCComeInKind = FromVCComeInKindSEARCH;
-            [self.navigationController pushViewController:vc animated:NO];
-            
+           
         }];
     }else{
         [self dismissViewControllerAnimated:NO completion:nil];
