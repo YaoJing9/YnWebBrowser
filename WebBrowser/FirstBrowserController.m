@@ -108,7 +108,6 @@
     
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
-    
     webModel.isNewWebView = YES;
     
     [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
