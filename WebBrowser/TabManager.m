@@ -329,7 +329,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
             [self.webModelArray addObjectsFromArray:copyArray];
         }
         
-        
         if (block) {
             dispatch_main_safe_async(^{
                 block();

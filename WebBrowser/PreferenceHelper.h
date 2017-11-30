@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const KeyBridgeNumber;
 extern NSString * const KeyHaveBookMarkModeStatus;
 extern NSString * const KeyFullScreenModeStatus;
 extern NSString * const KeyNoImageModeStatus;
@@ -28,5 +29,6 @@ extern NSString * const KeyApproveStatus;//是否是审核状态
 + (NSInteger)integerForKey:(NSString *)defaultName;
 + (NSInteger)integerDefault1ForKey:(NSString *)defaultName;
 + (NSURL *)URLForKey:(NSString *)defaultName;
+
 
 @end

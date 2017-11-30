@@ -78,7 +78,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    _bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",[[TabManager sharedInstance] numberOfTabs]];
+    WEAK_REF(self);
+    [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *modelArray){
+        self_.bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",modelArray.count];
+    }];
     if (self.browserContainerView == nil) {
         self.browserContainerView = ({
             BrowserContainerView *browserContainerView = [[BrowserContainerView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];

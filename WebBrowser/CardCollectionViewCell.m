@@ -69,7 +69,7 @@
         imageView;
     });
 
-    UIImageView *closeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"card-delete"]];
+    UIImageView *closeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"windowClose"]];
     [self.contentView addSubview:closeImage];
     
     closeImage.translatesAutoresizingMaskIntoConstraints = NO;

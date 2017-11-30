@@ -92,6 +92,8 @@
     
     _searchBar=[[UITextField alloc] init];
     _searchBar.delegate=self;
+    
+    _searchBar.clearButtonMode = UITextFieldViewModeAlways;
     _searchBar.textColor=[UIColor blackColor];
     _searchBar.font=PFSCRegularFont(16);
     _searchBar.text = _origTextFieldString;
@@ -200,7 +202,9 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
+    if (_searchBar.text.length != 0 && _fromVCComeInKind == FromVCComeInKindWEBVIEW) {
+        [_searchBar selectAll:self];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

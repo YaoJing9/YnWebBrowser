@@ -204,6 +204,9 @@
     self.block = completion;
 }
 - (void)removeSelfFromSuperViewWith:(WebModel *)webModel{
+    
+    [PreferenceHelper setInteger:self.cardArr.count forKey:KeyBridgeNumber];
+    
     [[TabManager sharedInstance].browserContainerView restoreWithCompletionHandler:^(WebModel *webModel, BrowserWebView *browserWebView){
         NSNotification *notify = [NSNotification notificationWithName:kWebTabSwitch object:self userInfo:@{@"webView":browserWebView}];
         [Notifier postNotification:notify];
@@ -223,8 +226,11 @@
                     if (_isFirstVC == YES) {
                         
                     }else{
-                        self__.block(webModel);
-                        
+                        if (self__.block) {
+                            dispatch_main_safe_async(^{
+                                self__.block(webModel);
+                            })
+                        }
                     }
                     
                 }else{
@@ -238,6 +244,8 @@
                         vc.url = webModel.url;
                         vc.fromVCComeInKind = FromVCComeInKindROOTVC;
                         [[self__ obtainTopViewController].navigationController pushViewController:vc animated:NO];
+                    }else{
+                        
                     }
                     
                 }
@@ -245,6 +253,7 @@
                 
 //                self__.block(webModel);
             }
+            
             
             [self__ removeFromSuperview];
         }

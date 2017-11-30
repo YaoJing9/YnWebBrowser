@@ -33,6 +33,10 @@
 #define kNoImageModeChanged         @"kNoImageModeChanged"
 // 护眼模式
 #define kEyeProtectiveModeChanged   @"kEyeProtectiveModeChanged"
+
+// tab Number
+#define kWebTabNumber               @"kWebTabNumber"
+
 // tab switch
 #define kWebTabSwitch               @"kWebTabSwitch"
 // webView navigation change
