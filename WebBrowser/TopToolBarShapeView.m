@@ -33,7 +33,7 @@
         [self addSubview:textField];
         
         textField.textAlignment = NSTextAlignmentCenter;
-        textField.clearButtonMode = UITextFieldViewModeAlways;
+//        textField.clearButtonMode = UITextFieldViewModeAlways;
         textField.delegate = self;
         textField.placeholder = TEXT_FIELD_PLACEHOLDER;
         textField.returnKeyType = UIReturnKeySearch;

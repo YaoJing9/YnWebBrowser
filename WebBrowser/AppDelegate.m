@@ -104,10 +104,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     webModel.url = DEFAULT_CARD_CELL_URL;
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
     webModel.isNewWebView = YES;   //load archive data ahead
-    [TabManager sharedInstance];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self applicationStartPrepare];
-    });
+
+    [self applicationStartPrepare];
+
+  
     
     //系统配置
     [self requestSystem];

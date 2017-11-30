@@ -98,8 +98,6 @@
         [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
     }
     
-    
-    NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
     
@@ -108,9 +106,11 @@
     [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
         NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
         
-        [dataArray replaceObjectAtIndex:temp - 1 withObject:webModel];
+        [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:webModel];
         
         [[TabManager sharedInstance] updateWebModelArray:dataArray];
+        
+        self.bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",dataArray.count];
         
     }];
 }
@@ -131,6 +131,7 @@
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
     
+    [[TabManager sharedInstance] updateWebModelArray:nil];
 }
 
 - (void)requestHomeData{
@@ -825,14 +826,14 @@
     
     [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[link] key:DelegateManagerBrowserContainerLoadURL];
     
-    NSUInteger temp = [[TabManager sharedInstance] numberOfTabs];
+    
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
     webModel.isNewWebView = NO;
     
     [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
         NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
         
-        [dataArray replaceObjectAtIndex:temp - 1 withObject:webModel];
+        [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:webModel];
         
         [[TabManager sharedInstance] updateWebModelArray:dataArray];
         

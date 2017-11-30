@@ -11,6 +11,7 @@
 #import "DelegateManager+WebViewDelegate.h"
 #import "BrowserContainerView.h"
 #import "NSObject+DXObject.h"
+#import "PreferenceHelper.h"
 @interface BrowserBottomToolBar () <WebViewDelegate, BrowserWebViewDelegate>
 
 @property (nonatomic, weak) UIBarButtonItem *refreshOrStopItem;
@@ -32,6 +33,10 @@
         [[DelegateManager sharedInstance] addWebViewDelegate:self];
         [Notifier addObserver:self selector:@selector(handletabSwitch:) name:kWebTabSwitch object:nil];
         [Notifier addObserver:self selector:@selector(updateForwardBackItem) name:kWebHistoryItemChangedNotification object:nil];
+        
+        //监听多窗口数量[PreferenceHelper integerForKey:KeyBridgeNumber]
+        [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:KeyBridgeNumber options:NSKeyValueObservingOptionNew context:nil];
+        
     }
     
     return self;
@@ -75,7 +80,6 @@
     _multiWindowItemLabel.textColor = [UIColor blackColor];
     _multiWindowItemLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_multiWindowItemLabel];
-    
     
     UIButton *coverItem = [UIButton new];
     coverItem.frame = CGRectMake(0, 0, self.width/5, self.height);
@@ -201,12 +205,15 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"webView"] && [object isKindOfClass:[BrowserContainerView class]]) {
         self.containerView = object;
+    }else if([keyPath isEqualToString:KeyBridgeNumber]){
+        self.multiWindowItemLabel.text = [NSString stringWithFormat:@"%ld",[PreferenceHelper integerForKey:KeyBridgeNumber]];
     }
 }
 
 #pragma mark - Dealloc
 
 - (void)dealloc{
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:KeyBridgeNumber];
     [Notifier removeObserver:self name:kWebTabSwitch object:nil];
     [Notifier removeObserver:self name:kWebHistoryItemChangedNotification object:nil];
     [[[TabManager sharedInstance] browserContainerView] removeObserver:self forKeyPath:@"webView" context:nil];

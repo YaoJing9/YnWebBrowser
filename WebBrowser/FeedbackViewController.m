@@ -19,6 +19,9 @@
     [self showNavWithTitle:@"意见反馈" backBtnHiden:NO];
     // Do any additional setup after loading the view from its nib.
 }
+- (IBAction)enterAction:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

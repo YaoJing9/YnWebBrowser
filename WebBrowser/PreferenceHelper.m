@@ -8,6 +8,7 @@
 
 #import "PreferenceHelper.h"
 
+NSString * const KeyBridgeNumber = @"KeyBridgeNumber";
 NSString * const KeyHaveBookMarkModeStatus = @"KeyHaveBookMarkModeStatus";
 NSString * const KeyFullScreenModeStatus = @"KeyFullScreenModeStatus";
 NSString * const KeyHistoryModeStatus = @"KeyNoHistoryModeStatus";
