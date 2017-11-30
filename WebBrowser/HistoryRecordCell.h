@@ -11,6 +11,7 @@
 @interface HistoryRecordCell : UITableViewCell
 
 @property(nonatomic,strong)NSString *title;
+@property(nonatomic,strong)NSString *url;
 + (instancetype)cellWithTableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier;
 
 @end

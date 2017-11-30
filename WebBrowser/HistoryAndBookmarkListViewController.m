@@ -74,9 +74,7 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
         tableCell.titleLabel.text = itemModel.title;
         tableCell.urlLabel.text = itemModel.url;
     }
-    
-    
-    
+
     return tableCell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -98,8 +96,6 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
         
         if (model.url.length > 0) {
             [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[model.url] key:DelegateManagerBrowserContainerLoadURL];
-            
-            
         }
     }
     if (_fromVCComeInKind == FromVCComeInKindROOTVC) {

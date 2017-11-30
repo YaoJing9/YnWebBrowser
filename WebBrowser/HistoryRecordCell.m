@@ -81,9 +81,12 @@
 }
 -(void)setTitle:(NSString *)title{
     self.titleLabel.text = title;
-    self.linkLabel.text = [NSString stringWithFormat:BAIDU_SEARCH_URL,title];
+   
 }
-
+-(void)setUrl:(NSString *)url{
+    
+    self.linkLabel.text = url;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
