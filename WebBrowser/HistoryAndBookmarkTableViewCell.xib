@@ -19,14 +19,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compas" translatesAutoresizingMaskIntoConstraints="NO" id="3TC-eT-xPf">
-                        <rect key="frame" x="20" y="10" width="29.5" height="29.5"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="可能性ICON" translatesAutoresizingMaskIntoConstraints="NO" id="3TC-eT-xPf">
+                        <rect key="frame" x="20" y="15" width="19.5" height="19.5"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="3TC-eT-xPf" secondAttribute="height" id="oK0-9C-O8i"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GM-KT-VGh">
-                        <rect key="frame" x="66.5" y="5" width="243.5" height="25"/>
+                        <rect key="frame" x="56.5" y="5" width="253.5" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="dwf-2c-FBL"/>
                         </constraints>
@@ -40,7 +40,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEM-mL-edA">
-                        <rect key="frame" x="66.5" y="30" width="233.5" height="15"/>
+                        <rect key="frame" x="56.5" y="30" width="243.5" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="QBA-7H-0Ch"/>
                         </constraints>
@@ -57,11 +57,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="3GM-KT-VGh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="1qB-bS-e4Y"/>
-                    <constraint firstItem="3TC-eT-xPf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5Vk-38-Cmi"/>
+                    <constraint firstItem="3TC-eT-xPf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="5Vk-38-Cmi"/>
                     <constraint firstItem="3TC-eT-xPf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="BLf-5R-0vT"/>
                     <constraint firstItem="3GM-KT-VGh" firstAttribute="leading" secondItem="3TC-eT-xPf" secondAttribute="trailing" constant="17" id="FrP-gt-pOs"/>
                     <constraint firstAttribute="trailing" secondItem="GEM-mL-edA" secondAttribute="trailing" constant="20" id="GYm-gc-3rM"/>
-                    <constraint firstAttribute="bottom" secondItem="3TC-eT-xPf" secondAttribute="bottom" constant="10" id="UXE-Vw-vpv"/>
+                    <constraint firstAttribute="bottom" secondItem="3TC-eT-xPf" secondAttribute="bottom" constant="15" id="UXE-Vw-vpv"/>
                     <constraint firstAttribute="trailing" secondItem="3GM-KT-VGh" secondAttribute="trailing" constant="10" id="aOa-80-Im3"/>
                     <constraint firstItem="GEM-mL-edA" firstAttribute="top" secondItem="3GM-KT-VGh" secondAttribute="bottom" id="nOV-Nn-BNs"/>
                     <constraint firstItem="GEM-mL-edA" firstAttribute="leading" secondItem="3GM-KT-VGh" secondAttribute="leading" id="uv8-Ag-sUk"/>
@@ -75,6 +75,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="compas" width="341" height="341"/>
+        <image name="可能性ICON" width="16" height="15"/>
     </resources>
 </document>
