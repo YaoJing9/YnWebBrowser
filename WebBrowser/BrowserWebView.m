@@ -256,9 +256,9 @@
 - (BOOL)webView:(BrowserWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSURL *url = request.URL;
     
-    if ([HttpHelper canAppHandleURL:url]) {
-        return NO;
-    }
+//    if ([HttpHelper canAppHandleURL:url]) {
+//        return NO;
+//    }
     
     BOOL isShouldStart = YES;
     

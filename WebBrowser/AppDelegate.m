@@ -116,10 +116,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
     webModel.isNewWebView = YES;   //load archive data ahead
 
-    [self applicationStartPrepare];
-
     //系统配置
     [self requestSystem];
+    
+    [self applicationStartPrepare];
     
     [self locationQuester];
     
@@ -127,12 +127,12 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     [self requestActivation];
     
     if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
-//        [self baidugg];
+        [self baidugg];
     }else{
         
     }
     
-//    [self registJpush:launchOptions];
+    [self registJpush:launchOptions];
     
     return YES;
 }
@@ -147,7 +147,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     //
     BaiduMobAdSplash *splash = [[BaiduMobAdSplash alloc] init];
     splash.delegate = self;
-    splash.AdUnitTag = @"2058492";
+    splash.AdUnitTag = @"5347710";
     splash.canSplashClick = YES;
     self.splash = splash;
 
@@ -176,7 +176,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 }
 
 - (NSString *)publisherId {
-    return @"ccb60059";
+    return @"ea041065";
 }
 
 - (void)locationQuester{
@@ -211,12 +211,12 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
 
     } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
-        
+        NSLog(@"%@", [YJHelp codeWithError:error]);
+
         if ([[YJHelp codeWithError:error][@"isApprove"] boolValue] && ![PreferenceHelper boolForKey:KeyApproveStatus]) {
             [PreferenceHelper setBool:[[YJHelp codeWithError:error][@"isApprove"] boolValue] forKey:KeyApproveStatus];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"llqAppisApprove" object:nil];
         }
-        NSLog(@"%@", [YJHelp codeWithError:error]);
 
         if ([[YJHelp codeWithError:error][@"bUpdate"] boolValue]) {
             [NewSystemView showInsertionViewtitle:[YJHelp codeWithError:error][@"updateDes"] clickBlock:^{
@@ -330,5 +330,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     return YES;
 }
 
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+    //清空icon数目
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [JPUSHService setBadge:0];
+}
 @end
 

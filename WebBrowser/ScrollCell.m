@@ -19,6 +19,7 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.contentView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
+        self.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
         [self createSubViews:imageAry];
     }
     return self;

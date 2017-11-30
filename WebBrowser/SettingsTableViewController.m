@@ -23,7 +23,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 
 @interface SettingsTableViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, copy) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic,strong)UITableView *tableView;
 @end
 

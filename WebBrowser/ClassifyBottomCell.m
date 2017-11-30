@@ -72,6 +72,14 @@
 //            make.width.equalTo(@(cellWidth));
 //            make.height.equalTo(@(ClassifyBottomViewHeight));
 //        }];
+        
+        UIImageView *sendLine = [UIImageView new];
+        sendLine.backgroundColor = [UIColor colorWithHexString:@"#E2E2E2"];
+        [self addSubview:sendLine];
+        [sendLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(weakSelf);
+            make.height.mas_equalTo(0.5);
+        }];
     }
     
 }

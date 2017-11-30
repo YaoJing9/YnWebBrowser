@@ -25,7 +25,7 @@ static UIView *_bgView;
     return self;
 }
 
-+ (void)showInsertionViewSuccessBlock:(InsertionSuccessBlock)successBlock clickBlock:(ClickBlock)clickBlock removeBlock:(RemoveBlock)removeBlock btnClickBlock:(BtnClickBlock)btnClickBlock
++ (void)showInsertionViewSuccessBlock:(InsertionSuccessBlock)successBlock clickBlock:(ClickBlock)clickBlock removeBlock:(RemoveBlock)removeBlock btnClickBlock:(BtnClickBlock)btnClickBlock isFirsr:(BOOL)isFirst
 {
     
     UIWindow *keyW = [UIApplication sharedApplication].keyWindow;
@@ -83,10 +83,14 @@ static UIView *_bgView;
             
             if (i == 5) {
                 [flbutton setImage:[UIImage imageNamed:@"添加书签选中"] forState:UIControlStateSelected];
-                flbutton.selected = [PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus];
-                if (flbutton.selected) {
+                if (isFirst) {
+                    flbutton.selected = YES;
                     flbutton.enabled = NO;
+                }else{
+                    BOOL se = [PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus];
+                    flbutton.selected = se;
                 }
+
             }
             
             flbutton.tag = 100 + i;
