@@ -165,6 +165,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
 
 - (void)loadWebModelArray{
     dispatch_async(_synchQueue, ^{
+        
+        [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
+        return ;
+        
         if ([[NSFileManager defaultManager] fileExistsAtPath:_filePath]) {
             NSData *data = [NSData dataWithContentsOfFile:_filePath options:NSDataReadingUncached error:nil];
             if (data) {

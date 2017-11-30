@@ -103,10 +103,12 @@
 #pragma mark - BrowserWebViewDelegate
 
 - (void)webView:(BrowserWebView *)webView gotTitleName:(NSString *)titleName{
-    if (IsCurrentWebView(webView)) {
-        [self setTopURLOrTitle:titleName];
-    }
+    
+         if (IsCurrentWebView(webView)) {
+             [self setTopURLOrTitle:titleName];
+         }
 }
+
 
 - (BOOL)webView:(BrowserWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (IsCurrentWebView(webView) && [self.progressProxy respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
@@ -124,6 +126,11 @@
 
 - (void)webViewDidStartLoad:(BrowserWebView *)webView{
     if (IsCurrentWebView(webView) && [self.progressProxy respondsToSelector:@selector(webViewDidStartLoad:)]) {
+        if ([webView.mainFURL isEqualToString:@"about:blank"]) {
+            
+            [self setTopURLOrTitle:@""];
+            
+        }
         [self.progressProxy webViewDidFinishLoad:webView];
     }
 }
