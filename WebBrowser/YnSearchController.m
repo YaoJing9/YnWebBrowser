@@ -388,7 +388,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     self.tableView.tableFooterView.hidden = [_historyDataManager numberOfRowsInSection:section] == 0;
-    return [_historyDataManager numberOfRowsInSection:section];
+    return [_historyDataManager numberOfRowsInSection:section] >= 5 ? 5 : [_historyDataManager numberOfRowsInSection:section];
 }
 
 
