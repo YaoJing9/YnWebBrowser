@@ -100,11 +100,6 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
-        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
-    }else{
-        [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
-    }
     
     WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
@@ -114,13 +109,28 @@
         NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
         
         if (array.count == 0) {
+            
             [dataArray addObject:[self getDefaultWebModel]];
         }else{
-            [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:webModel];
+            WebModel *model = dataArray.lastObject;
+            webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
+            webModel.isNewWebView = YES;
+            [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:model];
         }
-        [[TabManager sharedInstance] updateWebModelArray:dataArray];
-        
         self.bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",dataArray.count];
+        [[TabManager sharedInstance] updateWebModelArray:dataArray completion:^{
+            
+            
+            if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
+                [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
+            }else{
+                [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
+            }
+            
+            
+        }];
+        
+        
         
     }];
 }
@@ -140,6 +150,8 @@
     
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
+    
+    self.bottomToolBar.multiWindowItemStr = @"1";
     
 //    [[TabManager sharedInstance] updateWebModelArray:nil];
 }
@@ -821,24 +833,22 @@
 
 - (void)pushWebViewVc:(NSString *)link{
     
-    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[link] key:DelegateManagerBrowserContainerLoadURL];
-    
-    
-    WebModel *webModel = [[TabManager sharedInstance] getCurrentWebModel];
-    webModel.isNewWebView = NO;
-    
     [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
         NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
         
-        [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:webModel];
+        WebModel *model = array.lastObject;
+        model.isNewWebView = NO;
+        [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:model];
         
-        [[TabManager sharedInstance] updateWebModelArray:dataArray];
-        
-        BrowserViewController *vc = [BrowserViewController new];
-        
-        vc.url = link;
-        vc.fromVCComeInKind = FromVCComeInKindROOTVC;
-        [self.navigationController pushViewController:vc animated:NO];
+        [[TabManager sharedInstance] updateWebModelArray:dataArray completion:^{
+            BrowserViewController *vc = [BrowserViewController new];
+            
+            vc.url = link;
+            vc.fromVCComeInKind = FromVCComeInKindROOTVC;
+            [self.navigationController pushViewController:vc animated:NO];
+            [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[link] key:DelegateManagerBrowserContainerLoadURL];
+            
+        }];
         
     }];
     
