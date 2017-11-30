@@ -102,8 +102,6 @@
     [super viewWillAppear:animated];
 
     [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
-
-
     
     [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
         NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
@@ -115,18 +113,16 @@
             WebModel *model = dataArray.lastObject;
             model.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
             model.isNewWebView = YES;
-            model.webView.delegate = nil;
+//            model.webView.delegate = nil;
             [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:model];
         }
         self.bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",dataArray.count];
         [[TabManager sharedInstance] updateWebModelArray:dataArray completion:^{
             
             
-            if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
+//            if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
                 [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
-            }else{
-                [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[DEFAULT_CARD_CELL_URL] key:DelegateManagerBrowserContainerLoadURL];
-            }
+//            }
             
             
         }];
