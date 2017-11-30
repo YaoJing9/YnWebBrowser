@@ -28,5 +28,6 @@ typedef NS_ENUM(NSInteger, NetworkingMethodType) {
 + (NSMutableDictionary *)getSearchPostDict;
 + (NSString *)appVersion;
 + (NSString *)appBundleId;
++ (NSString *)deviceName;
 
 @end

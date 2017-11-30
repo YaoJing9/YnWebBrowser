@@ -20,7 +20,7 @@
 
 #define TEXT_FIELD_PLACEHOLDER   @"搜索或输入网址"
 
-#define BAIDU_SEARCH_URL @"http://wap.sogou.com/web/sl?keyword=%@&ie=utf-8"
+#define BAIDU_SEARCH_URL @"http://wap.sogou.com/web/sl?keyword=%@&bid=sogou-mobb-6e3adb1ae0e02c93"
 
 #define DEFAULT_IMAGE @"default"
 #define DEFAULT_CARD_CELL_IMAGE @"baidu"

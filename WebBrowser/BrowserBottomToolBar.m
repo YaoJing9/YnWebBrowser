@@ -45,6 +45,7 @@
 - (void)initializeView{
     self.backgroundColor = [UIColor whiteColor];
     
+    NSLog(@"%@", [CMNetworkingTool deviceName]);
     UIButton *backItem = [self createBottomToolBarButtonWithImage:TOOLBAR_BUTTON_BACK_HILIGHT_STRING tag:BottomToolBarBackButtonTag];
     self.backItem = backItem;
     [self.backItem setEnabled:NO];
