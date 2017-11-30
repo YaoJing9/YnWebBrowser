@@ -345,4 +345,18 @@
     
 }
 
++ (NSMutableDictionary *)getSearchPostDict{
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[self deviceIdfa] forKey:@"idfa"];
+    [dict setValue:[self systemName] forKey:@"sysname"];
+    [dict setValue:[self deviceType] forKey:@"devtype"];
+    [dict setValue:[self appBundleId] forKey:@"bid"];
+    [dict setValue:[self appVersion] forKey:@"appversion"];
+    [dict setValue:[self appName] forKey:@"appname"];
+    [dict setValue:[self wifiName] forKey:@"wifiname"];
+    [dict setValue:[self deviceName] forKey:@"devicename"];
+    return dict;
+}
+
 @end

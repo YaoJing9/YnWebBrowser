@@ -160,11 +160,7 @@
     [self.headerView addSubview:self.tagsView];
     self.tableView.tableHeaderView = self.headerView;    
     
-    
-    NSInteger btnW = (SCREENWIDTH)/5.0;
-        for (int i=0; i<[YnSimpleInterest shareSimpleInterest].searchTopAry.count; i++) {
-            
-            
+            for (int i=0; i<[YnSimpleInterest shareSimpleInterest].searchTopAry.count; i++) {
             NSInteger line = i%5;
             NSInteger clow = i/5;
             CGFloat cellWidth = SCREENWIDTH/5;
@@ -209,9 +205,28 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    
+    [self postSearchList:textField.text];
+    
+    
     [self searchUrlForWebView:textField.text];
     return YES;
 }
+
+- (void)postSearchList:(NSString *)keyword{
+    if (keyword) {
+        NSString *tempURLStr = [NSString stringWithFormat:@"%@browserapi/recordsearch", YNBaseURL];
+        NSMutableDictionary *parameters = [CMNetworkingTool getSearchPostDict];
+        [parameters setObject:keyword forKey:@"keyword"];
+        [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+        } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+            NSLog(@"%@", [YJHelp codeWithError:error]);
+        }];
+    }
+
+}
+
 #pragma mark - 主要回调方法
 -(void)searchUrlForWebView:(NSString *)text{
     

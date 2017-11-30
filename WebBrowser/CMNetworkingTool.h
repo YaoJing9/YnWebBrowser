@@ -25,6 +25,8 @@ typedef NS_ENUM(NSInteger, NetworkingMethodType) {
                   failure:(void (^)(NSURLSessionDataTask * dataTask, NSError * error))failure;
 
 + (NSMutableDictionary *)getPostDict;
++ (NSMutableDictionary *)getSearchPostDict;
 + (NSString *)appVersion;
 + (NSString *)appBundleId;
+
 @end

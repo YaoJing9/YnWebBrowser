@@ -16,6 +16,6 @@ typedef void(^BtnClickBlock)(NSInteger);
 @property (nonatomic,copy) ClickBlock clickBlock;
 @property (nonatomic,copy) InsertionSuccessBlock successBlock;
 @property (nonatomic,copy) BtnClickBlock btnClickBlock;
-+ (void)showInsertionViewSuccessBlock:(InsertionSuccessBlock)successBlock clickBlock:(ClickBlock)clickBlock removeBlock:(RemoveBlock)removeBlock btnClickBlock:(BtnClickBlock)btnClickBlock;
++ (void)showInsertionViewSuccessBlock:(InsertionSuccessBlock)successBlock clickBlock:(ClickBlock)clickBlock removeBlock:(RemoveBlock)removeBlock btnClickBlock:(BtnClickBlock)btnClickBlock isFirsr:(BOOL)isFirst;
 + (void)removeMoreSettingView;
 @end

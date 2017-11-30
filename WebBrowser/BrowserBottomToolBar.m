@@ -89,7 +89,15 @@
     [self addSubview:self.coverItem];
     self.coverItem.hidden = YES;
     [self.coverItem setImage:[UIImage imageNamed:TOOLBAR_BUTTON_BACK_STRING] forState:UIControlStateNormal];
-
+    WS(weakSelf);
+    UIImageView *sendLine = [UIImageView new];
+    sendLine.backgroundColor = [UIColor colorWithHexString:@"#E2E2E2"];
+    [self addSubview:sendLine];
+    [sendLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo((weakSelf));
+        make.height.mas_equalTo(0.5);
+    }];
+    
 }
 -(void)setMultiWindowItemStr:(NSString *)multiWindowItemStr{
     _multiWindowItemLabel.text = multiWindowItemStr;

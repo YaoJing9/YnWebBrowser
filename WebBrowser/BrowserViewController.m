@@ -253,7 +253,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
             
         } btnClickBlock:^(NSInteger index) {
             [weakSelf moreSettingClick:index];
-        }];
+        } isFirsr:NO];
     }
     
 //    if (tag == BottomToolBarBackButtonTag) {

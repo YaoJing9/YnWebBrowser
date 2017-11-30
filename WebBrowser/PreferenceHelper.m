@@ -25,6 +25,7 @@ NSString * const KeyPasteboardURL = @"KeyPasteboardURL";
 
 + (void)setBool:(BOOL)value forKey:(NSString *)defaultName{
     [[NSUserDefaults standardUserDefaults] setObject:@(value) forKey:defaultName];
+     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (void)setURL:(NSURL *)url forKey:(NSString *)defaultName{

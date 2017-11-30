@@ -499,7 +499,7 @@
     
     [_topImagAry removeAllObjects];
     
-    [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
+//    [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
     UIView *bgView = [UIView new];
     
     
@@ -893,7 +893,7 @@
             
         } btnClickBlock:^(NSInteger index) {
             [weakSelf moreSettingClick:index];
-        }];
+        } isFirsr:YES];
     }
     
     if (tag == BottomToolBarMultiWindowButtonTag) {
@@ -921,6 +921,9 @@
 #pragma mark - UIScrollViewDelegate Method
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [YJHelp tableViewHaderrNostop:50 scrollView:scrollView];
+    
     if (![PreferenceHelper boolForKey:KeyFullScreenModeStatus]) {
         self.tableView.mj_h = SCREENHEIGHT - BOTTOM_TOOL_BAR_HEIGHT;
         return;
