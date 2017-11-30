@@ -206,7 +206,13 @@
     if ([keyPath isEqualToString:@"webView"] && [object isKindOfClass:[BrowserContainerView class]]) {
         self.containerView = object;
     }else if([keyPath isEqualToString:KeyBridgeNumber]){
-        self.multiWindowItemLabel.text = [NSString stringWithFormat:@"%ld",[PreferenceHelper integerForKey:KeyBridgeNumber]];
+        NSString *str = [NSString stringWithFormat:@"%ld",[PreferenceHelper integerForKey:KeyBridgeNumber]];
+        if ([str isEqualToString:@"0"]) {
+            self.multiWindowItemLabel.text = @"1";
+        }else{
+            self.multiWindowItemLabel.text = [NSString stringWithFormat:@"%ld",[PreferenceHelper integerForKey:KeyBridgeNumber]];
+        }
+        
     }
 }
 

@@ -21,7 +21,7 @@
 #import "UIAlertAction+ZWUtility.h"
 #import "BookmarkDataManager.h"
 #import <CommonCrypto/CommonDigest.h>
-
+#import "NSObject+DXObject.h"
 typedef void(^JSBlock)(BrowserWebView *);
 
 static NSString *const MULTI_WINDOW_FILE_NAME    = @"multiWindowHis.plist";
@@ -569,6 +569,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
 }
 
 #pragma mark - BrowserWebViewDelegate Method
+
+-(void)webViewDidStartLoad:(BrowserWebView *)webView{
+    if ([webView.mainFURL isEqualToString:@"about:blank"]) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.obtainTopViewController.presentingViewController) {
+                [self.obtainTopViewController dismissViewControllerAnimated:NO completion:nil];
+            } else {
+                [self.obtainTopViewController.navigationController popViewControllerAnimated:NO];
+            }
+            [webView stopLoading];
+        });
+    }
+}
 
 //当解析完head标签后注入无图模式js,需要注意的是，当启用无图模式时，UIWebView依然会进行图片网络请求,只是设置visible为false
 - (void)webView:(BrowserWebView *)webView gotTitleName:(NSString*)titleName{

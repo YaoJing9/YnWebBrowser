@@ -70,11 +70,12 @@
     });
 
     UIImageView *closeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"windowClose"]];
+//    closeImage.frame = CGRectMake(self.collectionView.frame.size.width - 28, 6, 22, 22)
     [self.contentView addSubview:closeImage];
     
     closeImage.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[closeImage(22)]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(closeImage)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[closeImage(22)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(closeImage)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[closeImage(22)]-6-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(closeImage)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[closeImage(22)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(closeImage)]];
 }
 
 - (void)updateWithWebModel:(WebModel *)webModel{

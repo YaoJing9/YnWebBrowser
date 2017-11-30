@@ -79,21 +79,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     WEAK_REF(self);
+    
     [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *modelArray){
         self_.bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",modelArray.count];
+    
     }];
-    if (self.browserContainerView == nil) {
-        self.browserContainerView = ({
-            BrowserContainerView *browserContainerView = [[BrowserContainerView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-            browserContainerView.url = self.url;
-            [self.view addSubview:browserContainerView];
-            
-            self.browserButtonDelegate = browserContainerView;
-            
-            browserContainerView;
-        });
-        [self.view sendSubviewToBack:self.browserContainerView];
-    }
+    
 }
 - (void)initializeView{
     self.view.backgroundColor = UIColorFromRGB(0xF8F8F8);

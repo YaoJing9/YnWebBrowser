@@ -131,7 +131,7 @@
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
     
-//    [[TabManager sharedInstance] updateWebModelArray:nil];
+    [[TabManager sharedInstance] updateWebModelArray:nil];
 }
 
 - (void)requestHomeData{
@@ -878,6 +878,11 @@
     if (tag == BottomToolBarMultiWindowButtonTag) {
         CardMainView *cardMainView = [[CardMainView alloc] initWithFrame:self.view.bounds];
         cardMainView.isFirstVC = YES;
+        
+        cardMainView.block = ^(WebModel *model) {
+            
+        };
+        
         [cardMainView reloadCardMainViewWithCompletionBlock:^(WebModel *model){
             UIImage *image = [self.view snapshot];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];

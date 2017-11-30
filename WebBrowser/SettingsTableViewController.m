@@ -36,7 +36,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
     
     self.dataArray = [NSMutableArray arrayWithObjects:@"意见反馈",@"清除缓存",@"清除历史记录",@"广告过滤", nil];
     
-    if (![PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus]) {
+    if (![PreferenceHelper boolForKey:KeyApproveStatus]) {
         [self.dataArray removeLastObject];
     }
     

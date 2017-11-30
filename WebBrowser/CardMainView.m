@@ -158,6 +158,12 @@
     cell.closeBlock = ^(NSIndexPath *index){
         STRONG_REF(self_)
         if (self__) {
+            
+            if (self__.cardArr.count == 1) {
+                [self__ closseAllCollectionViewCell];
+                return ;
+            }
+            
             [self__.cardArr removeObjectAtIndex:index.item];
             [[TabManager sharedInstance] updateWebModelArray:self__.cardArr];
             [self__.collectionView performBatchUpdates:^{
@@ -277,7 +283,8 @@
         [self.cardArr addObject:webModel];
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:num inSection:0]]];
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:num inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        [[TabManager sharedInstance] updateWebModelArray:self.cardArr];
+            [[TabManager sharedInstance] updateWebModelArray:self.cardArr];
+        
     });
 }
 
@@ -289,12 +296,11 @@
     [self.cardArr removeAllObjects];
     
     [[TabManager sharedInstance] updateWebModelArray:self.cardArr completion:^{
-        [self.collectionView performBatchUpdates:^{
-            
-            [self.collectionView deleteItemsAtIndexPaths:array];
-            
-            
-        }completion:nil];
+        
+        self.block(nil);
+        
+        [self removeFromSuperview];
+        
     }];
   
 }
