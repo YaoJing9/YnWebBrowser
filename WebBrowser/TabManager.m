@@ -106,7 +106,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
         dispatch_queue_set_specific(_synchQueue, kDispatchQueueSpecificKey, (__bridge void *)self, NULL);
         
         _webModelArray = [NSMutableArray arrayWithCapacity:4];
-        [self loadWebModelArray];
+//        [self loadWebModelArray];
         
         [self registerObserver];
     }

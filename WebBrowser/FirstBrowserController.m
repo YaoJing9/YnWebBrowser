@@ -90,6 +90,14 @@
     }
     return _dataArr;
 }
+- (WebModel *)getDefaultWebModel{
+    WebModel *webModel = [WebModel new];
+    webModel.title = DEFAULT_CARD_CELL_TITLE;
+    webModel.url = DEFAULT_CARD_CELL_URL;
+    webModel.isNewWebView = YES;
+    webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
+    return webModel;
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
@@ -106,8 +114,11 @@
     [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {
         NSMutableArray *dataArray = [NSMutableArray arrayWithArray:array];
         
-        [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:webModel];
-        
+        if (array.count == 0) {
+            [dataArray addObject:[self getDefaultWebModel]];
+        }else{
+            [dataArray replaceObjectAtIndex:dataArray.count - 1 withObject:webModel];
+        }
         [[TabManager sharedInstance] updateWebModelArray:dataArray];
         
         self.bottomToolBar.multiWindowItemStr = [NSString stringWithFormat:@"%ld",dataArray.count];
@@ -131,7 +142,7 @@
     self.restorationIdentifier = NSStringFromClass([self class]);
     self.restorationClass = [self class];
     
-    [[TabManager sharedInstance] updateWebModelArray:nil];
+//    [[TabManager sharedInstance] updateWebModelArray:nil];
 }
 
 - (void)requestHomeData{
