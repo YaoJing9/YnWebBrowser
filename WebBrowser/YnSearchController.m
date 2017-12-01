@@ -60,7 +60,7 @@
     self.NAVLine.hidden = YES;
     self.searchHistoriesCount = 5;
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, SEARCH_TOOL_BAR_HEIGHT, SCREENWIDTH, SCREENHEIGHT - SEARCH_TOOL_BAR_HEIGHT) style:UITableViewStylePlain];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -72,7 +72,7 @@
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    
+    self.NAVview.height = SEARCH_TOOL_BAR_HEIGHT;
     [self createSearchBar];
     
     [self createHeaderView];

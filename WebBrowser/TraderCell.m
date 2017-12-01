@@ -72,10 +72,9 @@
                 make.left.equalTo(clowBtn.mas_right);
                 make.width.equalTo(clowBtn);
                 make.height.equalTo(clowBtn);
-            }];
-    
-            
+            }];            
         }else{
+            button.enabled = NO;
             [button mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(weakSelf.contentView);
                 make.left.equalTo(weakSelf.contentView);
