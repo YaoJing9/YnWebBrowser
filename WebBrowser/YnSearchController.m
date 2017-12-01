@@ -266,9 +266,7 @@
     UITextField *searchBar = self.searchBar;
     // 回收键盘
     [searchBar resignFirstResponder];
-
     
-        
         NSString *url = [self rootSearchStrWebViewWithSug:text];
         
         [[TabManager sharedInstance] setMultiWebViewOperationBlockWith:^(NSArray<WebModel *> *array) {

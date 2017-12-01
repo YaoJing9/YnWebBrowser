@@ -15,7 +15,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor=[UIColor whiteColor];
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    [self.navigationController setNavigationBarHidden:YES animated:YES]; // 隐藏导航栏
+    [self.navigationController setNavigationBarHidden:YES animated:NO]; // 隐藏导航栏
 }
 
 - (void)naLeftButtonClick:(UIButton *)button {

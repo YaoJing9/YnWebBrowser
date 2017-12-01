@@ -485,6 +485,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createBgview) name:@"llqAppisApprove" object:nil];
 }
 
+-(void)buttonActionToSearch{
+    YnSearchController *vc = [[YnSearchController alloc] init];
+    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:nav  animated:NO completion:nil];
+}
+
 - (void)createBgview{
     WS(weakSelf);
     
@@ -559,8 +566,8 @@
         make.height.equalTo(@34);
         make.right.equalTo(weatherView.mas_right).offset(-15);
     }];
-    
-    UILabel *lable=[[UILabel alloc] init];
+
+    UIButton *lable=[[UIButton alloc] init];
     lable.layer.cornerRadius=5;
     lable.clipsToBounds=YES;
     lable.backgroundColor=[UIColor colorWithWhite:1 alpha:0.4];
@@ -573,6 +580,9 @@
         make.height.equalTo(@44);
     }];
     [lable setNeedsLayout];
+    
+    [lable addTarget:self action:@selector(buttonActionToSearch) forControlEvents:UIControlEventTouchUpInside];
+    
     UIImageView *leftImg = [UIImageView new];
     leftImg.image = [UIImage imageNamed:@"搜索"];
     [lable addSubview:leftImg];
@@ -584,6 +594,7 @@
     }];
     
     _textFiled=[[UITextField alloc] initWithFrame:CGRectMake(AUTOSIZEH(45), 27, SCREENWIDTH-AUTOSIZEH(130), 30)];
+    _textFiled.enabled = NO;
     _textFiled.delegate=self;
     _textFiled.textColor=[UIColor blackColor];
     _textFiled.font=PFSCMediumFont(16);
@@ -643,8 +654,6 @@
 
 #pragma mark-键盘的监听事件
 -(void)infoAction{
-    
-    
     if (_textFiled.text.length == 0) {
         
         return;
@@ -653,10 +662,8 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    YnSearchController *vc = [[YnSearchController alloc] init];
-    vc.fromVCComeInKind = FromVCComeInKindROOTVC;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav  animated:NO completion:nil];
+    
+   
 }
 
 - (void)buttonAction:(NSInteger)index{
