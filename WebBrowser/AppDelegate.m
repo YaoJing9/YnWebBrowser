@@ -75,6 +75,8 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
 //    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
 //                                                         diskCapacity:32 * 1024 * 1024
 //                                                             diskPath:nil];
@@ -233,18 +235,18 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
 - (void)splashDidDismissScreen:(BaiduMobAdSplash *)splash {
     NSLog(@"splashDidDismissScreen");
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self removeSplash];
 }
 
 - (void)splashSuccessPresentScreen:(BaiduMobAdSplash *)splash {
     self.label.hidden = NO;
-
     NSLog(@"splashSuccessPresentScreen");
 }
 
 - (void)splashlFailPresentScreen:(BaiduMobAdSplash *)splash withError:(BaiduMobFailReason)reason {
     NSLog(@"splashlFailPresentScreen withError %d", reason);
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self removeSplash];
 }
 

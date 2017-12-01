@@ -133,7 +133,7 @@
     [self initDataAry];
     [self initializeView];
 
-    [self requestLocation];
+//    [self requestLocation];
     [self createBgview];
     [self requestAllData];
     [self requestData];
@@ -263,67 +263,65 @@
                                                     @[@1,@(height3),dataAry3], nil];
 }
 
-- (void)requestLocation{
-    self.locationManager = [[CLLocationManager alloc]init];
-    //iOS8之后需要请求权限
-    //判断当前手机系统是否高于8.0
-    if([UIDevice currentDevice].systemVersion.floatValue >= 8.0)
-    {
-        //请求使用期间访问位置信息权限
-        [self.locationManager requestWhenInUseAuthorization];
-        //请求一直访问位置信息权限
-        //[locationManager requestAlwaysAuthorization];
-    }
-    //定位精度 kCLLocationAccuracyBest：最精确
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    //多少米之外去更新用户位置
-    _locationManager.distanceFilter = 100;
-    //设置代理
-    self.locationManager.delegate = self;
-    //开始定位
-    [self.locationManager startUpdatingLocation];
-    NSLog(@"开始定位");
-    
-    
-    
-}
+//- (void)requestLocation{
+//    self.locationManager = [[CLLocationManager alloc]init];
+//    //iOS8之后需要请求权限
+//    //判断当前手机系统是否高于8.0
+//    if([UIDevice currentDevice].systemVersion.floatValue >= 8.0)
+//    {
+//        //请求使用期间访问位置信息权限
+//        [self.locationManager requestWhenInUseAuthorization];
+//        //请求一直访问位置信息权限
+//        //[locationManager requestAlwaysAuthorization];
+//    }
+//    //定位精度 kCLLocationAccuracyBest：最精确
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    //多少米之外去更新用户位置
+//    _locationManager.distanceFilter = 100;
+//    //设置代理
+//    self.locationManager.delegate = self;
+//    //开始定位
+//    [self.locationManager startUpdatingLocation];
+//    NSLog(@"开始定位");
+//
+//}
 
 //定位代理方法
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    
-    CLLocation *location = locations.lastObject;
-    
-    CLLocationCoordinate2D coordinate = location.coordinate;
-    
-    [self loadWeatherWith:coordinate];
-    
-    //反地理编码
-    CLGeocoder *geocoder = [CLGeocoder new];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        //放错处理
-        if (placemarks.count == 0 || error) {
-            //定位出错
-            return;
-        }
-        
-        for (CLPlacemark *placemark in placemarks) {
-            
-            //将当前位置赋给控制器属性
-            self.cityLoca = [NSString stringWithFormat:@"%@%@", placemark.locality, placemark.subLocality];
-            
-            //根据当前位置请求天气数据
-            [self loadWeatherWith:placemark.location.coordinate];
-            
-            
-            NSString *ci = [NSString stringWithFormat:@"定位完成\n当前位置：%@", self.cityLoca];
-            NSLog(@"%@", ci);
-        }
-        
-    }];
-    
-    [self.locationManager stopUpdatingLocation];
-    
-}
+//-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+//
+//    CLLocation *location = locations.lastObject;
+//
+//    CLLocationCoordinate2D coordinate = location.coordinate;
+//
+//    [self loadWeatherWith:coordinate];
+//
+//    //反地理编码
+//    CLGeocoder *geocoder = [CLGeocoder new];
+//    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+//        //放错处理
+//        if (placemarks.count == 0 || error) {
+//            //定位出错
+//            return;
+//        }
+//
+//        for (CLPlacemark *placemark in placemarks) {
+//
+//            //将当前位置赋给控制器属性
+//            self.cityLoca = [NSString stringWithFormat:@"%@%@", placemark.locality, placemark.subLocality];
+//
+//            //根据当前位置请求天气数据
+//            [self loadWeatherWith:placemark.location.coordinate];
+//
+//
+//            NSString *ci = [NSString stringWithFormat:@"定位完成\n当前位置：%@", self.cityLoca];
+//            NSLog(@"%@", ci);
+//        }
+//
+//    }];
+//
+//    [self.locationManager stopUpdatingLocation];
+//
+//}
 
 //请求天气数据方法
 - (void) loadWeatherWith:(CLLocationCoordinate2D)loca {
