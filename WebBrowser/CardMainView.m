@@ -125,6 +125,11 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.cardArr.count == 0) {
+        return;
+    }
+    
     if (indexPath.item < [self collectionView:collectionView numberOfItemsInSection:0]) {
         WebModel *webModel = [self.cardArr objectAtIndex:indexPath.item];
         //将原来微博本地数据源当前位置的model删除 然后加到最后一个
@@ -296,9 +301,14 @@
     
     [[TabManager sharedInstance] updateWebModelArray:self.cardArr completion:^{
         
-        self.block(nil);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.block(nil);
+            
+            [self removeFromSuperview];
+            
+        });
         
-        [self removeFromSuperview];
+        
         
     }];
   
