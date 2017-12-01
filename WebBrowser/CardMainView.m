@@ -221,11 +221,7 @@
         NSNotification *notify = [NSNotification notificationWithName:kWebTabSwitch object:self userInfo:@{@"webView":browserWebView}];
         [Notifier postNotification:notify];
     } animation:NO];
-    
-    if (webModel == nil) {
-        
-    }
-    
+
     WEAK_REF(self)
     [self.collectionView setCollectionViewLayout:self.flatLayout animated:YES completion:^(BOOL finished){
         STRONG_REF(self_)
@@ -293,6 +289,7 @@
 }
 
 - (void)closseAllCollectionViewCell{
+    
     NSMutableArray *array = [NSMutableArray array];
     for (NSInteger i = 0; i < self.cardArr.count; i++) {
         [array addObject:[NSIndexPath indexPathForItem:i inSection:0]];
@@ -301,15 +298,14 @@
     
     [[TabManager sharedInstance] updateWebModelArray:self.cardArr completion:^{
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.block(nil);
-            
-            [self removeFromSuperview];
-            
-        });
+        [[TabManager sharedInstance].browserContainerView restoreWithCompletionHandler:^(WebModel *webModel, BrowserWebView *browserWebView){
+            NSNotification *notify = [NSNotification notificationWithName:kWebTabSwitch object:self userInfo:@{@"webView":browserWebView}];
+            [Notifier postNotification:notify];
+        } animation:NO];
         
-        
-        
+        self.block(nil);
+        [self removeFromSuperview];
+ 
     }];
   
 }
