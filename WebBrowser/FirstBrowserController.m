@@ -252,8 +252,12 @@
     }
     
     CGFloat heightBanner = 0;
+    
+    
+    
+    
     if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
-        heightBanner = 90;
+        heightBanner = [GetImageHeight getImageHeight:SCREENWIDTH] + 7;
     }else{
         heightBanner = 0;
     }

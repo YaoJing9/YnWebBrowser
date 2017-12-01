@@ -11,5 +11,5 @@
 
 @interface GetImageHeight : NSObject
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(GetImageHeight)
-+(CGFloat)getImageHeight:(UIImage *)image;
++(CGFloat)getImageHeight:(CGFloat)imageWidth;
 @end

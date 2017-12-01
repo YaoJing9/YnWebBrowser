@@ -79,7 +79,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     _titleLabel = titleLabel;
     _titleLabel.hidden = YES;
-    [self.contentView addSubview:titleLabel];
+//    [self.contentView addSubview:titleLabel];
 }
 
 - (void)setTitle:(NSString *)title

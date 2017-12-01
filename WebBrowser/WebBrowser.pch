@@ -31,6 +31,7 @@
 #import "PreferenceHelper.h"
 #import "NewSystemView.h"
 #import "ImgTitleView.h"
+#import "GetImageHeight.h"
 #if DEBUG
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else

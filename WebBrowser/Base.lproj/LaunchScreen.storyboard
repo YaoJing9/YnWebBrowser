@@ -22,13 +22,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compas" translatesAutoresizingMaskIntoConstraints="NO" id="6xj-sj-ziC">
-                                <rect key="frame" x="17" y="163" width="341" height="341"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6xj-sj-ziC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="W4o-nd-fO4"/>
-                            <constraint firstItem="6xj-sj-ziC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wEr-Wj-AfX"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="6xj-sj-ziC" secondAttribute="bottom" id="3kV-EC-Hfx"/>
+                            <constraint firstItem="6xj-sj-ziC" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="U4T-n7-JIf"/>
+                            <constraint firstItem="6xj-sj-ziC" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="iNV-Kb-Rkd"/>
+                            <constraint firstAttribute="trailing" secondItem="6xj-sj-ziC" secondAttribute="trailing" id="mUj-Mm-qjJ"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -38,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="compas" width="341" height="341"/>
+        <image name="compas" width="250" height="444"/>
     </resources>
 </document>

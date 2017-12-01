@@ -11,9 +11,8 @@
 @implementation GetImageHeight
 SYNTHESIZE_SINGLETON_FOR_CLASS(GetImageHeight)
 
-+(CGFloat)getImageHeight:(UIImage *)image{
-    CGFloat width = (SCREENWIDTH - 20);
-    CGFloat imageHeight = (image.size.height / image.size.width) * width;
++(CGFloat)getImageHeight:(CGFloat)imageWidth{
+    CGFloat imageHeight = (166 / 750.0) * imageWidth;
     return imageHeight;
 }
 

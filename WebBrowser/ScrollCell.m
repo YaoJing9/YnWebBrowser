@@ -43,17 +43,15 @@
     
     CGFloat heightBanner = 0;
     if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
-        heightBanner = 83;
+        heightBanner = [GetImageHeight getImageHeight:SCREENWIDTH];
     }else{
         heightBanner = 0;
     }
     
-    _cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake((SCREENWIDTH - 320)/2, 7, 320, heightBanner) delegate:self placeholderImage:nil];
-    _cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    _cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 7, SCREENWIDTH, heightBanner) delegate:self placeholderImage:nil];
+    _cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView2.titlesGroup = titleAry;
     _cycleScrollView2.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
-    _cycleScrollView2.clipsToBounds = YES;
-    _cycleScrollView2.layer.cornerRadius = 5;
 
     [self addSubview:_cycleScrollView2];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
