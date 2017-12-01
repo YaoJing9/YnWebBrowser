@@ -192,9 +192,7 @@
                 [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:0] - 1 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
             }
 
-            
-            
-            [self removeSelfFromSuperViewWith:nil];
+            [self removeSelfFromSuperViewWith:self.cardArr.lastObject];
             break;
         }
         case AddButtonClicked:
