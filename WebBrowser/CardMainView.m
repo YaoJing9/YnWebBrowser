@@ -77,11 +77,11 @@
         
         [self addSubview:collectionView];
         
-//        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
-//        panGestureRecognizer.minimumNumberOfTouches = 1;
-//        panGestureRecognizer.maximumNumberOfTouches = 1;
-//        panGestureRecognizer.delegate = self;
-//        [collectionView addGestureRecognizer:panGestureRecognizer];
+        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+        panGestureRecognizer.minimumNumberOfTouches = 1;
+        panGestureRecognizer.maximumNumberOfTouches = 1;
+        panGestureRecognizer.delegate = self;
+        [collectionView addGestureRecognizer:panGestureRecognizer];
 
         collectionView;
     });
@@ -321,7 +321,7 @@
         self.browserLayout.panUpdatePoint = point;
         [self.browserLayout invalidateLayout];
     } else {
-        if (fabs(point.x - self.browserLayout.panStartPoint.x) > self.collectionView.frame.size.width / 4 && point.x < self.browserLayout.panStartPoint.x && self.browserLayout.pannedItemIndexPath) {
+        if (fabs(point.y - self.browserLayout.panStartPoint.y) > self.collectionView.frame.size.height / 4 && point.y < self.browserLayout.panStartPoint.y && self.browserLayout.pannedItemIndexPath) {
             NSIndexPath *copyPannedIndexPath = self.browserLayout.pannedItemIndexPath;
             self.browserLayout.pannedItemIndexPath = nil;
             CardCollectionViewCell *cell = (CardCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:copyPannedIndexPath];
@@ -343,7 +343,7 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.collectionView];
-    if (fabs(velocity.x) > fabs(velocity.y)) {
+    if (fabs(velocity.x) < fabs(velocity.y)) {
         return YES;
     }
     

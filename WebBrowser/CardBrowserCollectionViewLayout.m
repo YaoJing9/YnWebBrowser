@@ -78,10 +78,10 @@
         CGFloat gap = self.itemGap;
 //
         if (self.pannedItemIndexPath && item == self.pannedItemIndexPath.item) {
-            CGFloat dx = MAX(self.panStartPoint.x - self.panUpdatePoint.x, 0.0f);
-            frame.origin.x -= dx;
+            CGFloat dy = MAX(self.panStartPoint.y - self.panUpdatePoint.y, 0.0f);
+            frame.origin.y -= dy;
             attributes.frame = frame;
-            attributes.alpha = MAX(1.0f - dx/width, 0);
+            attributes.alpha = MAX(1.0f - dy/height, 0);
 
             gap = attributes.alpha * self.itemGap;
         }
