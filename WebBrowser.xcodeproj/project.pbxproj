@@ -131,6 +131,7 @@
 		18CE6EB51FC6B9E30068091D /* NSObject+DXObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */; };
 		63E74D1B1FCF9F3200501DDD /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E74D191FCF9F3200501DDD /* FeedbackViewController.m */; };
 		63E74D1C1FCF9F3200501DDD /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */; };
+		BF1FF9D71FD12DF400AA46DE /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1FF9D61FD12DF300AA46DE /* UMMobClick.framework */; };
 		BF4EFC781FC401C200BCDD84 /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC761FC401C200BCDD84 /* WLScrollView.m */; };
 		BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC7A1FC401D800BCDD84 /* WLSubView.m */; };
 		BF4EFC971FC4115000BCDD84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF4EFC7D1FC4115000BCDD84 /* Info.plist */; };
@@ -538,6 +539,7 @@
 		63E74D181FCF9F3200501DDD /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		63E74D191FCF9F3200501DDD /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
+		BF1FF9D61FD12DF300AA46DE /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		BF4EFC761FC401C200BCDD84 /* WLScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLScrollView.m; sourceTree = "<group>"; };
 		BF4EFC771FC401C200BCDD84 /* WLScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLScrollView.h; sourceTree = "<group>"; };
 		BF4EFC791FC401D700BCDD84 /* WLSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSubView.h; sourceTree = "<group>"; };
@@ -873,6 +875,7 @@
 				BFCBB5EC1FCEB1150046F0A6 /* QuartzCore.framework in Frameworks */,
 				0EAA18B91DD35D5D0072F9B3 /* WebKit.framework in Frameworks */,
 				BFCBB5EA1FCEB0F50046F0A6 /* AdSupport.framework in Frameworks */,
+				BF1FF9D71FD12DF400AA46DE /* UMMobClick.framework in Frameworks */,
 				BFDBAFE01FCFB6C700134A55 /* libresolv.tbd in Frameworks */,
 				BFCBB5E91FCEB0E00046F0A6 /* MessageUI.framework in Frameworks */,
 				BFCBB5E81FCEB0C60046F0A6 /* CoreMedia.framework in Frameworks */,
@@ -1265,6 +1268,7 @@
 			isa = PBXGroup;
 			children = (
 				BFDBAFE11FCFB70E00134A55 /* 浏览器.entitlements */,
+				BF1FF9D51FD12DF300AA46DE /* UMengAnalytics */,
 				BFDBAFC81FCFB50700134A55 /* Lib */,
 				BF4EFCFF1FC7E1A600BCDD84 /* MJExtension */,
 				BF4EFCCD1FC7E1A500BCDD84 /* MJRefresh */,
@@ -1704,6 +1708,14 @@
 				0E9836B51E82CC9B0044BEA9 /* ContextMenu.js */,
 			);
 			name = JavaScript;
+			sourceTree = "<group>";
+		};
+		BF1FF9D51FD12DF300AA46DE /* UMengAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				BF1FF9D61FD12DF300AA46DE /* UMMobClick.framework */,
+			);
+			path = UMengAnalytics;
 			sourceTree = "<group>";
 		};
 		BF4EFC7C1FC4115000BCDD84 /* Masonry */ = {
@@ -2631,6 +2643,7 @@
 					"$(PROJECT_DIR)/WebBrowser",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/WebBrowser/UMengAnalytics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WebBrowser/WebBrowser.pch;
@@ -2666,6 +2679,7 @@
 					"$(PROJECT_DIR)/WebBrowser",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/WebBrowser/UMengAnalytics",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WebBrowser/WebBrowser.pch;
