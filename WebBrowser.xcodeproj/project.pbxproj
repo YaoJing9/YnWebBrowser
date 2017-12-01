@@ -131,6 +131,7 @@
 		18CE6EB51FC6B9E30068091D /* NSObject+DXObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE6EB41FC6B9E30068091D /* NSObject+DXObject.m */; };
 		63E74D1B1FCF9F3200501DDD /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E74D191FCF9F3200501DDD /* FeedbackViewController.m */; };
 		63E74D1C1FCF9F3200501DDD /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */; };
+		63FF56971FD1475F00F2E452 /* GetImageHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF56961FD1475F00F2E452 /* GetImageHeight.m */; };
 		BF1FF9D71FD12DF400AA46DE /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1FF9D61FD12DF300AA46DE /* UMMobClick.framework */; };
 		BF4EFC781FC401C200BCDD84 /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC761FC401C200BCDD84 /* WLScrollView.m */; };
 		BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC7A1FC401D800BCDD84 /* WLSubView.m */; };
@@ -539,6 +540,8 @@
 		63E74D181FCF9F3200501DDD /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		63E74D191FCF9F3200501DDD /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
+		63FF56951FD1475F00F2E452 /* GetImageHeight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetImageHeight.h; sourceTree = "<group>"; };
+		63FF56961FD1475F00F2E452 /* GetImageHeight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetImageHeight.m; sourceTree = "<group>"; };
 		BF1FF9D61FD12DF300AA46DE /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		BF4EFC761FC401C200BCDD84 /* WLScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLScrollView.m; sourceTree = "<group>"; };
 		BF4EFC771FC401C200BCDD84 /* WLScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLScrollView.h; sourceTree = "<group>"; };
@@ -1306,6 +1309,8 @@
 				180F39F91FCD4A90007DB934 /* SaveImageTool.m */,
 				180F39FC1FCD6D8C007DB934 /* YnSimpleInterest.h */,
 				180F39FB1FCD6D8B007DB934 /* YnSimpleInterest.m */,
+				63FF56951FD1475F00F2E452 /* GetImageHeight.h */,
+				63FF56961FD1475F00F2E452 /* GetImageHeight.m */,
 			);
 			path = WebBrowser;
 			sourceTree = "<group>";
@@ -2466,6 +2471,7 @@
 				E813BA0A1FB5998000470ECD /* NSValueTransformer+MTLPredefinedTransformerAdditions.m in Sources */,
 				E813BA521FB59D8200470ECD /* SDWebImageFrame.m in Sources */,
 				E813B9FB1FB5998000470ECD /* EXTRuntimeExtensions.m in Sources */,
+				63FF56971FD1475F00F2E452 /* GetImageHeight.m in Sources */,
 				0E512D431E6675ED008A8AFA /* CardBrowserCollectionViewLayout.m in Sources */,
 				18CE6EAF1FC68E510068091D /* ExtendedFunctionViewController.m in Sources */,
 				0E681F691D4B34EB003534F5 /* MenuHelper.m in Sources */,
