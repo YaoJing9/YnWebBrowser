@@ -261,8 +261,8 @@
 }
 - (WebModel *)getDefaultWebModel{
     WebModel *webModel = [WebModel new];
-    webModel.title = DEFAULT_CARD_CELL_TITLE;
-    webModel.url = DEFAULT_CARD_CELL_URL;
+    webModel.title = @"";
+    webModel.url = DEFAULT_NULLCARD_CELL_URL;
     webModel.isNewWebView = YES;
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
     return webModel;

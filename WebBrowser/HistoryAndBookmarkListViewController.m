@@ -39,6 +39,7 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
         [self.mainTableView reloadData];
     }else{
         [_dataManager deleleAllBookmarkRecords];
+        [PreferenceHelper setBool:NO forKey:KeyHaveBookMarkModeStatus];
         [self.mainTableView reloadData];
     }
 }

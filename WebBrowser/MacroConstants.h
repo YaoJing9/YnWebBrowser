@@ -23,7 +23,7 @@
 
 #define DEFAULT_IMAGE @"default"
 #define DEFAULT_CARD_CELL_IMAGE @"baidu"
-//#define DEFAULT_CARD_CELL_URL   @"about:homepage"
+#define DEFAULT_NULLCARD_CELL_URL   @"about:blank"
 #define DEFAULT_CARD_CELL_URL   @"http://wap.sogou.com"
 #define DEFAULT_CARD_CELL_TITLE @"搜狗搜索"
 

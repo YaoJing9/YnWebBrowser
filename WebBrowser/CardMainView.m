@@ -275,8 +275,8 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         WebModel *webModel = [WebModel new];
-        webModel.title = DEFAULT_CARD_CELL_TITLE;
-        webModel.url = DEFAULT_CARD_CELL_URL;
+        webModel.title = @"";
+        webModel.url = DEFAULT_NULLCARD_CELL_URL;
         webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
         webModel.isNewWebView = YES;
         [self.cardArr addObject:webModel];
