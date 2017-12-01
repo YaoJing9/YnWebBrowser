@@ -23,7 +23,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "BaiduMobAdSDK/BaiduMobAdSplash.h"
 #import "BaiduMobAdSDK/BaiduMobAdSetting.h"
-
+#import "UMMobClick/MobClick.h"
 #import "JPUSHService.h"
 #import <AdSupport/AdSupport.h>
 #import <UserNotifications/UserNotifications.h>
@@ -74,24 +74,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    
-//    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
-//                                                         diskCapacity:32 * 1024 * 1024
-//                                                             diskPath:nil];
-//    [NSURLCache setSharedURLCache:URLCache];
-    
-    
-//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-//    
-//    NSURLCache * cache = [NSURLCache sharedURLCache];
-//    
-//    [cache removeAllCachedResponses];
-//    
-//    [cache setDiskCapacity:0];
-//    
-//    [cache setMemoryCapacity:0];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -119,7 +102,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     webModel.title = DEFAULT_CARD_CELL_TITLE;
     webModel.url = DEFAULT_CARD_CELL_URL;
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
-    webModel.isNewWebView = YES;   //load archive data ahead
+    webModel.isNewWebView = YES;
     
     //系统配置
     [self requestSystem];
@@ -134,10 +117,11 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     if ([PreferenceHelper boolForKey:KeyApproveStatus]) {
         [self baidugg];
     }else{
-        
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
     
     [self registJpush:launchOptions];
+    [self umengTrack];
     
     return YES;
 }
@@ -147,7 +131,6 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
     //    设置视频缓存阀值，单位M, 取值范围15M-100M,默认30M
 //    [BaiduMobAdSetting setMaxVideoCacheCapacityMb:30];
-
     //    自定义开屏
     //
     BaiduMobAdSplash *splash = [[BaiduMobAdSplash alloc] init];
@@ -282,7 +265,6 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     }];
 }
 
-
 //极光推送
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -301,6 +283,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 //            [self presentPasteboardChangedAlertWithURL:url];
         }
     }
+}
+
+- (void)umengTrack{
+    [MobClick setLogEnabled:NO];
+    UMConfigInstance.appKey = @"5a0c0b7db27b0a53d1000111";
+    UMConfigInstance.channelId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    [MobClick startWithConfigure:UMConfigInstance];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application{
