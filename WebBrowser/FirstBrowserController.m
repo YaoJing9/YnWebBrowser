@@ -57,7 +57,7 @@
 @property (nonatomic, strong) NSString *cityLoca;
 @property (nonatomic, strong) UILabel *cityLabel;
 @property (nonatomic, strong) UILabel *temperatureLabel;
-@property (nonatomic,  ) UIImageView *weatherImgView;
+@property (nonatomic,  strong) UIImageView *weatherImgView;
 @property (nonatomic, strong) NSMutableArray *dataAry;
 @property (nonatomic, strong) NSMutableArray *topImagAry;
 @property (nonatomic, strong) NSDictionary *allDataDict;
@@ -476,8 +476,13 @@
     [super viewWillDisappear:animated];
     [MoreSettingView removeMoreSettingView];
 }
-
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
 - (void)initDataAry{
+    
+//    [self prefersStatusBarHidden];
     [self.view addSubview:self.tableView];
     _topImagAry = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createBgview) name:@"llqAppisApprove" object:nil];

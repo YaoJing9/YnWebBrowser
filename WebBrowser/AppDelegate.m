@@ -36,7 +36,10 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 @property (nonatomic, assign) NSInteger pasteboardChangeCount;
 @property (nonatomic, strong) BaiduMobAdSplash *splash;
 @property (nonatomic, strong) UIView *customSplashView;
-@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UIImageView *label;
+
+@property (nonatomic, strong) UIView *appCustomSplashView;
+@property (nonatomic, strong) UIImageView *appLabel;
 @end
 
 @implementation AppDelegate
@@ -115,7 +118,7 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     webModel.url = DEFAULT_CARD_CELL_URL;
     webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
     webModel.isNewWebView = YES;   //load archive data ahead
-
+    
     //系统配置
     [self requestSystem];
     
@@ -152,25 +155,18 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     self.splash = splash;
 
     //可以在customSplashView上显示包含icon的自定义开屏
-    self.customSplashView = [[UIView alloc]initWithFrame:self.window.frame];
+    self.customSplashView = [[UIView alloc] initWithFrame:self.window.frame];
     self.customSplashView.backgroundColor = [UIColor whiteColor];
     [self.window addSubview:self.customSplashView];
 
-    CGFloat screenWidth = self.window.frame.size.width;
-    CGFloat screenHeight = self.window.frame.size.height;
-
-    //在baiduSplashContainer用做上展现百度广告的容器，注意尺寸必须大于200*200，并且baiduSplashContainer需要全部在window内，同时开机画面不建议旋转
-    UIView * baiduSplashContainer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight - 40)];
-    [self.customSplashView addSubview:baiduSplashContainer];
-
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, screenHeight - 40, screenWidth, 40)];
-    label.text = @"浏览器";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor colorWithHexString:@"#777777"];
-    label.hidden = YES;
+    UIImageView *label = [[UIImageView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT - 126, SCREENWIDTH, 126)];
+    label.image = [UIImage imageNamed:@"全屏启动广告"];
+    label.hidden = NO;
     [self.customSplashView addSubview:label];
     self.label = label;
-    //
+//   在baiduSplashContainer用做上展现百度广告的容器，注意尺寸必须大于200*200，并且baiduSplashContainer需要全部在window内，同时开机画面不建议旋转
+    UIView * baiduSplashContainer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 126)];
+    [self.customSplashView addSubview:baiduSplashContainer];
     //在的baiduSplashContainer里展现百度广告
     [splash loadAndDisplayUsingContainerView:baiduSplashContainer];
 }
@@ -237,11 +233,13 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
 - (void)splashDidDismissScreen:(BaiduMobAdSplash *)splash {
     NSLog(@"splashDidDismissScreen");
+    
     [self removeSplash];
 }
 
 - (void)splashSuccessPresentScreen:(BaiduMobAdSplash *)splash {
     self.label.hidden = NO;
+
     NSLog(@"splashSuccessPresentScreen");
 }
 
