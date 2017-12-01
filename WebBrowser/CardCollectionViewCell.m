@@ -70,12 +70,26 @@
     });
 
     UIImageView *closeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"windowClose"]];
+    
 //    closeImage.frame = CGRectMake(self.collectionView.frame.size.width - 28, 6, 22, 22)
     [self.contentView addSubview:closeImage];
     
     closeImage.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[closeImage(22)]-6-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(closeImage)]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[closeImage(22)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(closeImage)]];
+    
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    button.frame = CGRectMake(closeImage.left - 20, 0, 44, 44);
+//    [button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpOutside];
+//    [self.contentView addSubview:button];
+}
+
+-(void)buttonAction{
+    if (self.closeBlock)
+    {
+        self.closeBlock([self.collectionView indexPathForCell:self]);
+        self.closeBlock = nil;
+    }
 }
 
 - (void)updateWithWebModel:(WebModel *)webModel{
@@ -96,7 +110,7 @@
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
-    CGRect rect = CGRectMake(self.contentView.width - Card_Cell_Close_Width, 0, Card_Cell_Close_Width, Card_Cell_Close_Height);
+    CGRect rect = CGRectMake(self.contentView.width - 60, 0, 60, 60);
     if (CGRectContainsPoint(rect, point)) {
         if (self.closeBlock)
         {
