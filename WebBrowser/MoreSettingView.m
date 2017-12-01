@@ -89,6 +89,9 @@ static UIView *_bgView;
                 }else{
                     BOOL se = [PreferenceHelper boolForKey:KeyHaveBookMarkModeStatus];
                     flbutton.selected = se;
+                    if (se) {
+                        flbutton.enabled = NO;
+                    }
                 }
 
             }
