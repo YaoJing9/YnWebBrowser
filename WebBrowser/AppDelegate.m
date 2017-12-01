@@ -97,13 +97,6 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     //解决UIWebView首次加载页面时间过长问题,设置UserAgent减少跳转和判断
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : UserAgent}];
     
-    
-    WebModel *webModel = [WebModel new];
-    webModel.title = DEFAULT_CARD_CELL_TITLE;
-    webModel.url = DEFAULT_CARD_CELL_URL;
-    webModel.image = [[SaveImageTool sharedInstance] GetImageFromLocal:@"firstImage"];
-    webModel.isNewWebView = YES;
-    
     //系统配置
     [self requestSystem];
     
