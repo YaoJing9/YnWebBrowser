@@ -92,7 +92,7 @@ static NSString *const SettingPlaceholderTableViewCellIdentifier   = @"SettingPl
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 50;
+    return 40;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50;

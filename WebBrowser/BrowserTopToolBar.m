@@ -59,7 +59,7 @@
         expandButton.frame = CGRectMake(0, 0, 18, 18);
         expandButton.hidden = YES;
         [expandButton addTarget:self action:@selector(handleExpandBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [expandButton setImage:[UIImage imageNamed:@"toolbar_expand_normal"] forState:UIControlStateNormal];
+        [expandButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         
         expandButton;
     });
