@@ -76,12 +76,13 @@
         [collectionView registerClass:[CardCollectionViewCell class] forCellWithReuseIdentifier:CardCellIdentifier];
         
         [self addSubview:collectionView];
-        
-        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
-        panGestureRecognizer.minimumNumberOfTouches = 1;
-        panGestureRecognizer.maximumNumberOfTouches = 1;
-        panGestureRecognizer.delegate = self;
-        [collectionView addGestureRecognizer:panGestureRecognizer];
+
+        //暂不开放
+//        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+//        panGestureRecognizer.minimumNumberOfTouches = 1;
+//        panGestureRecognizer.maximumNumberOfTouches = 1;
+//        panGestureRecognizer.delegate = self;
+//        [collectionView addGestureRecognizer:panGestureRecognizer];
 
         collectionView;
     });
@@ -257,7 +258,7 @@
                 }
             }else{
                 
-//                self__.block(webModel);
+                self__.block(nil);
             }
             
             
