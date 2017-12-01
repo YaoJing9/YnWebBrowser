@@ -77,7 +77,7 @@
         
         [self addSubview:collectionView];
 
-        //暂不开放
+        //zan'bu'kai'fan
 //        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
 //        panGestureRecognizer.minimumNumberOfTouches = 1;
 //        panGestureRecognizer.maximumNumberOfTouches = 1;
@@ -255,8 +255,10 @@
                     
                 }
             }else{
-//                self__.block(nil);
+                
+//                self__.block(webModel);
             }
+            
             
             [self__ removeFromSuperview];
         }

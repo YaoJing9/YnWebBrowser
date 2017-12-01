@@ -577,7 +577,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
 #pragma mark - BrowserWebViewDelegate Method
 
 -(void)webViewDidStartLoad:(BrowserWebView *)webView{
-    if ([webView.mainFURL isEqualToString:@"about:blank"] && ![self.obtainTopViewController.class isKindOfClass:[FirstBrowserController class]]) {
+    NSLog(@"%d",[self.obtainTopViewController.class isKindOfClass:[FirstBrowserController class]]);
+    if ([webView.mainFURL isEqualToString:@"about:blank"] && [self.obtainTopViewController isEqual:BrowserVC]) {
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (self.obtainTopViewController.presentingViewController) {
