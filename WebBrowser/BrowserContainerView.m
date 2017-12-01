@@ -482,7 +482,7 @@ static NSString *const BaiduSearchPath = @"https://m.baidu.com/s?ie=utf-8&word="
 #pragma mark - BrowserContainerLoadURLDelegate
 
 - (void)browserContainerViewLoadWebViewWithSug:(NSString *)text{
-    if (!text || !text.length) {
+    if (!text || !text.length|| [text isEqualToString:@"about:blank"]) {
         NSURL *url = [NSURL URLWithString:@"about:blank"];
         [self startLoadWithWebView:self.webView url:url];
         
