@@ -216,7 +216,6 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 }
 
 - (void)splashSuccessPresentScreen:(BaiduMobAdSplash *)splash {
-    self.label.hidden = NO;
     NSLog(@"splashSuccessPresentScreen");
 }
 
