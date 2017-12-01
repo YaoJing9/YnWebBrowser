@@ -902,6 +902,11 @@
         cardMainView.isFirstVC = YES;
         
         cardMainView.block = ^(WebModel *model) {
+//            if (model == nil) {
+//                if (BrowserVC != nil && BrowserVC.browserContainerView != nil) {
+//                    [[DelegateManager sharedInstance] performSelector:@selector(browserContainerViewLoadWebViewWithSug:) arguments:@[@""] key:DelegateManagerBrowserContainerLoadURL];
+//                }
+//            }
             
         };
         

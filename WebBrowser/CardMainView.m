@@ -257,10 +257,8 @@
                     
                 }
             }else{
-                
-                self__.block(nil);
+//                self__.block(nil);
             }
-            
             
             [self__ removeFromSuperview];
         }
