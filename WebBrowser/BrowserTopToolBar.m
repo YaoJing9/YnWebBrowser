@@ -13,7 +13,7 @@
 #import "TabManager.h"
 
 #define SHAPE_VIEW_WIDTH 30
-#define SHAPE_VIEW_HEIGHT 44
+#define SHAPE_VIEW_HEIGHT 44 + 20
 #define SHAPE_VIEW_Y_OFFSET 5
 
 @interface BrowserTopToolBar () <BrowserWebViewDelegate>

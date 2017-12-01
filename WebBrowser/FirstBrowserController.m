@@ -495,7 +495,6 @@
 - (void)createBgview{
     WS(weakSelf);
     
-    
     [_topImagAry removeAllObjects];
     
 //    [PreferenceHelper setBool:YES forKey:KeyHaveBookMarkModeStatus];
