@@ -69,12 +69,13 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorColor = [UIColor colorWithHexString:@"#dedede"];
-//        _tableView.backgroundColor = RGBColor(27, 142, 248);
-        
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+        _tableView.tableFooterView = [UIView new];
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
@@ -698,10 +699,19 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0 || section == 1) {
-        return 0;
+        return CGFLOAT_MIN;
     }else{
         return 46;
     }
+}
+
+// 隐藏UITableViewStyleGrouped下边多余的间隔
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -744,6 +754,12 @@
             make.left.right.bottom.equalTo(bgView);
             make.height.mas_equalTo(0.5);
         }];
+        
+        if (section == 0 || section == 1) {
+            sendLine.hidden = YES;
+        }else{
+            sendLine.hidden = NO;
+        }
         
         return bgView;
     }
@@ -805,6 +821,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WS(weakSelf);
+    
     if (indexPath.section == 0) {
         ClassifyCell *classifyCell = [ClassifyCell cellWithTableView:tableView reuseIdentifier:@"ClassifyCell" imageAry:self.dataArr[indexPath.section][2]];
         classifyCell.classifyCellClicKBlock = ^(NSString *link) {
@@ -812,6 +829,9 @@
         };
         return classifyCell;
     }else if (indexPath.section == 1){
+        
+        
+        
         ScrollCell *cell = [ScrollCell cellWithTableView:tableView reuseIdentifier:@"ScrollCell" imageAry:self.dataArr[indexPath.section][2]];
         cell.scrollCellClicKBlock = ^(NSString *link) {
             [weakSelf pushWebViewVc:link];
@@ -931,7 +951,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    [YJHelp tableViewHaderrNostop:50 scrollView:scrollView];
+//    [YJHelp tableViewHaderrNostop:46 scrollView:scrollView];
     
     if (![PreferenceHelper boolForKey:KeyFullScreenModeStatus]) {
         self.tableView.mj_h = SCREENHEIGHT - BOTTOM_TOOL_BAR_HEIGHT;

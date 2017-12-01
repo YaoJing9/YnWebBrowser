@@ -47,24 +47,20 @@
         button.title = buttonTitleArray[i][@"name"];
         button.placeholderImage = @"topzw";
         button.imageUrl = buttonTitleArray[i][@"icon"];
-//        [button setTitle:buttonTitleArray[i][@"name"] forState:UIControlStateNormal];
-//        button.titleLabel.font = PFSCMediumFont(11);
-//        [button sd_setImageWithURL:[NSURL URLWithString:buttonTitleArray[i][@"icon"]] forState:normal placeholderImage:nil];
-//        [button setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
-//        button.tag = 100 + i;
-//        button.fl_imageWidth = BTNWH;
-//        button.fl_imageHeight = BTNWH;
-//        button.fl_padding = 7;
-//        button.status = FLAlignmentStatusTop;
-//        [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:button];
-        
-        
         button.imgTitleViewBlock = ^(NSInteger index) {
             [weakSelf buttonAction:index];
         };
     
     }
+    
+    UIImageView *sendLine = [UIImageView new];
+    sendLine.backgroundColor = [UIColor colorWithHexString:@"#E2E2E2"];
+    [self addSubview:sendLine];
+    [sendLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(weakSelf);
+        make.height.mas_equalTo(0.5);
+    }];
     
 }
 

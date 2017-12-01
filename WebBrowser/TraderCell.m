@@ -96,6 +96,15 @@
         clowBtn = button;
     }
     
+    UIImageView *sendLine = [UIImageView new];
+    sendLine.backgroundColor = [UIColor colorWithHexString:@"#E2E2E2"];
+    [self addSubview:sendLine];
+    [sendLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.bottom.equalTo(weakSelf);
+        make.left.equalTo(weakSelf).offset(15);
+        make.height.mas_equalTo(0.5);
+    }];
+    
 }
 
 - (void)buttonAction:(FL_Button *)btn{
