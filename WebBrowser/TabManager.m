@@ -22,6 +22,7 @@
 #import "BookmarkDataManager.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "NSObject+DXObject.h"
+#import "FirstBrowserController.h"
 typedef void(^JSBlock)(BrowserWebView *);
 
 static NSString *const MULTI_WINDOW_FILE_NAME    = @"multiWindowHis.plist";
@@ -576,7 +577,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
 #pragma mark - BrowserWebViewDelegate Method
 
 -(void)webViewDidStartLoad:(BrowserWebView *)webView{
-    if ([webView.mainFURL isEqualToString:@"about:blank"]) {
+    if ([webView.mainFURL isEqualToString:@"about:blank"] && ![self.obtainTopViewController.class isKindOfClass:[FirstBrowserController class]]) {
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (self.obtainTopViewController.presentingViewController) {
