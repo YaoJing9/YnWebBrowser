@@ -93,7 +93,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     [self.navigationItem setBackBarButtonItem:backItem];
     
     self.browserContainerView = ({
-        BrowserContainerView *browserContainerView = [[BrowserContainerView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        BrowserContainerView *browserContainerView = [[BrowserContainerView alloc] initWithFrame:CGRectMake(0, IPhoneX ? 20 : 5, self.view.width, self.view.height - (IPhoneX ? 20 : 5))];
         browserContainerView.url = self.url;
         [self.view addSubview:browserContainerView];
         
@@ -103,7 +103,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BrowserViewController)
     });
     
     self.browserTopToolBar = ({
-        BrowserTopToolBar *browserTopToolBar = [[BrowserTopToolBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, TOP_TOOL_BAR_HEIGHT)];
+        BrowserTopToolBar *browserTopToolBar = [[BrowserTopToolBar alloc] initWithFrame:CGRectMake(0, IPhoneX ? 20 : 5, self.view.width, TOP_TOOL_BAR_HEIGHT)];
         [self.view addSubview:browserTopToolBar];
         
         browserTopToolBar.backgroundColor = UIColorFromRGB(0xF8F8F8);
