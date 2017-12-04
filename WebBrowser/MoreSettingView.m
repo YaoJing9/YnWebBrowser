@@ -159,19 +159,39 @@ static UIView *_bgView;
 - (void)flbuttonAction:(FL_Button *)btn{
     
     NSInteger index = btn.tag - 100;
-    
+    NSString *showStr = nil;
     switch (index) {
         case 0:
             btn.selected = !btn.selected;
+            if (btn.selected) {
+                showStr = @"已打开全屏模式";
+            }else{
+                showStr = @"已关闭全屏模式";
+            }
             break;
         case 1:
             btn.selected = !btn.selected;
+            if (btn.selected) {
+                showStr = @"已打开模式夜间";
+            }else{
+                showStr = @"已关闭夜间模式";
+            }
             break;
         case 2:
             btn.selected = !btn.selected;
+            if (btn.selected) {
+                showStr = @"已打开无图模式";
+            }else{
+                showStr = @"已关闭无图模式";
+            }
             break;
         case 3:
             btn.selected = !btn.selected;
+            if (btn.selected) {
+                showStr = @"已打开无痕模式";
+            }else{
+                showStr = @"已关闭无痕模式";
+            }
             break;
         default:
             break;
@@ -181,6 +201,9 @@ static UIView *_bgView;
     if (_insertionGgView.btnClickBlock) {
         _insertionGgView.btnClickBlock(index);
     }
+    
+    [self removeBtnClick];
+    [MBProgressHUD showSuccess:showStr];
 }
 
 - (void)clickBannerView:(UITapGestureRecognizer *)tap{

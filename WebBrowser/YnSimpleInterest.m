@@ -15,6 +15,8 @@
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         simpleInterest = [[self alloc]init];
+        simpleInterest.isHaveNet = YES;
+        simpleInterest.isUpdataCache = YES;
     });
     return simpleInterest;
 }

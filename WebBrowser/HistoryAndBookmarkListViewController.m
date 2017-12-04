@@ -113,15 +113,15 @@ static NSString *const HistoryAndBookmarkListTableViewCellIdentifier   = @"Histo
     
     _historyDataManager = [[HistoryDataManager alloc] initWithCompletion:^(BOOL isNoMoreData){
         STRONG_REF(self_)
-        if (self__) {
-            
-            if ([PreferenceHelper boolForKey:KeyHistoryModeStatus]) {
-                
-                [self__.historyDataManager deleleAllHistoryRecords];
-            }
+//        if (self__) {
+//
+//            if ([PreferenceHelper boolForKey:KeyHistoryModeStatus]) {
+//
+//                [self__.historyDataManager deleleAllHistoryRecords];
+//            }
             [self__.mainTableView reloadData];
             
-        }
+//        }
     }];
 }
 -(void)getBookmarkData{

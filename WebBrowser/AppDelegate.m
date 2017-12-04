@@ -74,6 +74,8 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    [CMNetworkingTool isHaveNet];//判断网络状态
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

@@ -11,6 +11,8 @@
 @interface YnSimpleInterest : NSObject
 
 @property(nonatomic, strong)NSArray *searchTopAry;
+@property(nonatomic, assign)BOOL isHaveNet;//是否有网络
+@property(nonatomic, assign)BOOL isUpdataCache;//是否更新缓存数据
 
 +(instancetype)shareSimpleInterest;
 @end

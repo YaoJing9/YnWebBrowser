@@ -359,4 +359,37 @@
     return dict;
 }
 
++ (void)isHaveNet
+{
+    // 1.获得网络监控的管理者
+    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
+    
+    
+    // 2.设置网络状态改变后的处理
+    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        // 当网络状态改变了, 就会调用这个block
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown: // 未知网络
+                [YnSimpleInterest shareSimpleInterest].isUpdataCache = YES;
+                break;
+                
+            case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
+                [YnSimpleInterest shareSimpleInterest].isUpdataCache = NO;
+                [MBProgressHUD showError:@"请链接网络"];
+                break;
+                
+            case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
+                [YnSimpleInterest shareSimpleInterest].isUpdataCache = YES;
+                break;
+                
+            case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
+                [YnSimpleInterest shareSimpleInterest].isUpdataCache = YES;
+                break;
+        }
+    }];
+    
+    // 3.开始监控
+    [mgr startMonitoring];
+}
+
 @end

@@ -30,4 +30,7 @@ typedef NS_ENUM(NSInteger, NetworkingMethodType) {
 + (NSString *)appBundleId;
 + (NSString *)deviceName;
 
++ (void)isHaveNet;
+
+
 @end

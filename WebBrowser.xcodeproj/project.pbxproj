@@ -14,8 +14,6 @@
 		0E19A4D41E232FA8009DAF9A /* NSNumber+ZWUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E19A4D31E232FA8009DAF9A /* NSNumber+ZWUtility.m */; };
 		0E1A9F191EAF597400FAB196 /* BookmarkTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1A9F181EAF597400FAB196 /* BookmarkTableViewController.m */; };
 		0E1A9F1C1EAF59AC00FAB196 /* BookmarkDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1A9F1B1EAF59AC00FAB196 /* BookmarkDataManager.m */; };
-		0E1F9F9E1DD2D86E00FA84EA /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1F9F9B1DD2D86E00FA84EA /* NJKWebViewProgress.m */; };
-		0E1F9F9F1DD2D86E00FA84EA /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1F9F9D1DD2D86E00FA84EA /* NJKWebViewProgressView.m */; };
 		0E2329311DADE07B007E9886 /* BrowserTopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2329301DADE07B007E9886 /* BrowserTopToolBar.m */; };
 		0E2329341DAE19BB007E9886 /* TopToolBarShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2329331DAE19BB007E9886 /* TopToolBarShapeView.m */; };
 		0E2C539F1DAA24970077B9B4 /* BrowserContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2C539E1DAA24970077B9B4 /* BrowserContainerView.m */; };
@@ -132,6 +130,10 @@
 		63E74D1B1FCF9F3200501DDD /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E74D191FCF9F3200501DDD /* FeedbackViewController.m */; };
 		63E74D1C1FCF9F3200501DDD /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */; };
 		63FF56971FD1475F00F2E452 /* GetImageHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF56961FD1475F00F2E452 /* GetImageHeight.m */; };
+		BF161D791FD52D9E000EF2F3 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF161D771FD52D9E000EF2F3 /* MBProgressHUD.bundle */; };
+		BF161D7A1FD52D9E000EF2F3 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = BF161D781FD52D9E000EF2F3 /* MBProgressHUD+MJ.m */; };
+		BF161D7F1FD550E4000EF2F3 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = BF161D7C1FD550E3000EF2F3 /* NJKWebViewProgress.m */; };
+		BF161D801FD550E4000EF2F3 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF161D7D1FD550E3000EF2F3 /* NJKWebViewProgressView.m */; };
 		BF1FF9D71FD12DF400AA46DE /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1FF9D61FD12DF300AA46DE /* UMMobClick.framework */; };
 		BF4EFC781FC401C200BCDD84 /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC761FC401C200BCDD84 /* WLScrollView.m */; };
 		BF4EFC7B1FC401D800BCDD84 /* WLSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4EFC7A1FC401D800BCDD84 /* WLSubView.m */; };
@@ -316,10 +318,6 @@
 		0E1A9F181EAF597400FAB196 /* BookmarkTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BookmarkTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0E1A9F1A1EAF59AC00FAB196 /* BookmarkDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkDataManager.h; sourceTree = "<group>"; };
 		0E1A9F1B1EAF59AC00FAB196 /* BookmarkDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkDataManager.m; sourceTree = "<group>"; };
-		0E1F9F9A1DD2D86E00FA84EA /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NJKWebViewProgress.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		0E1F9F9B1DD2D86E00FA84EA /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NJKWebViewProgress.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		0E1F9F9C1DD2D86E00FA84EA /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NJKWebViewProgressView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		0E1F9F9D1DD2D86E00FA84EA /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NJKWebViewProgressView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0E23292F1DADE07B007E9886 /* BrowserTopToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserTopToolBar.h; sourceTree = "<group>"; };
 		0E2329301DADE07B007E9886 /* BrowserTopToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BrowserTopToolBar.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0E2329321DAE19BB007E9886 /* TopToolBarShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopToolBarShapeView.h; sourceTree = "<group>"; };
@@ -542,6 +540,13 @@
 		63E74D1A1FCF9F3200501DDD /* FeedbackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
 		63FF56951FD1475F00F2E452 /* GetImageHeight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetImageHeight.h; sourceTree = "<group>"; };
 		63FF56961FD1475F00F2E452 /* GetImageHeight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetImageHeight.m; sourceTree = "<group>"; };
+		BF161D761FD52D9E000EF2F3 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
+		BF161D771FD52D9E000EF2F3 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		BF161D781FD52D9E000EF2F3 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
+		BF161D7B1FD550E3000EF2F3 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
+		BF161D7C1FD550E3000EF2F3 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
+		BF161D7D1FD550E3000EF2F3 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
+		BF161D7E1FD550E4000EF2F3 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
 		BF1FF9D61FD12DF300AA46DE /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		BF4EFC761FC401C200BCDD84 /* WLScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLScrollView.m; sourceTree = "<group>"; };
 		BF4EFC771FC401C200BCDD84 /* WLScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLScrollView.h; sourceTree = "<group>"; };
@@ -960,10 +965,10 @@
 		0E1F9F991DD2D84500FA84EA /* NJKWebViewProgress */ = {
 			isa = PBXGroup;
 			children = (
-				0E1F9F9A1DD2D86E00FA84EA /* NJKWebViewProgress.h */,
-				0E1F9F9B1DD2D86E00FA84EA /* NJKWebViewProgress.m */,
-				0E1F9F9C1DD2D86E00FA84EA /* NJKWebViewProgressView.h */,
-				0E1F9F9D1DD2D86E00FA84EA /* NJKWebViewProgressView.m */,
+				BF161D7B1FD550E3000EF2F3 /* NJKWebViewProgress.h */,
+				BF161D7C1FD550E3000EF2F3 /* NJKWebViewProgress.m */,
+				BF161D7E1FD550E4000EF2F3 /* NJKWebViewProgressView.h */,
+				BF161D7D1FD550E3000EF2F3 /* NJKWebViewProgressView.m */,
 			);
 			name = NJKWebViewProgress;
 			sourceTree = "<group>";
@@ -2143,6 +2148,9 @@
 		E87D72BA1FB969FF001AB44E /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
+				BF161D771FD52D9E000EF2F3 /* MBProgressHUD.bundle */,
+				BF161D761FD52D9E000EF2F3 /* MBProgressHUD+MJ.h */,
+				BF161D781FD52D9E000EF2F3 /* MBProgressHUD+MJ.m */,
 				E87D72BB1FB969FF001AB44E /* MBProgressHUD.h */,
 				E87D72BC1FB969FF001AB44E /* MBProgressHUD.m */,
 			);
@@ -2246,6 +2254,7 @@
 				E87D72C61FB96A4E001AB44E /* Info.plist in Resources */,
 				0E44786E1EC0395100D8F3F3 /* BookmarkEditTextFieldTableViewCell.xib in Resources */,
 				BF4EFD2E1FC7E1A600BCDD84 /* LICENSE in Resources */,
+				BF161D791FD52D9E000EF2F3 /* MBProgressHUD.bundle in Resources */,
 				0EBDC6241E1DDEC100B6A4DB /* SearchInputView.xib in Resources */,
 				18CE6EA41FC595620068091D /* HistoryAndBookmarkTableViewCell.xib in Resources */,
 				0E681F381D4AEC3F003534F5 /* LaunchScreen.storyboard in Resources */,
@@ -2290,6 +2299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E7438311E58885A00641889 /* NSURL+ZWUtility.m in Sources */,
+				BF161D801FD550E4000EF2F3 /* NJKWebViewProgressView.m in Sources */,
 				BF4EFD1E1FC7E1A600BCDD84 /* MJRefreshAutoGifFooter.m in Sources */,
 				BF4EFCAD1FC4381600BCDD84 /* ClassifyCell.m in Sources */,
 				E813BA061FB5998000470ECD /* NSDictionary+MTLMappingAdditions.m in Sources */,
@@ -2306,6 +2316,7 @@
 				0EC14F5B1E31BB0800A44D05 /* HistoryTableViewController.m in Sources */,
 				BFFF2F9A1FCE65DE00C07CE1 /* SDCollectionViewCell.m in Sources */,
 				0E986A0F1D4D06170003900D /* TabManager.m in Sources */,
+				BF161D7F1FD550E4000EF2F3 /* NJKWebViewProgress.m in Sources */,
 				BF4EFCB01FC4403E00BCDD84 /* UIColor+ECColor.m in Sources */,
 				E813BA021FB5998000470ECD /* MTLValueTransformer.m in Sources */,
 				0EC14F521E31B97900A44D05 /* FMDatabasePool.m in Sources */,
@@ -2428,7 +2439,6 @@
 				BF4EFD191FC7E1A600BCDD84 /* MJRefreshAutoFooter.m in Sources */,
 				BF4EFCC21FC6E1C000BCDD84 /* BrowserViewController.m in Sources */,
 				0E8EE8351E11277100B6DADF /* SettingAnimator.m in Sources */,
-				0E1F9F9E1DD2D86E00FA84EA /* NJKWebViewProgress.m in Sources */,
 				0E3D2B741E248D5E00364B69 /* SettingsTableViewController.m in Sources */,
 				BF4EFD251FC7E1A600BCDD84 /* MJRefreshNormalHeader.m in Sources */,
 				BF4EFD221FC7E1A600BCDD84 /* MJRefreshBackNormalFooter.m in Sources */,
@@ -2445,6 +2455,7 @@
 				E813BA511FB59D8200470ECD /* SDWebImageDownloaderOperation.m in Sources */,
 				E813BA481FB59D8200470ECD /* NSData+ImageContentType.m in Sources */,
 				BF4EFCB91FC6746300BCDD84 /* MLSearchResultsTableViewController.m in Sources */,
+				BF161D7A1FD52D9E000EF2F3 /* MBProgressHUD+MJ.m in Sources */,
 				0E32E2FF1E08C8F600CFBBB5 /* CardCollectionViewLayout.m in Sources */,
 				0E8013DB1EB0A1B60098BF64 /* BookmarkSectionHeaderView.m in Sources */,
 				BF4EFD3C1FC7F73900BCDD84 /* CHMLocationManager.m in Sources */,
@@ -2516,7 +2527,6 @@
 				0E1A9F191EAF597400FAB196 /* BookmarkTableViewController.m in Sources */,
 				0EC3D8BC1EC1C99D0059E4DC /* BookmarkSectionTableViewCell.m in Sources */,
 				BF4EFCB31FC58DA400BCDD84 /* MoreSettingView.m in Sources */,
-				0E1F9F9F1DD2D86E00FA84EA /* NJKWebViewProgressView.m in Sources */,
 				0E2CC0171E0988AE0078EB91 /* UIColor+ZWUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2661,7 +2671,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.liulanqi.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hb.fkzjhproJ;
 				PRODUCT_NAME = "浏览器";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2697,7 +2707,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.liulanqi.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hb.fkzjhproJ;
 				PRODUCT_NAME = "浏览器";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

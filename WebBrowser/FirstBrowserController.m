@@ -157,24 +157,34 @@
     NSString *package = [CMNetworkingTool appBundleId];
     [parameters setObject:version forKey:@"version"];
     [parameters setObject:package forKey:@"package"];
+
     
-    [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
-        [weakSelf endRefresh];
-    } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
-        weakSelf.allDataDict = [YJHelp codeWithError:error][@"data"][@"data"];
-        
-        if (!weakSelf.allDataDict) {
-            return;
-        }
-        [weakSelf updataHomeData:[YJHelp codeWithError:error][@"data"][@"data"]];
-        
-        [weakSelf.tableView reloadData];
-        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5/*延迟执行时间*/ * NSEC_PER_SEC));
-        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-            [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
-        });
-        [weakSelf endRefresh];
-    }];
+        [[CMNetworkingTool sharedNetworkingTool] requestWithMethod:NetworkingMethodTypeGet urlString:tempURLStr parameters:parameters success:^(NSURLSessionDataTask *dataTask, id responseObject) {
+            [weakSelf endRefresh];
+        } failure:^(NSURLSessionDataTask *dataTask, NSError *error) {
+            weakSelf.allDataDict = [YJHelp codeWithError:error][@"data"][@"data"];
+            if (!weakSelf.allDataDict) {
+                weakSelf.allDataDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"HomeDataCache"];
+            }
+            if (!weakSelf.allDataDict) {
+                return;
+            }
+            if ([YnSimpleInterest shareSimpleInterest].isUpdataCache) {
+                [[NSUserDefaults standardUserDefaults] setObject:weakSelf.allDataDict forKey:@"HomeDataCache"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [YnSimpleInterest shareSimpleInterest].isUpdataCache = NO;
+            }
+            
+            [weakSelf updataHomeData:weakSelf.allDataDict];
+            
+            [weakSelf.tableView reloadData];
+            dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5/*延迟执行时间*/ * NSEC_PER_SEC));
+            dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+                [[SaveImageTool sharedInstance] SaveImageToLocal:[self.view snapshot] Keys:@"firstImage"];
+            });
+            [weakSelf endRefresh];
+        }];
+
 }
 
 - (void)updataHeaderData{
@@ -494,6 +504,7 @@
     YnSearchController *vc = [[YnSearchController alloc] init];
     vc.fromVCComeInKind = FromVCComeInKindROOTVC;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
     [self.navigationController presentViewController:nav  animated:NO completion:nil];
 }
 

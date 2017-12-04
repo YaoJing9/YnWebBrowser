@@ -32,6 +32,8 @@
 #import "NewSystemView.h"
 #import "ImgTitleView.h"
 #import "GetImageHeight.h"
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+MJ.h"
 #if DEBUG
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else

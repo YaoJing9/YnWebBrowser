@@ -596,8 +596,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(TabManager)
     
     //不能在这里判断是否保存记录,莫名会崩溃,所以在历史列表中去修改.有时间再去看源码
 //    if (![PreferenceHelper boolForKey:KeyHistoryModeStatus]) {
-        [[HistorySQLiteManager sharedInstance] insertOrUpdateHistoryWithURL:webView.mainFURL title:titleName];
+//        [[HistorySQLiteManager sharedInstance] insertOrUpdateHistoryWithURL:webView.mainFURL title:titleName];
 //    }
+    
+        if (![PreferenceHelper boolForKey:KeyHistoryModeStatus]) {
+            [[HistorySQLiteManager sharedInstance] insertOrUpdateHistoryWithURL:webView.mainFURL title:titleName];
+        }
 }
 
 - (void)webView:(BrowserWebView *)webView didFailLoadWithError:(NSError *)error{

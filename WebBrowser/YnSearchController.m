@@ -46,15 +46,15 @@
     _historyDataManager = [[HistoryDataManager alloc] initWithCompletion:^(BOOL isNoMoreData){
         STRONG_REF(self_)
         
-        if (self__) {
-            
-            if ([PreferenceHelper boolForKey:KeyHistoryModeStatus]) {
-                
-                [self__.historyDataManager deleleAllHistoryRecords];
-            }
+//        if (self__) {
+        
+//            if ([PreferenceHelper boolForKey:KeyHistoryModeStatus]) {
+//
+//                [self__.historyDataManager deleleAllHistoryRecords];
+//            }
             [self__.tableView reloadData];
             
-        }
+//        }
     }];
 }
 -(void)viewWillAppear:(BOOL)animated{
