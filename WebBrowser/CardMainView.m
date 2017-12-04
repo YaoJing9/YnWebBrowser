@@ -283,7 +283,17 @@
         [self.cardArr addObject:webModel];
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:num inSection:0]]];
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:num inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-            [[TabManager sharedInstance] updateWebModelArray:self.cardArr];
+        
+        WEAK_REF(self)
+        //更新数据源s
+        [[TabManager sharedInstance] updateWebModelArray:self.cardArr completion:^{
+            STRONG_REF(self_)
+            
+            [self__ removeSelfFromSuperViewWith:webModel];
+        }];
+
+        
+        
         
     });
 }

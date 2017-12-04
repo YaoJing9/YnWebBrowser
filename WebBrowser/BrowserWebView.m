@@ -63,6 +63,10 @@
     longPressGesture.delegate = [TabManager sharedInstance].browserContainerView;
     [self addGestureRecognizer:longPressGesture];
     [longPressGesture release];
+    
+    
+    [self addNotification];
+    
 }
 
 - (void)setFrame:(CGRect)frame{
@@ -442,6 +446,29 @@
             
             MethodSwizzle([BrowserWebView class], NSSelectorFromString(FRAME_PROVISIONALLOAD), @selector(zwWebView:didStartProvisionalLoadForFrame:));
         }
+    }
+}
+
+
+- (void)addNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(beginPlayVideo:)
+                                                 name:UIWindowDidBecomeVisibleNotification
+                                               object:self.window];
+  
+}
+
+- (void)removeNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIWindowDidBecomeVisibleNotification
+                                                  object:nil];
+}
+-(void)beginPlayVideo:(NSNotification *)notification{
+    //如果是alertview或者actionsheet的话也会执行到这里，所以要判断一下
+    if ([[UIApplication sharedApplication].keyWindow isMemberOfClass:[UIWindow class]]){
+//        [playButton removeFromSuperview];
     }
 }
 

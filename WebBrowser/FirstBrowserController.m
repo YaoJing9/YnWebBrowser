@@ -133,8 +133,7 @@
     
     [self initDataAry];
     [self initializeView];
-
-//    [self requestLocation];
+//  [self requestLocation];
     [self createBgview];
     [self requestAllData];
     [self requestData];

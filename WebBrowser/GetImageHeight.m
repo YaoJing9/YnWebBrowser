@@ -16,5 +16,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GetImageHeight)
     return imageHeight;
 }
 
++(CGFloat)firstGetImageHeight:(CGFloat)imageWidth{
+    CGFloat imageHeight = (126 / 375.0) * imageWidth;
+    return imageHeight;
+}
 
 @end

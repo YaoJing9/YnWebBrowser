@@ -137,6 +137,8 @@ static NSString * const UserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 li
     self.customSplashView.backgroundColor = [UIColor whiteColor];
     [self.window addSubview:self.customSplashView];
 
+    CGFloat ive = [GetImageHeight firstGetImageHeight:SCREENWIDTH];
+    
     UIImageView *label = [[UIImageView alloc]initWithFrame:CGRectMake(0, SCREENHEIGHT - 126, SCREENWIDTH, 126)];
     label.image = [UIImage imageNamed:@"全屏启动广告"];
     label.hidden = NO;
